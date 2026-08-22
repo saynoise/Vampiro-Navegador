@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vampiro: A Máscara (V20) - Ficha de Personagem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- OVERLAY SVG PARA OS CABOS FÍSICOS CURVADOS COM GRAVIDADE -->
+  <svg id="blood-web-overlay" class="blood-web-overlay" aria-hidden="true">
+    <defs>
+      <filter id="blood-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="2.5" result="blur1" />
+        <feGaussianBlur stdDeviation="5" result="blur2" />
+        <feMerge>
+          <feMergeNode in="blur2" />
+          <feMergeNode in="blur1" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+    <g id="blood-web-lines"></g>
+  </svg>
+
+  <!-- BARRA DE FERRAMENTAS SUPERIOR (TOOLBAR) -->
+  <header class="app-toolbar no-print">
+    <div class="toolbar-content">
+      <div class="toolbar-brand">
+        <span class="ankh-symbol" title="Ankh Vampírico">☥</span>
+        <div class="brand-text">
+          <h1>VAMPIRO: A MÁSCARA</h1>
+          <span class="edition-badge">Edição 20º Aniversário (V20) • Ficha Oficial</span>
+        </div>
+      </div>
+
+      <div class="toolbar-center">
+        <div class="char-select-wrapper">
+          <label for="character-select"><span class="icon">👤</span> Ficha:</label>
+          <select id="character-select" class="char-dropdown" aria-label="Selecione um personagem"></select>
+        </div>
+      </div>
+
+      <div class="toolbar-actions">
+        <div class="btn-group">
+          <button id="btn-new" class="btn btn-secondary" title="Criar novo personagem"><span class="btn-icon">➕</span> Novo</button>
+          <button id="btn-save" class="btn btn-primary" title="Salvar alterações no navegador"><span class="btn-icon">💾</span> Salvar</button>
+          <button id="btn-duplicate" class="btn btn-secondary" title="Duplicar personagem"><span class="btn-icon">📋</span> Duplicar</button>
+          <button id="btn-delete" class="btn btn-danger" title="Excluir personagem"><span class="btn-icon">🗑️</span> Excluir</button>
+        </div>
+
+        <div class="btn-group layout-group">
+          <button id="btn-reset-layout" class="btn btn-outline" title="Restaurar layout padrão"><span class="btn-icon">🔄</span> Resetar Layout</button>
+          <button id="btn-theme-modal" class="btn btn-outline" title="Personalizar cores e tema da ficha"><span class="btn-icon">🎨</span> Personalizar</button>
+          <button id="btn-discord-modal" class="btn btn-outline" title="Configurar Webhook do Discord"><span class="btn-icon">💬</span> Discord Webhook</button>
+          <button id="btn-export-json" class="btn btn-outline" title="Exportar ficha em .json"><span class="btn-icon">📥</span> Exportar JSON</button>
+          <label for="import-json-input" class="btn btn-outline file-btn-label" title="Importar arquivo .json">
+            <span class="btn-icon">📤</span> Importar JSON
+            <input type="file" id="import-json-input" accept=".json" class="hidden-input">
+          </label>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MODAL DE PERSONALIZAÇÃO DE CORES & TEMAS (NO-PRINT) -->
+  <div id="theme-customizer-modal" class="gothic-modal-overlay hidden no-print">
+    <div class="gothic-modal-box theme-modal-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">🎨</span>
+          <h3>PERSONALIZAÇÃO DE CORES DA FICHA</h3>
+        </div>
+        <button type="button" id="btn-close-theme-modal" class="btn-modal-close" title="Fechar">✕</button>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- PRESETS RÁPIDOS -->
+        <div class="theme-section">
+          <h4 class="theme-subtitle">🎭 Presets Prontos:</h4>
+          <div class="presets-grid">
+            <button type="button" class="preset-btn preset-red active" data-preset="red">
+              <span class="preset-circle" style="background: #ff1a1a;"></span>
+              <span>🔴 Vermelho (Carmesim)</span>
+            </button>
+            <button type="button" class="preset-btn preset-green" data-preset="green">
+              <span class="preset-circle" style="background: #22c55e;"></span>
+              <span>🟢 Verde (Esmeralda)</span>
+            </button>
+            <button type="button" class="preset-btn preset-purple" data-preset="purple">
+              <span class="preset-circle" style="background: #a855f7;"></span>
+              <span>🟣 Roxo (Abissal)</span>
+            </button>
+            <button type="button" class="preset-btn preset-yellow" data-preset="yellow">
+              <span class="preset-circle" style="background: #eab308;"></span>
+              <span>🟡 Amarelo (Âmbar)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="theme-divider"></div>
+
+        <!-- SLIDERS DE CORES INDIVIDUAIS -->
+        <div class="theme-section">
+          <h4 class="theme-subtitle">🎛️ Ajuste Fino com Sliders:</h4>
+          
+          <div class="sliders-container">
+            
+            <!-- 1. Destaque Primário (Bolinhas, Sangue, Cabos) -->
+            <div class="slider-group-card">
+              <div class="slider-header-row">
+                <label>🩸 Destaque Primário (Bolinhas, Sangue, Cabos):</label>
+                <div id="preview-primary" class="color-preview-box"></div>
+              </div>
+              <div class="slider-control">
+                <span class="slider-name">Matiz (Cor):</span>
+                <input type="range" id="slider-primary-hue" min="0" max="360" value="0" class="theme-slider hue-slider">
+                <span id="val-primary-hue" class="slider-val">0°</span>
+              </div>
+              <div class="slider-control">
+                <span class="slider-name">Saturação:</span>
+                <input type="range" id="slider-primary-sat" min="0" max="100" value="100" class="theme-slider">
+                <span id="val-primary-sat" class="slider-val">100%</span>
+              </div>
+            </div>
+
+            <!-- 2. Destaque Secundário (Títulos, Bordas, Ankh) -->
+            <div class="slider-group-card">
+              <div class="slider-header-row">
+                <label>⚜️ Destaque Secundário (Títulos, Bordas, Ankh):</label>
+                <div id="preview-secondary" class="color-preview-box"></div>
+              </div>
+              <div class="slider-control">
+                <span class="slider-name">Matiz (Cor):</span>
+                <input type="range" id="slider-secondary-hue" min="0" max="360" value="40" class="theme-slider hue-slider">
+                <span id="val-secondary-hue" class="slider-val">40°</span>
+              </div>
+              <div class="slider-control">
+                <span class="slider-name">Saturação:</span>
+                <input type="range" id="slider-secondary-sat" min="0" max="100" value="70" class="theme-slider">
+                <span id="val-secondary-sat" class="slider-val">70%</span>
+              </div>
+            </div>
+
+            <!-- 3. Fundo da Ficha & Ruído -->
+            <div class="slider-group-card">
+              <div class="slider-header-row">
+                <label>🌑 Fundo da Ficha & Ruído (Noise):</label>
+                <div id="preview-bg" class="color-preview-box"></div>
+              </div>
+              <div class="slider-control">
+                <span class="slider-name">Tom do Fundo:</span>
+                <input type="range" id="slider-bg-lightness" min="4" max="22" value="8" class="theme-slider">
+                <span id="val-bg-lightness" class="slider-val">8%</span>
+              </div>
+              <div class="slider-control">
+                <span class="slider-name">Opacidade Ruído:</span>
+                <input type="range" id="slider-noise-opacity" min="0" max="15" value="7" class="theme-slider">
+                <span id="val-noise-opacity" class="slider-val">7%</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-reset-theme" class="btn btn-secondary"><span class="btn-icon">🔄</span> Restaurar Padrão</button>
+        <button type="button" id="btn-save-theme" class="btn btn-primary"><span class="btn-icon">💾</span> Salvar Tema</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIGURAÇÃO DO DISCORD WEBHOOK (NO-PRINT) -->
+  <div id="discord-webhook-modal" class="gothic-modal-overlay hidden no-print">
+    <div class="gothic-modal-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">💬</span>
+          <div>
+            <h3>INTEGRAÇÃO COM DISCORD (WEBHOOK)</h3>
+            <span id="discord-modal-target-char" style="color: var(--gold-bright); font-size: 0.8rem; font-family: var(--font-body); font-weight: bold; display: block; margin-top: 2px;"></span>
+          </div>
+        </div>
+        <button type="button" id="btn-close-discord-modal" class="btn-modal-close" title="Fechar">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-description">
+          Cole abaixo a URL do <strong>Webhook do Discord</strong> para vincular a este personagem. Todas as rolagens de dados feitas na ficha serão enviadas automaticamente via <code>fetch POST</code> com visual gótico e resultado detalhado!
+        </p>
+
+        <div class="modal-field-group">
+          <label for="discord-webhook-url">URL do Webhook do Discord deste Personagem:</label>
+          <input type="url" id="discord-webhook-url" class="modal-url-input" placeholder="https://discord.com/api/webhooks/...">
+        </div>
+
+        <!-- EMOTES PERSONALIZADOS DO DISCORD -->
+        <div class="modal-field-group" style="margin-top: 10px;">
+          <label style="color: var(--gold-bright); font-weight: bold; margin-bottom: 4px; display: block;">
+            🎭 Emotes Personalizados dos Dados:
+          </label>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
+            💡 <strong>Como usar no Discord:</strong> Digite <code>\:seu_emoji:</code> no chat para copiar o código com ID (ex: <code>&lt;:critico:123456789012345678&gt;</code>) e cole abaixo:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+            <div>
+              <label for="discord-emote-critico" style="font-size: 0.8rem;">Crítico (10):</label>
+              <input type="text" id="discord-emote-critico" class="modal-url-input" value="<:critico:1540580738007695512>" placeholder="<:critico:1540580738007695512>">
+            </div>
+            <div>
+              <label for="discord-emote-sucesso" style="font-size: 0.8rem;">Sucesso (>= Dif):</label>
+              <input type="text" id="discord-emote-sucesso" class="modal-url-input" value="<:sucesso:1540580820127842344>" placeholder="<:sucesso:1540580820127842344>">
+            </div>
+            <div>
+              <label for="discord-emote-falha" style="font-size: 0.8rem;">Falha (< Dif):</label>
+              <input type="text" id="discord-emote-falha" class="modal-url-input" value="<:falha:1540580800456691773>" placeholder="<:falha:1540580800456691773>">
+            </div>
+            <div>
+              <label for="discord-emote-falhacritica" style="font-size: 0.8rem;">Falha Crítica (1):</label>
+              <input type="text" id="discord-emote-falhacritica" class="modal-url-input" value="<:falhacritica:1540580772652523600>" placeholder="<:falhacritica:1540580772652523600>">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-test-discord-webhook" class="btn btn-secondary"><span class="btn-icon">🧪</span> Testar Envio</button>
+        <button type="button" id="btn-save-discord-webhook" class="btn btn-primary"><span class="btn-icon">💾</span> Salvar Webhook</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABAS DE NAVEGAÇÃO DE PÁGINAS (NO-PRINT) -->
+  <div class="sheet-tabs-nav no-print">
+    <button type="button" class="tab-nav-btn active" data-tab="page-1">
+      <span class="tab-icon">📜</span> Página 1: Traços Principais & Status
+    </button>
+    <button type="button" class="tab-nav-btn" data-tab="page-2">
+      <span class="tab-icon">📖</span> Página 2: Grimório, Caminhos & Qualidades
+    </button>
+    <button type="button" class="tab-nav-btn" data-tab="all-pages">
+      <span class="tab-icon">👁️</span> Ver Ambas as Páginas
+    </button>
+  </div>
+
+  <!-- NOTIFICAÇÃO TOAST FLUTUANTE -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- CONTAINER GERAL DAS PÁGINAS DA FICHA -->
+  <div class="sheet-viewport">
+    
+    <!-- ====================================================================
+         PÁGINA 1: ATRIBUTOS, HABILIDADES, VANTAGENS & STATUS
+         ==================================================================== -->
+    <main class="sheet-card page-container" id="page-1">
+      
+      <div class="gothic-header-ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-center">
+          <span class="gothic-ankh">☥</span>
+          <h2>VAMPIRE: THE MASQUERADE</h2>
+          <span class="sheet-subtitle">20th ANNIVERSARY EDITION • PÁGINA 1: PRINCIPAL</span>
+        </div>
+        <div class="ornament-line"></div>
+      </div>
+
+      <!-- 1. CABEÇALHO COM FOTO DE PERFIL NO LADO DIREITO -->
+      <section class="sheet-section header-section" id="win-header">
+        <div class="header-flex-wrapper">
+          
+          <div class="header-grid">
+            <div class="field-item"><label for="char-name">Nome:</label><input type="text" id="char-name" data-bind="header.name" placeholder="Nome do Personagem"></div>
+            <div class="field-item"><label for="char-player">Jogador:</label><input type="text" id="char-player" data-bind="header.player" placeholder="Seu Nome"></div>
+            <div class="field-item"><label for="char-chronicle">Crônica:</label><input type="text" id="char-chronicle" data-bind="header.chronicle" placeholder="Nome da Crônica"></div>
+
+            <div class="field-item"><label for="char-nature">Natureza:</label><input type="text" id="char-nature" data-bind="header.nature" placeholder="Arquétipo Íntimo"></div>
+            <div class="field-item"><label for="char-demeanor">Comportamento:</label><input type="text" id="char-demeanor" data-bind="header.demeanor" placeholder="Máscara Social"></div>
+            <div class="field-item"><label for="char-clan">Clã:</label><input type="text" id="char-clan" data-bind="header.clan" placeholder="Ex: Brujah, Tremere, Ventrue..."></div>
+
+            <div class="field-item generation-field-item">
+              <label for="char-generation">Geração:</label>
+              <div class="generation-select-wrapper">
+                <select id="char-generation" data-bind="header.generation" class="generation-dropdown">
+                  <option value="15ª">15ª Geração (Max Sangue: 10 | 1/Turno)</option>
+                  <option value="14ª">14ª Geração (Max Sangue: 10 | 1/Turno)</option>
+                  <option value="13ª" selected>13ª Geração (Max Sangue: 10 | 1/Turno)</option>
+                  <option value="12ª">12ª Geração (Max Sangue: 11 | 1/Turno)</option>
+                  <option value="11ª">11ª Geração (Max Sangue: 12 | 1/Turno)</option>
+                  <option value="10ª">10ª Geração (Max Sangue: 13 | 1/Turno)</option>
+                  <option value="9ª">9ª Geração (Max Sangue: 14 | 2/Turno)</option>
+                  <option value="8ª">8ª Geração (Max Sangue: 15 | 3/Turno)</option>
+                  <option value="7ª">7ª Geração (Max Sangue: 20 | 4/Turno)</option>
+                  <option value="6ª">6ª Geração (Max Sangue: 30 | 6/Turno)</option>
+                  <option value="5ª">5ª Geração (Max Sangue: 40 | 8/Turno)</option>
+                  <option value="4ª">4ª Geração (Max Sangue: 50 | 10/Turno)</option>
+                  <option value="3ª">3ª Geração (Max Sangue: 100 | 10/Turno)</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-item"><label for="char-sire">Senhor:</label><input type="text" id="char-sire" data-bind="header.sire" placeholder="Quem realizou o Abraço"></div>
+            <div class="field-item"><label for="char-concept">Conceito:</label><input type="text" id="char-concept" data-bind="header.concept" placeholder="Ex: Antiquário Noturno"></div>
+          </div>
+
+          <!-- FOTO DE PERFIL DO PERSONAGEM (DIREITA) -->
+          <div class="header-avatar-box">
+            <div class="avatar-frame" id="char-avatar-frame" title="Clique para enviar ou alterar a foto">
+              <img id="char-avatar-img" class="avatar-img hidden" alt="Foto do Personagem">
+              <div id="char-avatar-placeholder" class="avatar-placeholder">
+                <span class="avatar-icon">👤</span>
+                <span class="avatar-text">Foto de Perfil</span>
+              </div>
+            </div>
+            <div class="avatar-actions no-print">
+              <label for="char-avatar-input" class="btn-avatar-action" title="Fazer upload de imagem">
+                📷 Foto
+                <input type="file" id="char-avatar-input" accept="image/*" class="hidden-input">
+              </label>
+              <button type="button" id="btn-avatar-url" class="btn-avatar-action" title="Inserir link URL da imagem">🔗 Link</button>
+              <button type="button" id="btn-avatar-remove" class="btn-avatar-action btn-avatar-remove hidden" title="Remover foto">✕</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 2. ATRIBUTOS (1 A 9) -->
+      <section class="sheet-section section-traits">
+        <div class="section-banner"><h3>ATRIBUTOS (1 A 9)</h3></div>
+        <div class="three-col-grid">
+          
+          <div class="trait-category draggable-card" data-window-id="win-attr-physical">
+            <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> FÍSICOS</h4>
+            <div class="trait-list">
+              <div class="trait-row" data-trait="attributes.physical.strength" data-label="Força">
+                <button type="button" class="trait-link-node" title="Conectar Força" aria-label="Linkar Força"></button>
+                <span class="trait-name">Força</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+              <div class="trait-row" data-trait="attributes.physical.dexterity" data-label="Destreza">
+                <button type="button" class="trait-link-node" title="Conectar Destreza" aria-label="Linkar Destreza"></button>
+                <span class="trait-name">Destreza</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+              <div class="trait-row" data-trait="attributes.physical.stamina" data-label="Vigor">
+                <button type="button" class="trait-link-node" title="Conectar Vigor" aria-label="Linkar Vigor"></button>
+                <span class="trait-name">Vigor</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trait-category draggable-card" data-window-id="win-attr-social">
+            <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> SOCIAIS</h4>
+            <div class="trait-list">
+              <div class="trait-row" data-trait="attributes.social.charisma" data-label="Carisma">
+                <button type="button" class="trait-link-node" title="Conectar Carisma" aria-label="Linkar Carisma"></button>
+                <span class="trait-name">Carisma</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+              <div class="trait-row" data-trait="attributes.social.manipulation" data-label="Manipulação">
+                <button type="button" class="trait-link-node" title="Conectar Manipulação" aria-label="Linkar Manipulação"></button>
+                <span class="trait-name">Manipulação</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+              <div class="trait-row" data-trait="attributes.social.appearance" data-label="Aparência">
+                <button type="button" class="trait-link-node" title="Conectar Aparência" aria-label="Linkar Aparência"></button>
+                <span class="trait-name">Aparência</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trait-category draggable-card" data-window-id="win-attr-mental">
+            <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> MENTAIS</h4>
+            <div class="trait-list">
+              <div class="trait-row" data-trait="attributes.mental.perception" data-label="Percepção">
+                <button type="button" class="trait-link-node" title="Conectar Percepção" aria-label="Linkar Percepção"></button>
+                <span class="trait-name">Percepção</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+              <div class="trait-row" data-trait="attributes.mental.intelligence" data-label="Inteligência">
+                <button type="button" class="trait-link-node" title="Conectar Inteligência" aria-label="Linkar Inteligência"></button>
+                <span class="trait-name">Inteligência</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+              <div class="trait-row" data-trait="attributes.mental.wits" data-label="Raciocínio">
+                <button type="button" class="trait-link-node" title="Conectar Raciocínio" aria-label="Linkar Raciocínio"></button>
+                <span class="trait-name">Raciocínio</span>
+                <div class="dots-group dots-9" data-min="1" data-max="9" data-val="1"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. HABILIDADES (0 A 9) -->
+      <section class="sheet-section section-traits">
+        <div class="section-banner"><h3>HABILIDADES (0 A 9)</h3></div>
+        <div class="three-col-grid">
+          
+          <div class="trait-category draggable-card" data-window-id="win-talents">
+            <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> TALENTOS</h4>
+            <div class="trait-list">
+              <div class="trait-row" data-trait="abilities.talents.alertness" data-label="Prontidão"><button type="button" class="trait-link-node" title="Conectar Prontidão"></button><span class="trait-name">Prontidão</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.athletics" data-label="Esportes"><button type="button" class="trait-link-node" title="Conectar Esportes"></button><span class="trait-name">Esportes</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.brawl" data-label="Briga"><button type="button" class="trait-link-node" title="Conectar Briga"></button><span class="trait-name">Briga</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.foresight" data-label="Presciência"><button type="button" class="trait-link-node" title="Conectar Presciência"></button><span class="trait-name">Presciência</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.empathy" data-label="Empatia"><button type="button" class="trait-link-node" title="Conectar Empatia"></button><span class="trait-name">Empatia</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.expression" data-label="Expressão"><button type="button" class="trait-link-node" title="Conectar Expressão"></button><span class="trait-name">Expressão</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.intimidation" data-label="Intimidação"><button type="button" class="trait-link-node" title="Conectar Intimidação"></button><span class="trait-name">Intimidação</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.leadership" data-label="Liderança"><button type="button" class="trait-link-node" title="Conectar Liderança"></button><span class="trait-name">Liderança</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.streetwise" data-label="Manha"><button type="button" class="trait-link-node" title="Conectar Manha"></button><span class="trait-name">Manha</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.talents.subterfuge" data-label="Lábia"><button type="button" class="trait-link-node" title="Conectar Lábia"></button><span class="trait-name">Lábia</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+            </div>
+          </div>
+
+          <div class="trait-category draggable-card" data-window-id="win-skills">
+            <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> PERÍCIAS</h4>
+            <div class="trait-list">
+              <div class="trait-row" data-trait="abilities.skills.animal_ken" data-label="Empatia c/ Animais"><button type="button" class="trait-link-node" title="Conectar Empatia c/ Animais"></button><span class="trait-name">Empatia c/ Animais</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.crafts" data-label="Ofícios"><button type="button" class="trait-link-node" title="Conectar Ofícios"></button><span class="trait-name">Ofícios</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.drive" data-label="Condução"><button type="button" class="trait-link-node" title="Conectar Condução"></button><span class="trait-name">Condução</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.etiquette" data-label="Etiqueta"><button type="button" class="trait-link-node" title="Conectar Etiqueta"></button><span class="trait-name">Etiqueta</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.firearms" data-label="Armas de Fogo"><button type="button" class="trait-link-node" title="Conectar Armas de Fogo"></button><span class="trait-name">Armas de Fogo</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.melee" data-label="Armas Brancas"><button type="button" class="trait-link-node" title="Conectar Armas Brancas"></button><span class="trait-name">Armas Brancas</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.performance" data-label="Performance"><button type="button" class="trait-link-node" title="Conectar Performance"></button><span class="trait-name">Performance</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.larceny" data-label="Furto"><button type="button" class="trait-link-node" title="Conectar Furto"></button><span class="trait-name">Furto</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.stealth" data-label="Furtividade"><button type="button" class="trait-link-node" title="Conectar Furtividade"></button><span class="trait-name">Furtividade</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.skills.survival" data-label="Sobrevivência"><button type="button" class="trait-link-node" title="Conectar Sobrevivência"></button><span class="trait-name">Sobrevivência</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+            </div>
+          </div>
+
+          <div class="trait-category draggable-card" data-window-id="win-knowledges">
+            <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> CONHECIMENTOS</h4>
+            <div class="trait-list">
+              <div class="trait-row" data-trait="abilities.knowledges.academics" data-label="Acadêmicos"><button type="button" class="trait-link-node" title="Conectar Acadêmicos"></button><span class="trait-name">Acadêmicos</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.computer" data-label="Computador"><button type="button" class="trait-link-node" title="Conectar Computador"></button><span class="trait-name">Computador</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.finance" data-label="Finanças"><button type="button" class="trait-link-node" title="Conectar Finanças"></button><span class="trait-name">Finanças</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.investigation" data-label="Investigação"><button type="button" class="trait-link-node" title="Conectar Investigação"></button><span class="trait-name">Investigação</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.law" data-label="Direito"><button type="button" class="trait-link-node" title="Conectar Direito"></button><span class="trait-name">Direito</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.medicine" data-label="Medicina"><button type="button" class="trait-link-node" title="Conectar Medicina"></button><span class="trait-name">Medicina</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.occult" data-label="Ocultismo"><button type="button" class="trait-link-node" title="Conectar Ocultismo"></button><span class="trait-name">Ocultismo</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.politics" data-label="Política"><button type="button" class="trait-link-node" title="Conectar Política"></button><span class="trait-name">Política</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.science" data-label="Ciência"><button type="button" class="trait-link-node" title="Conectar Ciência"></button><span class="trait-name">Ciência</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+              <div class="trait-row" data-trait="abilities.knowledges.technology" data-label="Tecnologia"><button type="button" class="trait-link-node" title="Conectar Tecnologia"></button><span class="trait-name">Tecnologia</span><div class="dots-group dots-9" data-min="0" data-max="9" data-val="0"></div></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. SEÇÃO VANTAGENS UNIFICADA (3 COLUNAS PERFEITAS DA IMAGEM) -->
+      <section class="sheet-section section-advantages-complete">
+        <div class="section-banner"><h3>VANTAGENS</h3></div>
+        <div class="three-col-grid advantages-unified-grid">
+          
+          <!-- COLUNA 1 (ESQUERDA): DISCIPLINAS -> ESPECIALIZAÇÕES -> EXPERIÊNCIA -->
+          <div class="vantagens-col">
+            
+            <!-- 1. Disciplinas (0 a 9) -->
+            <div class="trait-category dynamic-category draggable-card" data-window-id="win-disciplines">
+              <div class="dynamic-category-header draggable-handle">
+                <h4 class="category-heading"><span class="drag-grip">✥</span> DISCIPLINAS (0 A 9)</h4>
+                <button type="button" id="btn-add-discipline" class="btn-add-trait" title="Adicionar Disciplina">＋</button>
+              </div>
+              <div id="disciplines-list" class="dynamic-trait-list"></div>
+            </div>
+
+            <!-- 2. Especializações (0 a 9) -->
+            <div class="trait-category dynamic-category draggable-card" data-window-id="win-specializations">
+              <div class="dynamic-category-header draggable-handle">
+                <h4 class="category-heading"><span class="drag-grip">✥</span> ESPECIALIZAÇÕES (0 A 9)</h4>
+                <button type="button" id="btn-add-specialization" class="btn-add-trait" title="Adicionar Especialização">＋</button>
+              </div>
+              <div id="specializations-list" class="dynamic-trait-list"></div>
+            </div>
+
+            <!-- 3. Experiência -->
+            <div class="status-card xp-card draggable-card" data-window-id="win-xp">
+              <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> EXPERIÊNCIA</h4>
+              <div class="xp-fields-row">
+                <div class="xp-input-box"><span class="xp-label">TOTAL:</span><input type="number" id="field-xp-total" data-bind="xp.total" value="0" min="0"></div>
+                <div class="xp-input-box"><span class="xp-label">GASTA:</span><input type="number" id="field-xp-spent" data-bind="xp.spent" value="0" min="0"></div>
+                <div class="xp-input-box xp-avail-box"><span class="xp-label">DISPONÍVEL:</span><span id="xp-current-display" class="xp-badge-value">0</span></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- COLUNA 2 (MEIO): ANTECEDENTES -> HUMANIDADE -> FORÇA DE VONTADE -> PONTO DE SANGUE -->
+          <div class="vantagens-col">
+            
+            <!-- 1. Antecedentes (0 a 9) -->
+            <div class="trait-category dynamic-category draggable-card" data-window-id="win-backgrounds">
+              <div class="dynamic-category-header draggable-handle">
+                <h4 class="category-heading"><span class="drag-grip">✥</span> ANTECEDENTES (0 A 9)</h4>
+                <button type="button" id="btn-add-background" class="btn-add-trait" title="Adicionar Antecedente">＋</button>
+              </div>
+              <div id="backgrounds-list" class="dynamic-trait-list"></div>
+            </div>
+
+            <!-- 2. Humanidade / Trilha -->
+            <div class="status-card humanity-card draggable-card" data-window-id="win-humanity">
+              <div class="path-title-group draggable-handle">
+                <span class="drag-grip">✥</span>
+                <label for="field-path-name">HUMANIDADE / TRILHA:</label>
+                <input type="text" id="field-path-name" data-bind="status.path_name" placeholder="Humanidade">
+              </div>
+              <div class="dots-track-box">
+                <div class="dots-group dots-10" id="humanity-dots" data-trait="status.humanity" data-min="0" data-max="10" data-val="7"></div>
+              </div>
+            </div>
+
+            <!-- 3. Força de Vontade -->
+            <div class="status-card willpower-card draggable-card" data-window-id="win-willpower">
+              <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> FORÇA DE VONTADE</h4>
+              <div class="willpower-subline trait-row" data-trait="status.willpower_perm" data-label="Força de Vontade">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <button type="button" class="trait-link-node" title="Conectar Força de Vontade para rolagem"></button>
+                  <span class="subline-label">Permanente:</span>
+                </div>
+                <div class="dots-group dots-10" id="willpower-perm-dots" data-trait="status.willpower_perm" data-min="0" data-max="10" data-val="5"></div>
+              </div>
+              <div class="willpower-subline">
+                <span class="subline-label" style="padding-left: 21px;">Temporária:</span>
+                <div class="boxes-group boxes-10" id="willpower-temp-boxes"></div>
+              </div>
+            </div>
+
+            <!-- 4. Ponto de Sangue -->
+            <div class="status-card blood-card draggable-card" data-window-id="win-blood">
+              <div class="status-card-header draggable-handle">
+                <h4 class="category-heading"><span class="drag-grip">✥</span> PONTO DE SANGUE</h4>
+                <span class="blood-counter" id="blood-count-display">10 / 10</span>
+              </div>
+              <div class="generation-rules-badge" id="generation-rules-info">
+                <span>Geração: <strong>13ª</strong></span> • 
+                <span>Max: <strong>10 pts</strong></span> • 
+                <span>Gasto/Turno: <strong>1 pt</strong></span>
+              </div>
+              <div class="blood-pool-grid" id="blood-pool-grid"></div>
+              <div class="blood-controls no-print">
+                <button type="button" id="btn-blood-fill-all" class="btn-tiny">Encher Tudo</button>
+                <button type="button" id="btn-blood-clear-all" class="btn-tiny btn-tiny-danger">Esvaziar (0)</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- COLUNA 3 (DIREITA): VIRTUDES -> VITALIDADE -> FRAQUEZA -->
+          <div class="vantagens-col">
+            
+            <!-- 1. Virtudes (1 a 5) -->
+            <div class="trait-category draggable-card" data-window-id="win-virtues">
+              <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> VIRTUDES (1 A 5)</h4>
+              <div class="trait-list">
+                <div class="trait-row" data-trait="virtues.conscience" data-label="Consciência / Convicção">
+                  <button type="button" class="trait-link-node" title="Conectar Virtude"></button>
+                  <span class="trait-name">Consciência / Convicção</span>
+                  <div class="dots-group" data-min="1" data-max="5" data-val="1"></div>
+                </div>
+                <div class="trait-row" data-trait="virtues.self_control" data-label="Autocontrole / Instinto">
+                  <button type="button" class="trait-link-node" title="Conectar Virtude"></button>
+                  <span class="trait-name">Autocontrole / Instinto</span>
+                  <div class="dots-group" data-min="1" data-max="5" data-val="1"></div>
+                </div>
+                <div class="trait-row" data-trait="virtues.courage" data-label="Coragem">
+                  <button type="button" class="trait-link-node" title="Conectar Virtude"></button>
+                  <span class="trait-name">Coragem</span>
+                  <div class="dots-group" data-min="1" data-max="5" data-val="1"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Vitalidade -->
+            <div class="status-card health-card draggable-card" data-window-id="win-health">
+              <div class="status-card-header draggable-handle">
+                <h4 class="category-heading"><span class="drag-grip">✥</span> VITALIDADE</h4>
+                <div class="health-cycle-badge" title="Clique no quadradinho para avançar o dano">
+                  Ciclo: [ ] ➔ [/] ➔ [X] ➔ [*]
+                </div>
+              </div>
+              <div class="health-track-list" id="health-track-list"></div>
+              <div class="health-controls no-print">
+                <button type="button" id="btn-health-clear-all" class="btn-tiny">Curar Todos</button>
+              </div>
+            </div>
+
+            <!-- 3. Fraqueza -->
+            <div class="status-card weakness-card draggable-card" data-window-id="win-weakness">
+              <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> FRAQUEZA</h4>
+              <textarea id="field-weakness" data-bind="notes.weakness" class="weakness-textarea" rows="3" placeholder="Fraqueza do Clã ou pessoal..."></textarea>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <footer class="sheet-footer">
+        <div class="footer-divider"></div>
+        <p>Vampiro: A Máscara © White Wolf Publishing — Página 1: Traços & Status</p>
+      </footer>
+
+    </main>
+
+    <!-- ====================================================================
+         PÁGINA 2: QUALIDADES & DEFEITOS, OUTRAS CARACTERÍSTICAS, RITUAIS E CAMINHOS
+         ==================================================================== -->
+    <main class="sheet-card page-container" id="page-2">
+      
+      <div class="gothic-header-ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-center">
+          <span class="gothic-ankh">☥</span>
+          <h2>VAMPIRE: THE MASQUERADE</h2>
+          <span class="sheet-subtitle">PÁGINA 2: QUALIDADES, CAMINHOS & RITUAIS • ARRASTE AS JANELAS ✥</span>
+        </div>
+        <div class="ornament-line"></div>
+      </div>
+
+      <!-- SEÇÃO 1 DA PÁG 2: CAMINHOS & RITUAIS -->
+      <section class="sheet-section page2-magic-section">
+        <div class="section-banner"><h3>CAMINHOS & RITUAIS TAUMATÚRGICOS / NECROMÂNTICOS</h3></div>
+        <div class="two-col-grid">
+          
+          <!-- Caminhos (0 a 9) -->
+          <div class="trait-category dynamic-category draggable-card" data-window-id="win-paths">
+            <div class="dynamic-category-header draggable-handle">
+              <h4 class="category-heading"><span class="drag-grip">✥</span> CAMINHOS (0 A 9)</h4>
+              <button type="button" id="btn-add-path" class="btn-add-trait" title="Adicionar Caminho/Trilha">＋</button>
+            </div>
+            <p class="section-hint-text">Ex: Trilha do Sangue, Senda das Cinzas...</p>
+            <div id="paths-list" class="dynamic-trait-list"></div>
+          </div>
+
+          <!-- Rituais & Feitiços -->
+          <div class="trait-category dynamic-category draggable-card" data-window-id="win-rituals">
+            <div class="dynamic-category-header draggable-handle">
+              <h4 class="category-heading"><span class="drag-grip">✥</span> RITUAIS & FEITIÇOS</h4>
+              <button type="button" id="btn-add-ritual" class="btn-add-trait" title="Adicionar Ritual">＋</button>
+            </div>
+            <p class="section-hint-text">Rituais de Nível 1 a 9 com efeitos e anotações</p>
+            <div id="rituals-list" class="dynamic-rituals-list"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SEÇÃO 2 DA PÁG 2: QUALIDADES, DEFEITOS & HISTÓRICO -->
+      <section class="sheet-section page2-notes-section">
+        <div class="section-banner"><h3>QUALIDADES, DEFEITOS & CARACTERÍSTICAS EXPANDIDAS</h3></div>
+        
+        <div class="two-col-grid">
+          
+          <!-- Qualidades & Defeitos -->
+          <div class="text-card draggable-card" data-window-id="win-merits-flaws">
+            <div class="card-header-with-badge draggable-handle">
+              <label for="field-merits-flaws"><span class="drag-grip">✥</span> Qualidades & Defeitos:</label>
+              <span class="card-badge-info">Custo em Pontos / Efeitos</span>
+            </div>
+            <textarea id="field-merits-flaws" data-bind="notes.merits_flaws" rows="7" placeholder="Ex: Sentidos Aguçados (+1pt), Sono Pesado (-2pts)..."></textarea>
+          </div>
+
+          <!-- Outras Características -->
+          <div class="text-card draggable-card" data-window-id="win-other-traits">
+            <div class="card-header-with-badge draggable-handle">
+              <label for="field-other-traits"><span class="drag-grip">✥</span> Outras Características & Posses:</label>
+              <span class="card-badge-info">Refúgio, Idiomas, Armas</span>
+            </div>
+            <textarea id="field-other-traits" data-bind="notes.other_traits" rows="7" placeholder="Refúgio principal, veículos, idiomas, armas..."></textarea>
+          </div>
+
+          <!-- Histórico Completo -->
+          <div class="text-card span-two-cols draggable-card" data-window-id="win-history">
+            <div class="draggable-handle">
+              <label for="field-history"><span class="drag-grip">✥</span> Histórico Detalhado, Objetivos & Diário:</label>
+            </div>
+            <textarea id="field-history" data-bind="notes.history" rows="6" placeholder="Origem do personagem, eventos da não-vida, dívidas de sangue..."></textarea>
+          </div>
+
+        </div>
+      </section>
+
+      <footer class="sheet-footer">
+        <div class="footer-divider"></div>
+        <p>Vampiro: A Máscara © White Wolf Publishing — Página 2: Grimório & Características</p>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- DOCK FLUTUANTE DE LINK CABLE & ROLAGEM DE DADOS -->
+  <div id="dice-roller-dock" class="dice-roller-dock hidden no-print">
+    <div class="dock-container">
+      
+      <div class="dock-header">
+        <div class="dock-title-group">
+          <span class="dock-blood-icon">🩸</span>
+          <h4>LINK CABLE: PARADA DE DADOS</h4>
+        </div>
+        <div class="dock-badges-list" id="dock-selected-traits-list"></div>
+        <button type="button" id="btn-clear-links" class="btn-clear-web" title="Desconectar todos os links">✕ Desconectar</button>
+      </div>
+
+      <div class="dock-body">
+        <div class="dock-pool-summary">
+          <span class="pool-math-display" id="dock-pool-math">0 Dados</span>
+          <span class="pool-total-badge" id="dock-pool-total">0</span>
+        </div>
+
+        <div class="dock-control-item">
+          <label for="dock-difficulty">Dificuldade:</label>
+          <select id="dock-difficulty" class="dock-diff-select">
+            <option value="2">Dif 2 (Muito Fácil)</option>
+            <option value="3">Dif 3 (Fácil)</option>
+            <option value="4">Dif 4 (Rotineiro)</option>
+            <option value="5">Dif 5 (Simples)</option>
+            <option value="6" selected>Dif 6 (Padrão V20)</option>
+            <option value="7">Dif 7 (Desafiador)</option>
+            <option value="8">Dif 8 (Difícil)</option>
+            <option value="9">Dif 9 (Extremo)</option>
+            <option value="10">Dif 10 (Quase Impossível)</option>
+          </select>
+        </div>
+
+        <div class="dock-command-box">
+          <label for="dock-command-input">Comando Bot:</label>
+          <div class="command-input-group">
+            <input type="text" id="dock-command-input" class="command-input" value="!vr 0" readonly>
+            <button type="button" id="btn-copy-command" class="btn-copy-cmd" title="Copiar comando de rolagem">
+              <span class="copy-icon">📋</span> Copiar
+            </button>
+          </div>
+        </div>
+
+        <div class="dock-action-item">
+          <button type="button" id="btn-roll-dice" class="btn-dock-roll">
+            <span class="dice-icon">🎲</span> Rolar Dados
+          </button>
+        </div>
+      </div>
+
+      <div id="dock-dice-results" class="dock-dice-results hidden">
+        <div class="results-header">
+          <span id="dice-outcome-badge" class="outcome-badge">0 Sucessos</span>
+          <span id="dice-summary-text" class="summary-text"></span>
+          <button type="button" id="btn-reroll-failures" class="btn-reroll-dock hidden" title="Rerrolar dados que falharam (permitido apenas 1 vez por rolagem)">
+            <span class="btn-icon">🔄</span> Rerrolar Falhas
+          </button>
+        </div>
+        <div id="dice-rendered-list" class="dice-rendered-list"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTÃO FLUTUANTE DE HISTÓRICO DE ROLAGENS (NO-PRINT) -->
+  <button type="button" id="btn-open-dice-history" class="floating-history-btn no-print" title="Histórico de Rolagens (Crônica)">
+    <span class="history-symbol">𝕮</span>
+    <span class="history-btn-badge" id="history-roll-count">0</span>
+  </button>
+
+  <!-- DRAWER LATERAL DE HISTÓRICO DE ROLAGENS (NO-PRINT) -->
+  <div id="dice-history-drawer" class="history-drawer-overlay hidden no-print">
+    <div class="history-drawer-panel">
+      <div class="history-drawer-header">
+        <div class="drawer-title-group">
+          <span class="drawer-symbol">𝕮</span>
+          <h3>HISTÓRICO DE ROLAGENS</h3>
+        </div>
+        <div class="drawer-header-actions">
+          <button type="button" id="btn-clear-dice-history" class="btn-clear-history" title="Limpar histórico de rolagens">🗑️ Limpar</button>
+          <button type="button" id="btn-close-dice-history" class="btn-modal-close" title="Fechar">✕</button>
+        </div>
+      </div>
+
+      <div class="history-drawer-info">
+        <span id="history-total-tag">0 rolagens gravadas</span>
+      </div>
+
+      <div class="history-drawer-body" id="dice-history-list">
+        <!-- Itens inseridos dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
