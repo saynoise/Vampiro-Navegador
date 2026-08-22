@@ -632,6 +632,7 @@ const DraggableWindowManager = {
     this.loadPositions();
     this.applyAllPositions();
     this.bindDragAndResizeEvents();
+    this.setupResizeObserver();
 
     window.addEventListener('resize', () => {
       LinkCableSystem.updateWebLines();
@@ -691,13 +692,52 @@ const DraggableWindowManager = {
 
         if (pos.h) card.style.height = `${pos.h}px`;
         else card.style.height = '';
+        
+        this.checkCardCollapseState(card);
       } else {
         card.style.transform = '';
         card.style.width = '';
         card.style.height = '';
-        card.classList.remove('is-custom-positioned');
+        card.classList.remove('is-custom-positioned', 'is-collapsed-small');
       }
     });
+  },
+
+  checkCardCollapseState(card) {
+    if (!card) return;
+    const winId = card.getAttribute('data-window-id');
+    const rect = card.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+
+    // Se o card não tem altura customizada definida pelo usuário (layout padrão), nunca colapsa por altura
+    const hasCustomHeight = !!card.style.height;
+    
+    let isHeightCollapsed = false;
+    if (hasCustomHeight) {
+      if (winId === 'win-xp' && rect.height < 52) isHeightCollapsed = true;
+      else if (winId === 'win-willpower' && rect.height < 70) isHeightCollapsed = true;
+      else if (winId === 'win-blood' && rect.height < 90) isHeightCollapsed = true;
+      else if (rect.height < 55) isHeightCollapsed = true;
+    }
+
+    const isWidthCollapsed = rect.width < 195;
+
+    if (isWidthCollapsed || isHeightCollapsed) {
+      card.classList.add('is-collapsed-small');
+    } else {
+      card.classList.remove('is-collapsed-small');
+    }
+  },
+
+  setupResizeObserver() {
+    if (window.ResizeObserver) {
+      const observer = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          this.checkCardCollapseState(entry.target);
+        }
+      });
+      document.querySelectorAll('.draggable-card[data-window-id]').forEach(card => observer.observe(card));
+    }
   },
 
   resetPositions() {
@@ -708,7 +748,7 @@ const DraggableWindowManager = {
       card.style.transform = '';
       card.style.width = '';
       card.style.height = '';
-      card.classList.remove('is-custom-positioned', 'is-dragging', 'is-resizing', 'snap-aligned');
+      card.classList.remove('is-custom-positioned', 'is-dragging', 'is-resizing', 'snap-aligned', 'is-collapsed-small');
     });
     LinkCableSystem.updateWebLines();
     showToast('Layout e tamanhos das janelas restaurados para o padrão!', 'info');
@@ -808,12 +848,13 @@ const DraggableWindowManager = {
           const rawDw = e.clientX - this.startX;
           const rawDh = e.clientY - this.startY;
 
-          const newW = Math.max(220, snapToGrid(this.initialW + rawDw, SNAP_GRID));
-          const newH = Math.max(80, snapToGrid(this.initialH + rawDh, SNAP_GRID));
+          const newW = Math.max(140, snapToGrid(this.initialW + rawDw, SNAP_GRID));
+          const newH = Math.max(42, snapToGrid(this.initialH + rawDh, SNAP_GRID));
 
           card.style.width = `${newW}px`;
           card.style.height = `${newH}px`;
           card.classList.add('is-custom-positioned');
+          this.checkCardCollapseState(card);
 
           requestAnimationFrame(() => LinkCableSystem.updateWebLines());
         });
@@ -829,6 +870,7 @@ const DraggableWindowManager = {
           this.positions[winId].w = finalW;
           this.positions[winId].h = finalH;
           this.savePositions();
+          this.checkCardCollapseState(card);
 
           card.classList.remove('is-resizing');
           resizeHandle.classList.remove('is-resizing');
@@ -1287,6 +1329,7 @@ const LinkCableSystem = {
     this.selectedNodes.forEach(n => {
       if (n.buttonEl) n.buttonEl.classList.remove('active-linked');
     });
+    document.querySelectorAll('.card-cable-linked-active').forEach(c => c.classList.remove('card-cable-linked-active'));
     this.selectedNodes = [];
     this.updateWebLines(false);
     this.updateDock();
@@ -1306,21 +1349,110 @@ const LinkCableSystem = {
     if (!svgLinesGroup) return;
     svgLinesGroup.innerHTML = '';
 
+    // Limpa estado de brilho dos cards antes de reavaliar visibilidade
+    document.querySelectorAll('.card-cable-linked-active').forEach(c => c.classList.remove('card-cable-linked-active'));
+
     if (this.selectedNodes.length === 0) return;
 
-    const coords = this.selectedNodes.map(node => {
+    // 1º Passo: Avalia a visibilidade de cada nó e coleta referências
+    const rawNodes = this.selectedNodes.map(node => {
       if (!node.buttonEl) return null;
       const pageEl = node.buttonEl.closest('.page-container');
       if (pageEl && pageEl.classList.contains('hidden-page')) return null;
 
+      const card = node.buttonEl.closest('.draggable-card') || node.buttonEl.closest('.status-card') || node.buttonEl.closest('.trait-category');
       const rect = node.buttonEl.getBoundingClientRect();
-      if (rect.width === 0 && rect.height === 0) return null;
+
+      let isNodeVisible = true;
+      if (rect.width === 0 || rect.height === 0) {
+        isNodeVisible = false;
+      } else if (card) {
+        const cardRect = card.getBoundingClientRect();
+        if (card.classList.contains('is-collapsed-small')) {
+          isNodeVisible = false;
+        } else if (
+          rect.bottom <= cardRect.top + 4 ||
+          rect.top >= cardRect.bottom - 4 ||
+          rect.right <= cardRect.left + 4 ||
+          rect.left >= cardRect.right - 4
+        ) {
+          isNodeVisible = false;
+        }
+      }
+
+      if (isNodeVisible) {
+        return {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+          isCardFallback: false,
+          card: null,
+          cardRect: null
+        };
+      }
+
+      // Se a bolinha selecionada não estiver visível (card colapsado/oculto), ativa brilho no card
+      if (card) {
+        const cardRect = card.getBoundingClientRect();
+        if (cardRect.width > 0 && cardRect.height > 0) {
+          card.classList.add('card-cable-linked-active');
+          return {
+            x: cardRect.left + cardRect.width / 2,
+            y: cardRect.top + cardRect.height / 2,
+            isCardFallback: true,
+            card: card,
+            cardRect: cardRect
+          };
+        }
+      }
+
+      return null;
+    }).filter(c => c !== null);
+
+    if (rawNodes.length === 0) return;
+
+    // Referência de ancoragem inferior caso haja apenas 1 nó
+    const dockEl = document.getElementById('dice-roller-dock');
+    const dockRect = dockEl ? dockEl.getBoundingClientRect() : null;
+    const defaultTarget = dockRect 
+      ? { x: dockRect.left + dockRect.width / 2, y: dockRect.top + 8 }
+      : { x: window.innerWidth / 2, y: window.innerHeight - 30 };
+
+    // 2º Passo: Calcula o ponto grudado exatamente na borda do container na direção do cabo
+    const coords = rawNodes.map((item, idx) => {
+      if (!item.isCardFallback) {
+        return { x: item.x, y: item.y, isCardFallback: false };
+      }
+
+      let target = defaultTarget;
+      if (rawNodes.length > 1) {
+        if (idx < rawNodes.length - 1) target = rawNodes[idx + 1];
+        else target = rawNodes[idx - 1];
+      }
+
+      const cx = item.cardRect.left + item.cardRect.width / 2;
+      const cy = item.cardRect.top + item.cardRect.height / 2;
+      const dx = target.x - cx;
+      const dy = target.y - cy;
+
+      let borderX = cx;
+      let borderY = item.cardRect.top;
+
+      if (Math.abs(dx) > 0.001 || Math.abs(dy) > 0.001) {
+        const halfW = item.cardRect.width / 2;
+        const halfH = item.cardRect.height / 2;
+        const scaleX = dx !== 0 ? halfW / Math.abs(dx) : Infinity;
+        const scaleY = dy !== 0 ? halfH / Math.abs(dy) : Infinity;
+        const scale = Math.min(scaleX, scaleY);
+        borderX = cx + dx * scale;
+        borderY = cy + dy * scale;
+      }
 
       return {
-        x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2
+        x: borderX,
+        y: borderY,
+        isCardFallback: true
       };
-    }).filter(c => c !== null);
+    });
 
     if (coords.length === 0) return;
 

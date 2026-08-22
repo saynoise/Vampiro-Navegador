@@ -487,9 +487,9 @@
             <div class="status-card xp-card draggable-card" data-window-id="win-xp">
               <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> EXPERIÊNCIA</h4>
               <div class="xp-fields-row">
-                <div class="xp-input-box"><span class="xp-label">TOTAL:</span><input type="number" id="field-xp-total" data-bind="xp.total" value="0" min="0"></div>
-                <div class="xp-input-box"><span class="xp-label">GASTA:</span><input type="number" id="field-xp-spent" data-bind="xp.spent" value="0" min="0"></div>
-                <div class="xp-input-box xp-avail-box"><span class="xp-label">DISPONÍVEL:</span><span id="xp-current-display" class="xp-badge-value">0</span></div>
+                <div class="xp-input-box"><span class="xp-label">Total:</span><input type="number" id="field-xp-total" data-bind="xp.total" value="0" min="0"></div>
+                <div class="xp-input-box"><span class="xp-label">Gasto:</span><input type="number" id="field-xp-spent" data-bind="xp.spent" value="0" min="0"></div>
+                <div class="xp-input-box"><span class="xp-label">Disponível:</span><span id="xp-current-display" class="xp-badge-value">0</span></div>
               </div>
             </div>
 
@@ -511,7 +511,7 @@
             <div class="status-card humanity-card draggable-card" data-window-id="win-humanity">
               <div class="path-title-group draggable-handle">
                 <span class="drag-grip">✥</span>
-                <label for="field-path-name">TRILHA:</label>
+                <label for="field-path-name">HUMANIDADE / TRILHA:</label>
                 <input type="text" id="field-path-name" data-bind="status.path_name" placeholder="Humanidade">
               </div>
               <div class="dots-track-box">
@@ -523,15 +523,16 @@
             <div class="status-card willpower-card draggable-card" data-window-id="win-willpower">
               <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> FORÇA DE VONTADE</h4>
               <div class="willpower-subline trait-row" data-trait="status.willpower_perm" data-label="Força de Vontade">
-                <div class="willpower-row-label-wrap">
+                <div class="willpower-label-group">
                   <button type="button" class="trait-link-node" title="Conectar Força de Vontade para rolagem"></button>
                   <span class="subline-label">Permanente:</span>
                 </div>
                 <div class="dots-group dots-10" id="willpower-perm-dots" data-trait="status.willpower_perm" data-min="0" data-max="10" data-val="5"></div>
               </div>
               <div class="willpower-subline">
-                <div class="willpower-row-label-wrap">
-                  <span class="subline-label willpower-temp-label">Temporária:</span>
+                <div class="willpower-label-group">
+                  <span class="willpower-spacer"></span>
+                  <span class="subline-label">Temporária:</span>
                 </div>
                 <div class="boxes-group boxes-10" id="willpower-temp-boxes"></div>
               </div>
