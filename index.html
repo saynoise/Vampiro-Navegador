@@ -668,7 +668,12 @@
           <div class="text-card draggable-card" data-window-id="win-merits-flaws">
             <div class="card-header-with-badge draggable-handle">
               <label for="field-merits-flaws"><span class="drag-grip">✥</span> Qualidades & Defeitos:</label>
-              <span class="card-badge-info">Custo em Pontos / Efeitos</span>
+              <div class="header-badge-group">
+                <a href="https://vampiros-a-mascara.forumeiros.com/t134-qualidades-defeitos" target="_blank" rel="noopener noreferrer" class="card-badge-link" title="Abrir lista completa de Qualidades & Defeitos no Forumeiros">
+                  <span>📖 Lista Completa</span> ↗
+                </a>
+                <span class="card-badge-info">Custo / Efeitos</span>
+              </div>
             </div>
             <textarea id="field-merits-flaws" data-bind="notes.merits_flaws" rows="7" placeholder="Ex: Sentidos Aguçados (+1pt), Sono Pesado (-2pts)..."></textarea>
           </div>
@@ -767,13 +772,163 @@
     </div>
   </div>
 
-  <!-- BOTÃO FLUTUANTE DE HISTÓRICO DE ROLAGENS (NO-PRINT) -->
+  <!-- BOTÃO FLUTUANTE DE HISTÓRICO DE ROLAGENS (LADO DIREITO) -->
   <button type="button" id="btn-open-dice-history" class="floating-history-btn no-print" title="Histórico de Rolagens (Crônica)">
     <span class="history-symbol">𝕮</span>
     <span class="history-btn-badge" id="history-roll-count">0</span>
   </button>
 
-  <!-- DRAWER LATERAL DE HISTÓRICO DE ROLAGENS (NO-PRINT) -->
+  <!-- BOTÃO FLUTUANTE DE AJUDA & WIKI V20 (LADO ESQUERDO) -->
+  <button type="button" id="btn-open-wiki-help" class="floating-wiki-btn no-print" title="Compêndio & Wiki V20 (Guia Rápido)">
+    <span class="wiki-symbol">𝖂</span>
+    <span class="wiki-btn-badge">Wiki</span>
+  </button>
+
+  <!-- DRAWER LATERAL DE AJUDA & WIKI V20 (LADO ESQUERDO) -->
+  <div id="wiki-help-drawer" class="wiki-drawer-overlay hidden no-print">
+    <div class="wiki-drawer-panel">
+      <div class="wiki-drawer-header">
+        <div class="drawer-title-group">
+          <span class="drawer-symbol">𝖂</span>
+          <div>
+            <h3>COMPÊNDIO & WIKI V20</h3>
+            <span class="wiki-drawer-subtitle">Guia de Regras, Lore & Links Rápidos</span>
+          </div>
+        </div>
+        <button type="button" id="btn-close-wiki-help" class="btn-modal-close" title="Fechar">✕</button>
+      </div>
+
+      <div class="wiki-drawer-search">
+        <input type="text" id="wiki-search-input" class="wiki-search-field" placeholder="🔍 Pesquisar disciplinas, clãs, regras..." aria-label="Pesquisar na Wiki">
+      </div>
+
+      <div class="wiki-drawer-body" id="wiki-topics-list">
+        
+        <!-- SEÇÃO: LINKS OFICIAIS & ENCYCLOPÉDIA -->
+        <div class="wiki-section" data-search-text="wiki oficial white wolf enciclopedia lore regras">
+          <h4 class="wiki-section-title">🌐 Wikis & Enciclopédias Oficiais</h4>
+          
+          <a href="https://whitewolf.fandom.com/wiki/Vampire:_The_Masquerade_20th_Anniversary_Edition" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="v20 anniversary edition white wolf livro regras">
+            <div class="wiki-link-icon">📖</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">White Wolf Wiki (V20 Hub) ↗</span>
+              <span class="wiki-link-desc">Enciclopédia principal da Edição de 20º Aniversário, suplementos e lore oficial.</span>
+            </div>
+          </a>
+
+          <a href="https://whitewolf.fandom.com/wiki/Discipline_(VTM)" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="disciplinas poderes celeridade potencia fortitude dominação ofuscação taumaturgia presença auspex animalismo">
+            <div class="wiki-link-icon">🩸</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">Índice Geral de Disciplinas (1 a 10) ↗</span>
+              <span class="wiki-link-desc">Catálogo detalhado de todos os níveis de poderes, custos de sangue e testes.</span>
+            </div>
+          </a>
+
+          <a href="https://whitewolf.fandom.com/wiki/Clan_(VTM)" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="clas linhagens ventrue tremere brujah toreador gangrel nosferatu malkavian lasombra tzimisce giovanni assamita ravnos seguidores de set">
+            <div class="wiki-link-icon">🏛️</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">Clãs & Linhagens de Caim ↗</span>
+              <span class="wiki-link-desc">Histórico, fraquezas de clã, disciplinas nativas e arquétipos dos 13 Clãs.</span>
+            </div>
+          </a>
+
+          <a href="https://whitewolf.fandom.com/wiki/Thaumaturgy_(VTM)" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="taumaturgia rituais magia tremere sangue trilhas ritual nivel">
+            <div class="wiki-link-icon">🔮</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">Rituais & Trilhas Taumatúrgicas ↗</span>
+              <span class="wiki-link-desc">Compêndio de rituais de Nível 1 a 5, ingredientes e regras de feitiçaria de sangue.</span>
+            </div>
+          </a>
+
+          <a href="https://whitewolf.fandom.com/wiki/Generation" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="geracao sangue pontos maximo turno atributos 13 12 11 10 9 8 7 6 5 4">
+            <div class="wiki-link-icon">🍷</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">Tabela de Geração & Sangue ↗</span>
+              <span class="wiki-link-desc">Limites de atributos, capacidade da reserva de sangue e gasto por turno.</span>
+            </div>
+          </a>
+
+          <a href="https://whitewolf.fandom.com/wiki/Humanity_(VTM)" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="humanidade trilha degeneracao pecado frenesi autocontrole coragem consciencia">
+            <div class="wiki-link-icon">⚖️</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">Humanidade & Trilhas de Sabedoria ↗</span>
+              <span class="wiki-link-desc">Hierarquia dos pecados, testes de Consciência, Convicção e perda de Humanidade.</span>
+            </div>
+          </a>
+
+          <a href="https://whitewolf.fandom.com/wiki/Damage_(VTM)" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="combate dano contusao letal agravado absorcao vigor fortitude fogo sol">
+            <div class="wiki-link-icon">⚔️</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">Regras de Dano & Combate V20 ↗</span>
+              <span class="wiki-link-desc">Diferenças entre Contusão (/), Letal (X), Agravado (*), fogo e luz do sol.</span>
+            </div>
+          </a>
+
+          <a href="https://whitewolf.fandom.com/wiki/Storytelling_System" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="sistema regras dados d10 sucessos dificuldade falha critica botch storyteller">
+            <div class="wiki-link-icon">🎲</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">Sistema Storyteller (D10) ↗</span>
+              <span class="wiki-link-desc">Explicação oficial de paradas de dados, cancelamento por 1s e especializações (10s).</span>
+            </div>
+          </a>
+
+          <a href="https://vampiros-a-mascara.forumeiros.com/t134-qualidades-defeitos" target="_blank" rel="noopener noreferrer" class="wiki-link-card" data-search-text="qualidades defeitos meritos falhas pontos fisicos mentais sociais sobrenaturais vantagens desvantagens forum forumeiros">
+            <div class="wiki-link-icon">🎭</div>
+            <div class="wiki-link-info">
+              <span class="wiki-link-title">Qualidades & Defeitos (Guia em Português) ↗</span>
+              <span class="wiki-link-desc">Lista completa no Forumeiros com custos de pontos e descrições de qualidades e defeitos Físicos, Sociais, Mentais e Sobrenaturais.</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- SEÇÃO: GUIA RÁPIDO DE REGRAS IN-APP -->
+        <div class="wiki-section" data-search-text="guia rapido formulas resumo regras">
+          <h4 class="wiki-section-title">📜 Consulta Rápida de Regras</h4>
+
+          <div class="wiki-card-info" data-search-text="formula rolagem parada dados atributo habilidade">
+            <div class="wiki-card-header">🎲 Como Montar uma Rolagem</div>
+            <div class="wiki-card-text">
+              <strong>Parada de Dados = Atributo + Habilidade</strong><br>
+              Exemplo: <em>Destreza (3) + Armas de Fogo (2) = 5 dados</em>.<br>
+              A dificuldade padrão em V20 é <strong>6</strong>. Cada dado igual ou maior que a dificuldade conta como <strong>1 Sucesso</strong>. Cada resultado <strong>1</strong> cancela 1 sucesso. Se não houver nenhum sucesso e pelo menos um '1', ocorre uma <strong>Falha Crítica (Botch)</strong>!
+            </div>
+          </div>
+
+          <div class="wiki-card-info" data-search-text="danos tipos contusao letal agravado cura absorcao">
+            <div class="wiki-card-header">⚔️ Tipos de Dano & Absorção</div>
+            <div class="wiki-card-text">
+              • <strong>Contusão (/)</strong>: Socos, clavas, armas de impacto. Absorve com Vigor. Cura: 1 Ponto de Sangue por nível.<br>
+              • <strong>Letal (X)</strong>: Facas, espadas, tiros de bala. Absorve com Vigor. Cura: 1 Ponto de Sangue por nível.<br>
+              • <strong>Agravado (*)</strong>: Garras/presas sobrenaturais, Fogo, Luz Solar. Absorve <em>apenas</em> com <strong>Fortitude</strong>! Cura: 5 Pontos de Sangue + 1 dia de descanso por nível.
+            </div>
+          </div>
+
+          <div class="wiki-card-info" data-search-text="forca de vontade permanente temporaria sucesso automatico">
+            <div class="wiki-card-header">🔥 Usos de Força de Vontade</div>
+            <div class="wiki-card-text">
+              Gastar <strong>1 ponto de Força de Vontade Temporária</strong> permite:<br>
+              • Garantir <strong>1 Sucesso Automático</strong> em uma ação (não cancelável por '1's).<br>
+              • Ignorar <strong>todas as penalidades de ferimento</strong> de Vitalidade por 1 turno completo.<br>
+              • Resistir a comandos de Dominação, Presença ou impulsos do Frenesi temporariamente.
+            </div>
+          </div>
+
+          <div class="wiki-card-info" data-search-text="gasto sangue cura atributos fisicos geracao">
+            <div class="wiki-card-header">🩸 Usos dos Pontos de Sangue</div>
+            <div class="wiki-card-text">
+              • <strong>Curar Danos</strong>: 1 ponto cura 1 nível de Contusão ou Letal instantaneamente.<br>
+              • <strong>Aumentar Atributos Físicos</strong>: 1 ponto aumenta Força, Destreza ou Vigor em +1 por 1 cena (respeitando o limite por geração).<br>
+              • <strong>Ativar Disciplinas</strong>: Ativa poderes vampíricos (Celeridade, Taumaturgia, etc.).
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DRAWER LATERAL DE HISTÓRICO DE ROLAGENS (LADO DIREITO) -->
   <div id="dice-history-drawer" class="history-drawer-overlay hidden no-print">
     <div class="history-drawer-panel">
       <div class="history-drawer-header">

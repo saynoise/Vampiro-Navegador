@@ -2822,6 +2822,59 @@ function setupEventListeners() {
     });
   }
 
+  // Drawer de Ajuda & Wiki V20 (Lado Esquerdo)
+  const btnOpenWiki = document.getElementById('btn-open-wiki-help');
+  const btnCloseWiki = document.getElementById('btn-close-wiki-help');
+  const wikiDrawer = document.getElementById('wiki-help-drawer');
+  const wikiSearchInput = document.getElementById('wiki-search-input');
+
+  if (btnOpenWiki && wikiDrawer) {
+    btnOpenWiki.addEventListener('click', () => {
+      wikiDrawer.classList.remove('hidden');
+      if (wikiSearchInput) {
+        setTimeout(() => wikiSearchInput.focus(), 50);
+      }
+    });
+  }
+
+  if (btnCloseWiki && wikiDrawer) {
+    btnCloseWiki.addEventListener('click', () => {
+      wikiDrawer.classList.add('hidden');
+    });
+  }
+
+  if (wikiDrawer) {
+    wikiDrawer.addEventListener('click', (e) => {
+      if (e.target === wikiDrawer) wikiDrawer.classList.add('hidden');
+    });
+  }
+
+  if (wikiSearchInput) {
+    wikiSearchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const items = document.querySelectorAll('.wiki-link-card, .wiki-card-info');
+      const sections = document.querySelectorAll('.wiki-section');
+
+      items.forEach(item => {
+        const text = (item.getAttribute('data-search-text') || '') + ' ' + (item.innerText || '');
+        if (!q || text.toLowerCase().includes(q)) {
+          item.classList.remove('wiki-item-hidden');
+        } else {
+          item.classList.add('wiki-item-hidden');
+        }
+      });
+
+      sections.forEach(sec => {
+        const visibleChild = sec.querySelector('.wiki-link-card:not(.wiki-item-hidden), .wiki-card-info:not(.wiki-item-hidden)');
+        if (!q || visibleChild) {
+          sec.classList.remove('wiki-item-hidden');
+        } else {
+          sec.classList.add('wiki-item-hidden');
+        }
+      });
+    });
+  }
+
   // Abas de Página
   const tabBtns = document.querySelectorAll('.tab-nav-btn');
   const page1 = document.getElementById('page-1');
@@ -3149,6 +3202,15 @@ function setupEventListeners() {
       AppState.saveToStorage();
       UIRenderer.updateDropdown();
       showToast('Ficha salva! (Ctrl+S)', 'success');
+    } else if (e.key === 'Escape') {
+      const wikiDrawer = document.getElementById('wiki-help-drawer');
+      const historyDrawer = document.getElementById('dice-history-drawer');
+      const themeModal = document.getElementById('theme-customizer-modal');
+      const discordModal = document.getElementById('discord-modal');
+      if (wikiDrawer) wikiDrawer.classList.add('hidden');
+      if (historyDrawer) historyDrawer.classList.add('hidden');
+      if (themeModal) themeModal.classList.add('hidden');
+      if (discordModal) discordModal.classList.add('hidden');
     }
   });
 
