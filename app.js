@@ -632,6 +632,14 @@ const DraggableWindowManager = {
     this.loadPositions();
     this.applyAllPositions();
     this.bindDragAndResizeEvents();
+
+    window.addEventListener('resize', () => {
+      LinkCableSystem.updateWebLines();
+    });
+
+    window.addEventListener('scroll', () => {
+      LinkCableSystem.updateWebLines();
+    }, { passive: true, capture: true });
   },
 
   injectResizeHandles() {
@@ -800,7 +808,7 @@ const DraggableWindowManager = {
           const rawDw = e.clientX - this.startX;
           const rawDh = e.clientY - this.startY;
 
-          const newW = Math.max(200, snapToGrid(this.initialW + rawDw, SNAP_GRID));
+          const newW = Math.max(220, snapToGrid(this.initialW + rawDw, SNAP_GRID));
           const newH = Math.max(80, snapToGrid(this.initialH + rawDh, SNAP_GRID));
 
           card.style.width = `${newW}px`;
@@ -1298,7 +1306,7 @@ const LinkCableSystem = {
     if (!svgLinesGroup) return;
     svgLinesGroup.innerHTML = '';
 
-    if (this.selectedNodes.length < 2) return;
+    if (this.selectedNodes.length === 0) return;
 
     const coords = this.selectedNodes.map(node => {
       if (!node.buttonEl) return null;
@@ -1313,6 +1321,25 @@ const LinkCableSystem = {
         y: rect.top + rect.height / 2
       };
     }).filter(c => c !== null);
+
+    if (coords.length === 0) return;
+
+    // Desenha o anel de brilho (aura) e conector no overlay SVG global (z-index 90, 100% livre de qualquer corte)
+    coords.forEach(p => {
+      const aura = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      aura.setAttribute('cx', p.x);
+      aura.setAttribute('cy', p.y);
+      aura.setAttribute('r', '9.5');
+      aura.setAttribute('class', 'cable-node-aura');
+      svgLinesGroup.appendChild(aura);
+
+      const joint = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      joint.setAttribute('cx', p.x);
+      joint.setAttribute('cy', p.y);
+      joint.setAttribute('r', '4.5');
+      joint.setAttribute('class', 'cable-connector-joint');
+      svgLinesGroup.appendChild(joint);
+    });
 
     if (coords.length < 2) return;
 
@@ -1341,15 +1368,6 @@ const LinkCableSystem = {
       const corePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       corePath.setAttribute('class', 'blood-cable-path-core');
       svgLinesGroup.appendChild(corePath);
-
-      [p1, p2].forEach(p => {
-        const joint = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        joint.setAttribute('cx', p.x);
-        joint.setAttribute('cy', p.y);
-        joint.setAttribute('r', '4.5');
-        joint.setAttribute('class', 'cable-connector-joint');
-        svgLinesGroup.appendChild(joint);
-      });
 
       segments.push({
         p1, p2, dx, dy, dist, cp1x, cp2x, baseSag,

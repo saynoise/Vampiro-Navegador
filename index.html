@@ -332,7 +332,7 @@
 
       <!-- 2. ATRIBUTOS (1 A 9) -->
       <section class="sheet-section section-traits">
-        <div class="section-banner"><h3>ATRIBUTOS (1 A 9)</h3></div>
+        <div class="section-banner"><h3>ATRIBUTOS</h3></div>
         <div class="three-col-grid">
           
           <div class="trait-category draggable-card" data-window-id="win-attr-physical">
@@ -403,7 +403,7 @@
 
       <!-- 3. HABILIDADES (0 A 9) -->
       <section class="sheet-section section-traits">
-        <div class="section-banner"><h3>HABILIDADES (0 A 9)</h3></div>
+        <div class="section-banner"><h3>HABILIDADES</h3></div>
         <div class="three-col-grid">
           
           <div class="trait-category draggable-card" data-window-id="win-talents">
@@ -468,7 +468,7 @@
             <!-- 1. Disciplinas (0 a 9) -->
             <div class="trait-category dynamic-category draggable-card" data-window-id="win-disciplines">
               <div class="dynamic-category-header draggable-handle">
-                <h4 class="category-heading"><span class="drag-grip">✥</span> DISCIPLINAS (0 A 9)</h4>
+                <h4 class="category-heading"><span class="drag-grip">✥</span> DISCIPLINAS</h4>
                 <button type="button" id="btn-add-discipline" class="btn-add-trait" title="Adicionar Disciplina">＋</button>
               </div>
               <div id="disciplines-list" class="dynamic-trait-list"></div>
@@ -477,7 +477,7 @@
             <!-- 2. Especializações (0 a 9) -->
             <div class="trait-category dynamic-category draggable-card" data-window-id="win-specializations">
               <div class="dynamic-category-header draggable-handle">
-                <h4 class="category-heading"><span class="drag-grip">✥</span> ESPECIALIZAÇÕES (0 A 9)</h4>
+                <h4 class="category-heading"><span class="drag-grip">✥</span> ESPECIALIZAÇÕES</h4>
                 <button type="button" id="btn-add-specialization" class="btn-add-trait" title="Adicionar Especialização">＋</button>
               </div>
               <div id="specializations-list" class="dynamic-trait-list"></div>
@@ -501,7 +501,7 @@
             <!-- 1. Antecedentes (0 a 9) -->
             <div class="trait-category dynamic-category draggable-card" data-window-id="win-backgrounds">
               <div class="dynamic-category-header draggable-handle">
-                <h4 class="category-heading"><span class="drag-grip">✥</span> ANTECEDENTES (0 A 9)</h4>
+                <h4 class="category-heading"><span class="drag-grip">✥</span> ANTECEDENTES</h4>
                 <button type="button" id="btn-add-background" class="btn-add-trait" title="Adicionar Antecedente">＋</button>
               </div>
               <div id="backgrounds-list" class="dynamic-trait-list"></div>
@@ -511,7 +511,7 @@
             <div class="status-card humanity-card draggable-card" data-window-id="win-humanity">
               <div class="path-title-group draggable-handle">
                 <span class="drag-grip">✥</span>
-                <label for="field-path-name">HUMANIDADE / TRILHA:</label>
+                <label for="field-path-name">TRILHA:</label>
                 <input type="text" id="field-path-name" data-bind="status.path_name" placeholder="Humanidade">
               </div>
               <div class="dots-track-box">
@@ -523,14 +523,16 @@
             <div class="status-card willpower-card draggable-card" data-window-id="win-willpower">
               <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> FORÇA DE VONTADE</h4>
               <div class="willpower-subline trait-row" data-trait="status.willpower_perm" data-label="Força de Vontade">
-                <div style="display: flex; align-items: center; gap: 6px;">
+                <div class="willpower-row-label-wrap">
                   <button type="button" class="trait-link-node" title="Conectar Força de Vontade para rolagem"></button>
                   <span class="subline-label">Permanente:</span>
                 </div>
                 <div class="dots-group dots-10" id="willpower-perm-dots" data-trait="status.willpower_perm" data-min="0" data-max="10" data-val="5"></div>
               </div>
               <div class="willpower-subline">
-                <span class="subline-label" style="padding-left: 21px;">Temporária:</span>
+                <div class="willpower-row-label-wrap">
+                  <span class="subline-label willpower-temp-label">Temporária:</span>
+                </div>
                 <div class="boxes-group boxes-10" id="willpower-temp-boxes"></div>
               </div>
             </div>
@@ -560,7 +562,7 @@
             
             <!-- 1. Virtudes (1 a 5) -->
             <div class="trait-category draggable-card" data-window-id="win-virtues">
-              <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> VIRTUDES (1 A 5)</h4>
+              <h4 class="category-heading draggable-handle"><span class="drag-grip">✥</span> VIRTUDES</h4>
               <div class="trait-list">
                 <div class="trait-row" data-trait="virtues.conscience" data-label="Consciência / Convicção">
                   <button type="button" class="trait-link-node" title="Conectar Virtude"></button>
