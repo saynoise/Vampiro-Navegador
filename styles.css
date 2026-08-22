@@ -232,23 +232,46 @@ body::before {
 }
 
 /* TOOLBAR */
-.app-toolbar { position: sticky; top: 0; z-index: 100; background: rgba(14, 14, 18, 0.95); backdrop-filter: blur(8px); border-bottom: 2px solid var(--border-accent); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8); padding: 12px 22px; }
-.toolbar-content { max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 15px 25px; }
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(14, 14, 18, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--border-accent);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  padding: 12px 22px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.toolbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 15px 25px;
+  width: 100%;
+  box-sizing: border-box;
+}
 .toolbar-brand { display: flex; align-items: center; gap: 14px; }
 .ankh-symbol { font-size: 2.2rem; color: var(--crimson-bright); text-shadow: 0 0 10px var(--crimson-glow); line-height: 1; }
 .brand-text h1 { font-family: var(--font-header); font-size: 1.25rem; font-weight: 800; letter-spacing: 2px; color: var(--gold-bright); line-height: 1.1; text-transform: uppercase; }
 .edition-badge { font-family: var(--font-header); font-size: 0.76rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; }
 
 .toolbar-center { width: 340px; max-width: 100%; }
-.char-select-wrapper { display: flex; align-items: center; gap: 8px; background: var(--bg-input); border: 1.5px solid var(--border-accent); border-radius: var(--radius-sm); padding: 5px 12px; }
+.char-select-wrapper { display: flex; align-items: center; gap: 8px; background: var(--bg-input); border: 1.5px solid var(--border-accent); border-radius: var(--radius-sm); padding: 5px 12px; width: 100%; box-sizing: border-box; }
 .char-select-wrapper label { font-family: var(--font-header); font-size: 0.88rem; color: var(--gold-base); white-space: nowrap; font-weight: 700; display: flex; align-items: center; gap: 4px; }
-.char-dropdown { flex: 1; background: transparent; border: none; color: var(--text-primary); font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; outline: none; cursor: pointer; padding: 2px 0; }
+.char-dropdown { flex: 1; min-width: 0; background: transparent; border: none; color: var(--text-primary); font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; outline: none; cursor: pointer; padding: 2px 0; }
 .char-dropdown option { background: var(--bg-sheet); color: var(--text-primary); padding: 8px; }
 
 .toolbar-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; }
 .btn-group { display: flex; align-items: center; gap: 6px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 15px; font-family: var(--font-header); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s ease; outline: none; border: 1px solid transparent; white-space: nowrap; }
-.btn-icon { font-size: 1rem; }
+.main-char-actions { flex-shrink: 0; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 15px; font-family: var(--font-header); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s ease; outline: none; border: 1px solid transparent; white-space: nowrap; box-sizing: border-box; }
+.btn-icon { font-size: 1rem; line-height: 1; }
+.btn-text { white-space: nowrap; }
 .btn-primary { background: linear-gradient(180deg, #8b0000 0%, #5a0000 100%); color: #fff; border-color: #a81515; box-shadow: 0 2px 8px rgba(139, 0, 0, 0.4); }
 .btn-primary:hover { background: linear-gradient(180deg, #a30808 0%, #700000 100%); box-shadow: 0 0 12px var(--crimson-glow); transform: translateY(-1px); }
 .btn-secondary { background: #252430; color: var(--text-primary); border-color: var(--border-subtle); }
@@ -259,6 +282,39 @@ body::before {
 .btn-outline:hover { background: rgba(197, 160, 89, 0.1); color: var(--gold-bright); border-color: var(--gold-base); }
 .file-btn-label { margin-bottom: 0; cursor: pointer; }
 .hidden-input { display: none !important; }
+
+/* RESPONSIVIDADE DA TOOLBAR (NOVO, SALVAR, DUPLICAR, EXCLUIR) */
+@media (max-width: 1200px) {
+  .app-toolbar { padding: 8px 12px; }
+  .toolbar-content { justify-content: center; gap: 8px 14px; }
+  .btn { padding: 6px 10px; font-size: 0.78rem; gap: 4px; }
+}
+
+@media (max-width: 900px) {
+  .toolbar-brand { width: 100%; justify-content: center; text-align: center; }
+  .toolbar-center { width: 100%; max-width: 420px; }
+  .toolbar-actions { width: 100%; justify-content: center; gap: 6px; }
+  .main-char-actions { width: 100%; max-width: 480px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .main-char-actions .btn { width: 100%; padding: 7px 4px; font-size: 0.78rem; justify-content: center; text-align: center; }
+  .layout-group { width: 100%; justify-content: center; flex-wrap: wrap; gap: 4px; }
+  .layout-group .btn { padding: 5px 8px; font-size: 0.72rem; }
+}
+
+@media (max-width: 550px) {
+  .edition-badge { display: none; }
+  .ankh-symbol { font-size: 1.6rem; }
+  .brand-text h1 { font-size: 1rem; }
+  .app-toolbar { padding: 6px 8px; }
+  .main-char-actions { grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .main-char-actions .btn { padding: 6px 2px; font-size: 0.72rem; gap: 2px; }
+  .main-char-actions .btn .btn-icon { font-size: 0.85rem; }
+  .layout-group .btn { padding: 4px 6px; font-size: 0.68rem; }
+}
+
+@media (max-width: 380px) {
+  .main-char-actions .btn { font-size: 0.65rem; padding: 5px 1px; }
+  .main-char-actions .btn .btn-text { font-size: 0.65rem; }
+}
 
 /* SHEET VIEWPORT & CARDS */
 .sheet-viewport { max-width: 1360px; margin: 20px auto 90px auto; padding: 0 15px; display: flex; flex-direction: column; gap: 26px; position: relative; z-index: 2; }
