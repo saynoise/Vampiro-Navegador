@@ -66,11 +66,18 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 
 ---
 
-### 📜 5. Grimório Oficial de Rituais V20 (`grimorio-rituais.html`)
-- **Catálogo Oficial da White Wolf Wiki:** Rituais clássicos de **Taumaturgia Hermética** e **Necromancia** (Níveis 1 a 5) com componentes, tempos de conjuração, sistemas de dados e descrições detalhadas.
-- **Créditos & Links Diretos:** Cada card possui o link oficial para a respectiva página na **White Wolf Fandom Wiki**.
-- **Filtros por Nível & Escola:** Filtre instantaneamente por Nível (1 a 5) e por Tradição (*Taumaturgia* ou *Necromancia*).
-- **Botão "➕ Adicionar à Ficha":** Integração direta com a ficha do personagem ativo: adiciona o ritual pré-carregado diretamente à lista de rituais na Página 2!
+### 📜 5. Grimório Oficial de Rituais V20 (`compendios/grimorio-rituais.html`)
+- **Catálogo Abrangente de Magia de Sangue:** Mais de 45 rituais canônicos (Níveis 1 a 5) cobrindo todas as **7 Grandes Tradições Oficiais da White Wolf Wiki**:
+  - 🩸 **Taumaturgia Hermética** (*Clã Tremere*)
+  - 💀 **Necromancia** (*Clã Giovanni & Capadócios*)
+  - 🐍 **Akhu / Feitiçaria Setita** (*Seguidores de Set / Ministério*)
+  - ⚡ **Feitiçaria Anarquista** (*Hacktivista & Punk dos Anarquistas*)
+  - 🗡️ **Dur-An-Ki / Feitiçaria Assamita** (*Clã Banu Haqim*)
+  - 🌲 **Koldunismo / Feitiçaria Koldúnica** (*Clã Tzimisce*)
+  - 🕉️ **Sādhana / Feitiçaria Indiana** (*Clã Ravnos & Daityas*)
+- **Ficha Completa por Ritual:** Componentes materiais, tempos de conjuração, sistemas de paradas de dados, livros de referência e links diretos para a **White Wolf Fandom Wiki**.
+- **Filtros por Nível & Tradição:** Filtre instantaneamente por Nível (1 ao 5) e por qualquer uma das 7 tradições místicas.
+- **Botão "➕ Adicionar à Ficha":** Integração direta com o personagem ativo: adiciona o ritual pré-carregado diretamente à lista de rituais na Página 2 da ficha!
 - **Preservação de Rituais Customizados:** A ficha mantém 100% da flexibilidade para adicionar e editar rituais personalizados livremente pelo botão `＋`.
 
 ---
@@ -171,14 +178,24 @@ Este projeto é 100% estático e funciona diretamente no **GitHub Pages**:
 
 ```
 v20-character-sheet/
-├── index.html                  # Ficha principal, abas, modais, gavetas de histórico e wiki
-├── styles.css                  # Estilos góticos, tema escuro, variáveis CSS, animações e responsividade
-├── app.js                      # Lógica de regras V20, física dos cabos, Discord Webhook, dados e storage
-├── qualidades-defeitos.html    # Compêndio independente de Qualidades e Defeitos com filtros duplos
-├── qualidades-defeitos-data.js # Base de dados completa com mais de 130 qualidades/defeitos oficiais
-├── grimorio-rituais.html       # Grimório oficial de Rituais V20 com busca, filtros e adição à ficha
-├── grimorio-rituais-data.js    # Base de dados de Rituais com citações e links da White Wolf Wiki
-└── README.md                   # Documentação completa do projeto
+│
+├── index.html                  # ⭐ Ficha principal de personagem (raiz limpa)
+├── LICENSE                     # Licença MIT
+├── README.md                   # Documentação completa do projeto
+│
+├── css/                        # 🎨 Estilos e tematização gótica
+│   └── styles.css              # Variáveis CSS, layout responsivo e animações
+│
+├── js/                         # ⚙️ Scripts e lógica principal
+│   └── app.js                  # Regras V20, física dos cabos, Discord Webhook e storage
+│
+├── compendios/                 # 📚 Enciclopédias e páginas auxiliares
+│   ├── qualidades-defeitos.html # Compêndio de Qualidades & Defeitos com filtros duplos
+│   └── grimorio-rituais.html   # Grimório Oficial de Rituais V20 (Taumaturgia & Necromancia)
+│
+└── data/                       # 🗄️ Bases de dados oficiais
+    ├── qualidades-defeitos-data.js # Base com mais de 130 qualidades/defeitos catalogados
+    └── grimorio-rituais-data.js    # Catálogo de rituais com links oficiais da White Wolf Wiki
 ```
 
 ---

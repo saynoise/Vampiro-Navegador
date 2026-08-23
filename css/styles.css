@@ -603,13 +603,49 @@ body::before {
 }
 
 /* RITUAIS NA PÁGINA 2 */
-.section-hint-text { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 10px; }
-.dynamic-rituals-list { display: flex; flex-direction: column; gap: 10px; min-height: 90px; }
-.ritual-card-item { background: var(--bg-card-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.section-hint-text { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 10px; flex-shrink: 0; }
+.dynamic-rituals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 90px;
+  max-height: 480px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+  padding-bottom: 4px;
+  flex: 1 1 auto;
+}
+.draggable-card[data-window-id="win-rituals"] {
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+}
+.draggable-card[data-window-id="win-rituals"] .dynamic-rituals-list {
+  flex: 1 1 auto;
+  min-height: 60px;
+}
+.draggable-card[data-window-id="win-paths"] {
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+}
+.draggable-card[data-window-id="win-paths"] .dynamic-trait-list {
+  flex: 1 1 auto;
+  min-height: 60px;
+  max-height: 480px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.draggable-card[style*="height"] .dynamic-rituals-list,
+.draggable-card[style*="height"] .dynamic-trait-list {
+  max-height: 100%;
+}
+.ritual-card-item { background: var(--bg-card-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
 .ritual-header-row { display: flex; align-items: center; gap: 10px; }
 .ritual-level-badge { font-family: var(--font-header); font-size: 0.82rem; font-weight: bold; background: #331515; color: #ff8888; border: 1px solid #662222; padding: 2px 8px; border-radius: 3px; white-space: nowrap; }
 .ritual-name-input { flex: 1; background: transparent; border: none; border-bottom: 1px dotted var(--border-accent); color: var(--gold-bright); font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; outline: none; padding: 2px 4px; }
-.ritual-desc-textarea { width: 100%; background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 3px; color: var(--text-primary); font-family: var(--font-body); font-size: 0.95rem; padding: 6px 8px; outline: none; resize: vertical; }
+.ritual-desc-textarea { width: 100%; background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 3px; color: var(--text-primary); font-family: var(--font-body); font-size: 0.95rem; padding: 6px 8px; outline: none; resize: vertical; box-sizing: border-box; }
 
 /* STATUS & HEALTH CARDS */
 .status-card {

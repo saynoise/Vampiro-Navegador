@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../css/styles.css">
   <style>
     .grimorio-nav-bar {
       position: sticky;
@@ -153,6 +153,21 @@
     .ritual-card.tradition-necromancia {
       border-top: 3px solid #8b5cf6;
     }
+    .ritual-card.tradition-akhu {
+      border-top: 3px solid #f59e0b;
+    }
+    .ritual-card.tradition-anarquista {
+      border-top: 3px solid #06b6d4;
+    }
+    .ritual-card.tradition-duranki {
+      border-top: 3px solid #d97706;
+    }
+    .ritual-card.tradition-koldunismo {
+      border-top: 3px solid #10b981;
+    }
+    .ritual-card.tradition-sadhana {
+      border-top: 3px solid #ec4899;
+    }
     .ritual-card-top {
       display: flex;
       justify-content: space-between;
@@ -293,7 +308,7 @@
 
   <!-- BARRA DE NAVEGAÇÃO -->
   <nav class="grimorio-nav-bar">
-    <a href="index.html" class="grimorio-brand" title="Voltar à Ficha de Personagem">
+    <a href="../index.html" class="grimorio-brand" title="Voltar à Ficha de Personagem">
       <span class="ankh-symbol">☥</span>
       <div class="brand-text">
         <h1 style="font-size: 1.1rem; margin: 0;">VAMPIRO: A MÁSCARA</h1>
@@ -307,7 +322,7 @@
     </div>
 
     <div>
-      <a href="index.html" class="btn btn-primary" title="Voltar para a ficha">
+      <a href="../index.html" class="btn btn-primary" title="Voltar para a ficha">
         <span class="btn-icon">⬅</span> Voltar à Ficha
       </a>
     </div>
@@ -321,14 +336,14 @@
         <div class="ornament-center">
           <span class="gothic-ankh">📜</span>
           <h2>GRIMÓRIO DE RITUAIS V20</h2>
-          <span class="sheet-subtitle">CATÁLOGO OFICIAL DA WHITE WOLF WIKI (TAUMATURGIA & NECROMANCIA)</span>
+          <span class="sheet-subtitle">CATÁLOGO OFICIAL COMPLETO DA WHITE WOLF WIKI (476 RITUAIS • 7 TRADIÇÕES)</span>
         </div>
         <div class="ornament-line"></div>
       </div>
 
       <!-- FILTROS POR NÍVEL E ESCOLA -->
       <div class="grimorio-filter-section">
-        <!-- LINHA 1: NÍVEL DO RITUAL (1 A 5) -->
+        <!-- LINHA 1: NÍVEL DO RITUAL (1 A 9) -->
         <div class="grimorio-filter-group" id="filter-level-group">
           <span class="grimorio-filter-label">🔮 Nível:</span>
           <button type="button" class="grimorio-pill active" data-level="all">Todos os Níveis (<span id="count-all">0</span>)</button>
@@ -337,20 +352,34 @@
           <button type="button" class="grimorio-pill" data-level="3">Nível 3</button>
           <button type="button" class="grimorio-pill" data-level="4">Nível 4</button>
           <button type="button" class="grimorio-pill" data-level="5">Nível 5</button>
+          <button type="button" class="grimorio-pill" data-level="6">Nível 6</button>
+          <button type="button" class="grimorio-pill" data-level="7">Nível 7</button>
+          <button type="button" class="grimorio-pill" data-level="8">Nível 8</button>
+          <button type="button" class="grimorio-pill" data-level="9">Nível 9</button>
         </div>
 
         <!-- LINHA 2: TRADIÇÃO / ESCOLA -->
         <div class="grimorio-filter-group" id="filter-tradition-group">
-          <span class="grimorio-filter-label">🩸 Escola:</span>
-          <button type="button" class="grimorio-pill active" data-tradition="all">Todas as Escolas</button>
+          <span class="grimorio-filter-label">🩸 Tradição:</span>
+          <button type="button" class="grimorio-pill active" data-tradition="all">Todas as Tradições</button>
           <button type="button" class="grimorio-pill" data-tradition="taumaturgia">🩸 Taumaturgia Hermética</button>
           <button type="button" class="grimorio-pill" data-tradition="necromancia">💀 Necromancia</button>
+          <button type="button" class="grimorio-pill" data-tradition="akhu">🐍 Akhu (Setitas)</button>
+          <button type="button" class="grimorio-pill" data-tradition="anarquista">⚡ Anarquista (Punk/Hacker)</button>
+          <button type="button" class="grimorio-pill" data-tradition="duranki">🗡️ Dur-An-Ki (Assamitas)</button>
+          <button type="button" class="grimorio-pill" data-tradition="koldunismo">🌲 Koldunismo (Tzimisce)</button>
+          <button type="button" class="grimorio-pill" data-tradition="sadhana">🕉️ Sādhana (Indiana)</button>
         </div>
       </div>
 
       <div class="grimorio-stats-bar">
         <span id="results-count-display">Exibindo todos os rituais</span>
-        <span style="font-size: 0.8rem; font-style: italic;">Clique em "➕ Adicionar à Ficha" para incluir no seu Grimório pessoal</span>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <span style="font-size: 0.82rem; color: var(--gold-base); font-family: var(--font-header);">👤 Destino do Ritual:</span>
+          <select id="active-char-selector" style="background: #14111c; color: var(--gold-bright); border: 1px solid var(--gold-dark); padding: 4px 12px; border-radius: 4px; font-size: 0.84rem; font-family: var(--font-body); cursor: pointer; outline: none;">
+            <option value="">Carregando personagens...</option>
+          </select>
+        </div>
       </div>
 
       <!-- GRID DE CARDS -->
@@ -361,22 +390,64 @@
     </div>
   </div>
 
-  <script src="grimorio-rituais-data.js"></script>
+  <script src="../data/grimorio-rituais-data.js"></script>
   <script>
     const grid = document.getElementById('ritual-cards-grid');
     const searchInput = document.getElementById('ritual-search-input');
     const levelPills = document.querySelectorAll('#filter-level-group .grimorio-pill');
     const traditionPills = document.querySelectorAll('#filter-tradition-group .grimorio-pill');
     const resultsCountDisplay = document.getElementById('results-count-display');
+    const charSelector = document.getElementById('active-char-selector');
 
-    let currentLevel = 'all';         // 'all', '1', '2', '3', '4', '5'
-    let currentTradition = 'all';     // 'all', 'taumaturgia', 'necromancia'
+    let currentLevel = 'all';
+    let currentTradition = 'all';
     let searchQuery = '';
 
     document.getElementById('count-all').textContent = RITUALS_DATA.length;
 
     const STORAGE_KEY = 'v20_character_sheets_db';
     const ACTIVE_CHAR_KEY = 'v20_active_char_id';
+
+    // Carrega e preenche o seletor de personagens da ficha
+    function initCharacterSelector() {
+      try {
+        const storageRaw = localStorage.getItem(STORAGE_KEY);
+        if (!storageRaw) {
+          charSelector.innerHTML = '<option value="">Abra a ficha primeiro para sincronizar</option>';
+          return;
+        }
+
+        const characters = JSON.parse(storageRaw);
+        if (!Array.isArray(characters) || characters.length === 0) {
+          charSelector.innerHTML = '<option value="">Nenhum personagem cadastrado</option>';
+          return;
+        }
+
+        const activeId = localStorage.getItem(ACTIVE_CHAR_KEY) || characters[0].id;
+        charSelector.innerHTML = '';
+
+        characters.forEach(char => {
+          const opt = document.createElement('option');
+          opt.value = char.id;
+          const charName = (char.header && char.header.name && char.header.name.trim()) || (char.name && char.name.trim()) || 'Personagem Sem Nome';
+          const charClan = (char.header && char.header.clan && char.header.clan.trim()) || (char.clan && char.clan.trim()) ? ` (${(char.header && char.header.clan) || char.clan})` : '';
+          opt.textContent = `${charName}${charClan}`;
+          if (char.id === activeId) opt.selected = true;
+          charSelector.appendChild(opt);
+        });
+
+        // Ao trocar de personagem no dropdown, atualiza também a preferência no localStorage
+        charSelector.addEventListener('change', (e) => {
+          if (e.target.value) {
+            localStorage.setItem(ACTIVE_CHAR_KEY, e.target.value);
+          }
+        });
+
+      } catch (err) {
+        console.error('Erro ao carregar personagens:', err);
+        charSelector.innerHTML = '<option value="">Erro ao ler localStorage</option>';
+      }
+    }
 
     // Função para adicionar ritual diretamente à ficha salva no localStorage
     function addRitualToActiveSheet(ritual, btnEl) {
@@ -388,20 +459,20 @@
         }
 
         const characters = JSON.parse(storageRaw);
-        const activeId = localStorage.getItem(ACTIVE_CHAR_KEY);
-        const char = characters.find(c => c.id === activeId) || characters[0];
+        const targetCharId = charSelector.value || localStorage.getItem(ACTIVE_CHAR_KEY) || (characters[0] && characters[0].id);
+        const char = characters.find(c => c.id === targetCharId) || characters[0];
 
         if (!char) {
-          alert('Nenhum personagem ativo encontrado na ficha!');
+          alert('Nenhum personagem selecionado para receber o ritual!');
           return;
         }
 
         if (!Array.isArray(char.rituals_list)) char.rituals_list = [];
 
-        // Verifica se o ritual já está na lista
-        const alreadyExists = char.rituals_list.some(r => r.name.toLowerCase() === ritual.name.toLowerCase());
+        // Verifica se o ritual já está na lista do personagem selecionado
+        const alreadyExists = char.rituals_list.some(r => (r.name || '').toLowerCase().trim() === (ritual.name || '').toLowerCase().trim());
         if (alreadyExists) {
-          btnEl.textContent = '✓ Já Adicionado!';
+          btnEl.textContent = '✓ Já na Ficha!';
           btnEl.style.color = '#ffcc00';
           setTimeout(() => {
             btnEl.textContent = '➕ Adicionar à Ficha';
@@ -410,17 +481,22 @@
           return;
         }
 
+        // Formata descrição com ingredientes e link da wiki
+        const compText = ritual.components ? `\n\n[Ingredientes]: ${ritual.components}` : '';
+        const descFormatted = `${ritual.desc}${compText}\n\n[Wiki]: ${ritual.wikiUrl}`;
+
         // Adiciona à lista do personagem
         char.rituals_list.push({
           id: 'v20_rit_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 6),
           level: ritual.level,
           name: ritual.name,
-          description: `${ritual.desc}\n\n[Sistema]: ${ritual.system}\n[Componentes]: ${ritual.components}\n[Fonte]: ${ritual.book}`
+          description: descFormatted
         });
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(characters));
 
-        btnEl.textContent = '✓ Adicionado à Ficha!';
+        const charName = (char.header && char.header.name && char.header.name.trim()) || (char.name && char.name.trim()) || 'sua Ficha';
+        btnEl.textContent = `✓ Adicionado à ${charName}!`;
         btnEl.style.color = '#55ff55';
         setTimeout(() => {
           btnEl.textContent = '➕ Adicionar à Ficha';
@@ -432,6 +508,16 @@
         alert('Não foi possível salvar diretamente na ficha. Use o botão Copiar.');
       }
     }
+
+    const SCHOOL_NAMES = {
+      taumaturgia: '🩸 Taumaturgia Hermética (Tremere)',
+      necromancia: '💀 Necromancia (Giovanni / Capadócios)',
+      akhu: '🐍 Akhu (Seguidores de Set)',
+      anarquista: '⚡ Feitiçaria Anarquista (Punk / Hacktivista)',
+      duranki: '🗡️ Dur-An-Ki (Banu Haqim / Assamitas)',
+      koldunismo: '🌲 Koldunismo (Tzimisce)',
+      sadhana: '🕉️ Sādhana (Ravnos / Daityas)'
+    };
 
     function renderCards() {
       grid.innerHTML = '';
@@ -454,7 +540,7 @@
       });
 
       let levelText = currentLevel === 'all' ? '' : ` • Nível ${currentLevel}`;
-      let tradText = currentTradition === 'all' ? 'Todos os Rituais' : (currentTradition === 'taumaturgia' ? 'Taumaturgia' : 'Necromancia');
+      let tradText = currentTradition === 'all' ? 'Todas as Tradições' : (SCHOOL_NAMES[currentTradition] || currentTradition);
       resultsCountDisplay.textContent = `Exibindo ${filtered.length} de ${RITUALS_DATA.length} rituais • ${tradText}${levelText}`;
 
       if (filtered.length === 0) {
@@ -466,7 +552,12 @@
         const card = document.createElement('div');
         card.className = `ritual-card tradition-${item.tradition}`;
 
-        const schoolName = item.tradition === 'taumaturgia' ? 'Taumaturgia Hermética' : 'Necromancia';
+        const schoolName = SCHOOL_NAMES[item.tradition] || item.tradition;
+
+        const componentsHtml = item.components ? `
+          <div class="ritual-meta-box">
+            <div class="ritual-meta-row"><strong>🌿 Ingredientes:</strong> ${item.components}</div>
+          </div>` : '';
 
         card.innerHTML = `
           <div class="ritual-card-top">
@@ -478,16 +569,9 @@
             <span class="ritual-level-tag">Nível ${item.level}</span>
           </div>
 
-          <div class="ritual-meta-box">
-            <div class="ritual-meta-row"><strong>⏳ Tempo:</strong> ${item.castTime}</div>
-            <div class="ritual-meta-row"><strong>🌿 Componentes:</strong> ${item.components}</div>
-          </div>
+          ${componentsHtml}
 
           <p class="ritual-desc">${item.desc}</p>
-
-          <div class="ritual-system-box">
-            <strong>🎲 Sistema:</strong> ${item.system}
-          </div>
 
           <div class="ritual-card-footer">
             <a href="${item.wikiUrl}" target="_blank" rel="noopener noreferrer" class="ritual-wiki-link" title="Consultar artigo oficial na White Wolf Wiki">
@@ -503,7 +587,8 @@
 
         const copyBtn = card.querySelector('.btn-copy-ritual');
         copyBtn.addEventListener('click', () => {
-          const textToCopy = `${item.name} (${item.nameEn}) - Nível ${item.level} [${schoolName}]:\n${item.desc}\n[Sistema]: ${item.system}\n[Componentes]: ${item.components}\n[Fonte]: ${item.book} (${item.wikiUrl})`;
+          const compText = item.components ? `\n[Ingredientes]: ${item.components}` : '';
+          const textToCopy = `${item.name} (${item.nameEn}) - Nível ${item.level} [${schoolName}]:\n${item.desc}${compText}\n[Fonte Wiki]: ${item.wikiUrl}`;
           navigator.clipboard.writeText(textToCopy).then(() => {
             copyBtn.textContent = '✓ Copiado!';
             copyBtn.style.color = '#55ff55';
@@ -546,7 +631,8 @@
       });
     });
 
-    // Render inicial
+    // Inicialização
+    initCharacterSelector();
     renderCards();
   </script>
 </body>
