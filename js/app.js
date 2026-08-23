@@ -592,6 +592,14 @@ const AppState = {
           }
         }
       });
+
+      // Garante a reconexão imediata do activeCharacter à instância correspondente na lista
+      if (this.characters.length > 0) {
+        const targetId = (this.activeCharacter && this.activeCharacter.id) || localStorage.getItem(ACTIVE_CHAR_KEY);
+        const found = this.characters.find(c => c.id === targetId);
+        this.activeCharacter = found || this.characters[0];
+        syncBloodPoolWithGeneration(this.activeCharacter);
+      }
     } catch (e) {
       console.error('Erro ao ler do LocalStorage:', e);
       this.characters = [];
@@ -600,12 +608,26 @@ const AppState = {
 
   saveToStorage() {
     try {
+      // Sincroniza o activeCharacter na lista de personagens antes de serializar
+      if (this.activeCharacter && Array.isArray(this.characters)) {
+        const idx = this.characters.findIndex(c => c.id === this.activeCharacter.id);
+        if (idx !== -1) {
+          this.characters[idx] = this.activeCharacter;
+        } else {
+          this.characters.push(this.activeCharacter);
+        }
+      }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.characters));
       if (this.activeCharacter) {
         localStorage.setItem(ACTIVE_CHAR_KEY, this.activeCharacter.id);
       }
     } catch (e) {
       console.error('Erro ao salvar no LocalStorage:', e);
+      if (e.name === 'QuotaExceededError' || e.code === 22) {
+        showToast('⚠️ Limite de armazenamento do navegador atingido! Remova ou reduza fotos grandes.', 'danger');
+      } else {
+        showToast('⚠️ Falha ao salvar no armazenamento local.', 'danger');
+      }
     }
   },
 
@@ -965,6 +987,46 @@ const DraggableWindowManager = {
     });
   }
 };
+
+function compressImage(file, maxWidth = 400, maxHeight = 400, quality = 0.85) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(compressedDataUrl);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
 function dataURItoBlob(dataURI) {
   try {
@@ -3016,7 +3078,7 @@ function setupEventListeners() {
   const btnAvatarRemove = document.getElementById('btn-avatar-remove');
 
   if (avatarInput) {
-    avatarInput.addEventListener('change', (e) => {
+    avatarInput.addEventListener('change', async (e) => {
       const file = e.target.files[0];
       if (!file) return;
 
@@ -3025,11 +3087,13 @@ function setupEventListeners() {
         return;
       }
 
-      const reader = new FileReader();
-      reader.onload = async (event) => {
+      try {
+        // Reduz a imagem automaticamente para ~30KB antes de salvar no armazenamento
+        const compressedBase64 = await compressImage(file, 400, 400, 0.85);
+
         if (AppState.activeCharacter) {
           if (!AppState.activeCharacter.header) AppState.activeCharacter.header = {};
-          AppState.activeCharacter.header.avatar = event.target.result;
+          AppState.activeCharacter.header.avatar = compressedBase64;
           AppState.activeCharacter.header.avatarUrl = '';
           AppState.saveToStorage();
           UIRenderer.renderAvatar(AppState.activeCharacter);
@@ -3042,9 +3106,12 @@ function setupEventListeners() {
             AppState.saveToStorage();
           }
         }
-      };
-      reader.readAsDataURL(file);
-      e.target.value = '';
+      } catch (err) {
+        console.error('Erro ao processar imagem de avatar:', err);
+        showToast('Erro ao processar imagem de perfil.', 'danger');
+      } finally {
+        e.target.value = '';
+      }
     });
   }
 
@@ -3330,10 +3397,19 @@ function setupEventListeners() {
   });
 
   window.addEventListener('focus', () => {
-    AppState.loadFromStorage();
-    const cur = AppState.activeCharacter;
-    if (cur) {
-      UIRenderer.renderDynamicRituals(cur);
+    // Sincroniza apenas os rituais caso tenham sido adicionados pelo Grimório em outra aba
+    const rawData = localStorage.getItem(STORAGE_KEY);
+    if (rawData && AppState.activeCharacter) {
+      try {
+        const storedChars = JSON.parse(rawData);
+        const storedCur = storedChars.find(c => c.id === AppState.activeCharacter.id);
+        if (storedCur && Array.isArray(storedCur.rituals_list)) {
+          AppState.activeCharacter.rituals_list = storedCur.rituals_list;
+          UIRenderer.renderDynamicRituals(AppState.activeCharacter);
+        }
+      } catch (err) {
+        console.error('Erro ao sincronizar rituais no foco:', err);
+      }
     }
   });
 }
