@@ -3217,6 +3217,25 @@ function setupEventListeners() {
 
   window.addEventListener('scroll', () => LinkCableSystem.updateWebLines(), { passive: true });
   window.addEventListener('resize', () => LinkCableSystem.updateWebLines());
+
+  // Sincronização em tempo real quando rituais forem adicionados via Grimório em outra aba
+  window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) {
+      AppState.loadFromStorage();
+      const cur = AppState.activeCharacter;
+      if (cur) {
+        UIRenderer.renderDynamicRituals(cur);
+      }
+    }
+  });
+
+  window.addEventListener('focus', () => {
+    AppState.loadFromStorage();
+    const cur = AppState.activeCharacter;
+    if (cur) {
+      UIRenderer.renderDynamicRituals(cur);
+    }
+  });
 }
 
 function exportCharacterToJson() {

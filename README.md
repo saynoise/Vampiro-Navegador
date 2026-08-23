@@ -66,7 +66,16 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 
 ---
 
-### 📖 5. Painel Lateral de Ajuda & Wiki V20 (`𝖂 Wiki`)
+### 📜 5. Grimório Oficial de Rituais V20 (`grimorio-rituais.html`)
+- **Catálogo Oficial da White Wolf Wiki:** Rituais clássicos de **Taumaturgia Hermética** e **Necromancia** (Níveis 1 a 5) com componentes, tempos de conjuração, sistemas de dados e descrições detalhadas.
+- **Créditos & Links Diretos:** Cada card possui o link oficial para a respectiva página na **White Wolf Fandom Wiki**.
+- **Filtros por Nível & Escola:** Filtre instantaneamente por Nível (1 a 5) e por Tradição (*Taumaturgia* ou *Necromancia*).
+- **Botão "➕ Adicionar à Ficha":** Integração direta com a ficha do personagem ativo: adiciona o ritual pré-carregado diretamente à lista de rituais na Página 2!
+- **Preservação de Rituais Customizados:** A ficha mantém 100% da flexibilidade para adicionar e editar rituais personalizados livremente pelo botão `＋`.
+
+---
+
+### 📖 6. Painel Lateral de Ajuda & Wiki V20 (`𝖂 Wiki`)
 - **Botão Flutuante Espelhado à Esquerda:** Aba gótica fixa na lateral esquerda com o símbolo **`𝖂`** e efeito hover luminoso.
 - **Drawer Deslizante com Busca Rápida:**
   - Campo de pesquisa em tempo real para localizar regras e lore rapidamente.
@@ -75,7 +84,7 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 
 ---
 
-### 🎲 6. Rolador de Dados V20 Avançado
+### 🎲 7. Rolador de Dados V20 Avançado
 - **Regras Oficiais do Sistema Storyteller:**
   - **Sucessos:** Dados iguais ou maiores que a Dificuldade selecionada (Dif padrão 6).
   - **Críticos (10s):** Contabilizam **2 sucessos** e recebem destaque neon **Ciano**.
@@ -85,7 +94,7 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 
 ---
 
-### 💬 7. Integração com Discord Webhook (Por Personagem)
+### 💬 8. Integração com Discord Webhook (Por Personagem)
 - **Envio Automático:** Envia os resultados das rolagens diretamente para o canal de texto do Discord do seu grupo.
 - **Embeds Góticos Ricos:**
   - Exibe nome do personagem, clã, nome do jogador, foto/avatar do personagem, traços usados e resultado detalhado.
@@ -96,7 +105,7 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 
 ---
 
-### 𝕮 8. Gaveta de Histórico de Rolagens (*Slide-Out Drawer*)
+### 𝕮 9. Gaveta de Histórico de Rolagens (*Slide-Out Drawer*)
 - **Botão Flutuante Gótico à Direita:** Aba fixa na lateral direita com o símbolo **`𝕮`** e contador numérico em tempo real.
 - **Painel Lateral Deslizante:**
   - Visualização cronológica organizada (mais antigas no topo, mais recentes no fundo com auto-scroll).
@@ -105,7 +114,7 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 
 ---
 
-### 🎨 9. Customizador de Temas & Cores (Por Personagem)
+### 🎨 10. Customizador de Temas & Cores (Por Personagem)
 - **Presets Rápidos:**
   - 🩸 *Vermelho (Carmesim)*
   - 🌿 *Verde (Esmeralda)*
@@ -116,7 +125,7 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 
 ---
 
-### 👥 10. Gerenciador Multi-Fichas & Responsividade
+### 👥 11. Gerenciador Multi-Fichas & Responsividade
 - **Barra Superior Responsiva & Centralizada:** Menu de navegação harmonioso que se adapta automaticamente a telas menores, dividindo botões de ação em blocos simétricos.
 - **Múltiplos Personagens:** Crie, clone e alterne rapidamente entre personagens no menu superior.
 - **Importação/Exportação JSON:** Salve suas fichas em arquivos `.json` locais e compartilhe com seu Narrador ou amigos.
@@ -167,6 +176,8 @@ v20-character-sheet/
 ├── app.js                      # Lógica de regras V20, física dos cabos, Discord Webhook, dados e storage
 ├── qualidades-defeitos.html    # Compêndio independente de Qualidades e Defeitos com filtros duplos
 ├── qualidades-defeitos-data.js # Base de dados completa com mais de 130 qualidades/defeitos oficiais
+├── grimorio-rituais.html       # Grimório oficial de Rituais V20 com busca, filtros e adição à ficha
+├── grimorio-rituais-data.js    # Base de dados de Rituais com citações e links da White Wolf Wiki
 └── README.md                   # Documentação completa do projeto
 ```
 
