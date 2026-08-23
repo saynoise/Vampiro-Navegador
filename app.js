@@ -764,10 +764,11 @@ const DraggableWindowManager = {
 
       // 1. ARRASTE COM ÍMÃ (MAGNETIC DRAG)
       dragHandle.addEventListener('pointerdown', (e) => {
-        const tag = e.target.tagName.toLowerCase();
-        if (tag === 'input' || tag === 'select' || tag === 'button' || tag === 'textarea' || 
-            e.target.classList.contains('dot') || e.target.classList.contains('trait-link-node') || 
-            e.target.classList.contains('btn-add-trait') || e.target.classList.contains('card-resize-handle')) {
+        if (e.target.closest('a') || e.target.closest('button') || e.target.closest('input') || 
+            e.target.closest('select') || e.target.closest('textarea') || e.target.closest('.card-badge-link') || 
+            e.target.closest('.dot') || e.target.closest('.trait-link-node') || 
+            e.target.closest('.btn-add-trait') || e.target.closest('.btn-remove-trait') || 
+            e.target.closest('.card-resize-handle')) {
           return;
         }
 

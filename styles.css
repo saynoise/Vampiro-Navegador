@@ -732,6 +732,10 @@ input[type="number"] {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 .card-badge-link:hover {

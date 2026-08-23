@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qualidades & Defeitos • Vampiro: A Máscara (V20)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .mf-page-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .mf-nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14, 14, 18, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--border-accent);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .mf-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .mf-search-box {
+      flex: 1;
+      max-width: 460px;
+      position: relative;
+    }
+    .mf-search-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1.5px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      padding: 8px 14px 8px 36px;
+      outline: none;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+    .mf-search-input:focus {
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+    .mf-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .mf-filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin: 18px 0 26px 0;
+    }
+    .mf-pill {
+      background: #1c1824;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-family: var(--font-header);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .mf-pill:hover {
+      color: var(--gold-bright);
+      border-color: var(--gold-base);
+      background: #272333;
+    }
+    .mf-pill.active {
+      background: linear-gradient(180deg, #701111 0%, #400808 100%);
+      color: #ffffff;
+      border-color: var(--crimson-bright);
+      box-shadow: 0 0 10px var(--crimson-glow);
+    }
+    .mf-stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .mf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .mf-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .mf-card:hover {
+      border-color: var(--gold-base);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), 0 0 8px rgba(197, 160, 89, 0.2);
+      transform: translateY(-2px);
+    }
+    .mf-card.type-qualidade {
+      border-top: 3px solid #22c55e;
+    }
+    .mf-card.type-defeito {
+      border-top: 3px solid #ef4444;
+    }
+    .mf-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .mf-card-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .mf-card-title {
+      font-family: var(--font-header);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      line-height: 1.2;
+    }
+    .mf-card-category-tag {
+      font-size: 0.74rem;
+      font-family: var(--font-header);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .mf-card-points {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: var(--font-header);
+      font-size: 0.85rem;
+      font-weight: 800;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .mf-card.type-qualidade .mf-card-points {
+      background: #0f2915;
+      color: #4ade80;
+      border: 1px solid #1e5a2b;
+    }
+    .mf-card.type-defeito .mf-card-points {
+      background: #2d1214;
+      color: #f87171;
+      border: 1px solid #632020;
+    }
+    .mf-card-desc {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      line-height: 1.45;
+      flex: 1;
+    }
+    .mf-card-source {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-style: italic;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-copy-mf {
+      background: transparent;
+      color: var(--gold-base);
+      border: 1px solid var(--border-accent);
+      border-radius: 3px;
+      padding: 2px 6px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-copy-mf:hover {
+      background: var(--gold-base);
+      color: #000;
+    }
+    .mf-no-results {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      grid-column: 1 / -1;
+    }
+    @media (max-width: 600px) {
+      .mf-grid { grid-template-columns: 1fr; }
+      .mf-nav-bar { flex-direction: column; align-items: stretch; }
+      .mf-search-box { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DE NAVEGAÇÃO -->
+  <nav class="mf-nav-bar">
+    <a href="index.html" class="mf-brand" title="Voltar à Ficha de Personagem">
+      <span class="ankh-symbol">☥</span>
+      <div class="brand-text">
+        <h1 style="font-size: 1.1rem; margin: 0;">VAMPIRO: A MÁSCARA</h1>
+        <span class="edition-badge">Compêndio de Qualidades & Defeitos</span>
+      </div>
+    </a>
+
+    <div class="mf-search-box">
+      <span class="mf-search-icon">🔍</span>
+      <input type="text" id="mf-search-input" class="mf-search-input" placeholder="Pesquisar por nome, pontos, livro ou descrição..." aria-label="Pesquisar qualidades e defeitos">
+    </div>
+
+    <div>
+      <a href="index.html" class="btn btn-primary" title="Voltar para a ficha">
+        <span class="btn-icon">⬅</span> Voltar à Ficha
+      </a>
+    </div>
+  </nav>
+
+  <div class="sheet-viewport" style="margin-top: 24px;">
+    <div class="sheet-card" style="padding: 28px;">
+
+      <div class="gothic-header-ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-center">
+          <span class="gothic-ankh">🎭</span>
+          <h2>QUALIDADES & DEFEITOS</h2>
+          <span class="sheet-subtitle">GUIA COMPLETO DE CARACTERÍSTICAS EXPANDIDAS (V20 / 3ª EDIÇÃO)</span>
+        </div>
+        <div class="ornament-line"></div>
+      </div>
+
+      <!-- FILTROS POR TIPO E CATEGORIA -->
+      <div class="mf-filter-pills" id="filter-pills-container">
+        <button type="button" class="mf-pill active" data-filter="all">Todos (<span id="count-all">0</span>)</button>
+        <button type="button" class="mf-pill" data-filter="qualidade">✨ Apenas Qualidades (<span id="count-qualidades">0</span>)</button>
+        <button type="button" class="mf-pill" data-filter="defeito">💀 Apenas Defeitos (<span id="count-defeitos">0</span>)</button>
+        <button type="button" class="mf-pill" data-filter="fisica">🩸 Físicas</button>
+        <button type="button" class="mf-pill" data-filter="mental">🧠 Mentais</button>
+        <button type="button" class="mf-pill" data-filter="social">🏛️ Sociais</button>
+        <button type="button" class="mf-pill" data-filter="sobrenatural">🔮 Sobrenaturais</button>
+      </div>
+
+      <div class="mf-stats-bar">
+        <span id="results-count-display">Exibindo todas as características</span>
+        <span style="font-size: 0.8rem; font-style: italic;">Clique em "Copiar" para colar na sua ficha</span>
+      </div>
+
+      <!-- GRID DE CARDS -->
+      <div class="mf-grid" id="mf-cards-grid">
+        <!-- Itens inseridos dinamicamente pelo JavaScript com base no texto completo fornecido -->
+      </div>
+
+    </div>
+  </div>
+
+  <script src="qualidades-defeitos-data.js"></script>
+  <script>
+    // Inicialização e renderização dinâmica
+    const grid = document.getElementById('mf-cards-grid');
+    const searchInput = document.getElementById('mf-search-input');
+    const pills = document.querySelectorAll('.mf-pill');
+    const resultsCountDisplay = document.getElementById('results-count-display');
+
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    // Contadores
+    document.getElementById('count-all').textContent = MERITS_FLAWS_DATA.length;
+    document.getElementById('count-qualidades').textContent = MERITS_FLAWS_DATA.filter(i => i.type === 'qualidade').length;
+    document.getElementById('count-defeitos').textContent = MERITS_FLAWS_DATA.filter(i => i.type === 'defeito').length;
+
+    function renderCards() {
+      grid.innerHTML = '';
+      const q = searchQuery.toLowerCase().trim();
+
+      const filtered = MERITS_FLAWS_DATA.filter(item => {
+        // Filtro por categoria / tipo
+        if (currentFilter === 'qualidade' && item.type !== 'qualidade') return false;
+        if (currentFilter === 'defeito' && item.type !== 'defeito') return false;
+        if (currentFilter === 'fisica' && item.category !== 'fisica') return false;
+        if (currentFilter === 'mental' && item.category !== 'mental') return false;
+        if (currentFilter === 'social' && item.category !== 'social') return false;
+        if (currentFilter === 'sobrenatural' && item.category !== 'sobrenatural') return false;
+
+        // Filtro por texto
+        if (q) {
+          const matchText = `${item.name} ${item.points} ${item.category} ${item.type} ${item.desc} ${item.source}`.toLowerCase();
+          if (!matchText.includes(q)) return false;
+        }
+
+        return true;
+      });
+
+      resultsCountDisplay.textContent = `Exibindo ${filtered.length} de ${MERITS_FLAWS_DATA.length} características`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="mf-no-results">Nenhuma qualidade ou defeito encontrado para "<strong>${searchQuery}</strong>".</div>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `mf-card type-${item.type}`;
+
+        const categoryLabel = {
+          fisica: 'Física',
+          mental: 'Mental',
+          social: 'Social',
+          sobrenatural: 'Sobrenatural'
+        }[item.category] || item.category;
+
+        const typeLabel = item.type === 'qualidade' ? 'Qualidade' : 'Defeito';
+        const pointsBadge = item.type === 'qualidade' ? `+${item.points}` : `-${item.points}`;
+
+        card.innerHTML = `
+          <div class="mf-card-top">
+            <div class="mf-card-title-group">
+              <span class="mf-card-category-tag">${typeLabel} • ${categoryLabel}</span>
+              <h3 class="mf-card-title">${item.name}</h3>
+            </div>
+            <span class="mf-card-points">${pointsBadge}</span>
+          </div>
+          <p class="mf-card-desc">${item.desc}</p>
+          <div class="mf-card-source">
+            <span>📖 ${item.source}</span>
+            <button type="button" class="btn-copy-mf" title="Copiar para a área de transferência">📋 Copiar</button>
+          </div>
+        `;
+
+        const copyBtn = card.querySelector('.btn-copy-mf');
+        copyBtn.addEventListener('click', () => {
+          const textToCopy = `${item.name} (${pointsBadge} pts): ${item.desc} [${item.source}]`;
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            copyBtn.textContent = '✓ Copiado!';
+            copyBtn.style.color = '#55ff55';
+            setTimeout(() => {
+              copyBtn.textContent = '📋 Copiar';
+              copyBtn.style.color = '';
+            }, 2000);
+          });
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderCards();
+    });
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentFilter = pill.getAttribute('data-filter');
+        renderCards();
+      });
+    });
+
+    // Render inicial
+    renderCards();
+  </script>
+</body>
+</html>
