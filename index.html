@@ -80,26 +80,32 @@
 
       <div class="modal-body">
         
-        <!-- PRESETS RÁPIDOS -->
+        <!-- PRESETS RÁPIDOS EM MENU DROPDOWN -->
         <div class="theme-section">
-          <h4 class="theme-subtitle">🎭 Presets Prontos:</h4>
-          <div class="presets-grid">
-            <button type="button" class="preset-btn preset-red active" data-preset="red">
-              <span class="preset-circle" style="background: #ff1a1a;"></span>
-              <span>🔴 Vermelho (Carmesim)</span>
-            </button>
-            <button type="button" class="preset-btn preset-green" data-preset="green">
-              <span class="preset-circle" style="background: #22c55e;"></span>
-              <span>🟢 Verde (Esmeralda)</span>
-            </button>
-            <button type="button" class="preset-btn preset-purple" data-preset="purple">
-              <span class="preset-circle" style="background: #a855f7;"></span>
-              <span>🟣 Roxo (Abissal)</span>
-            </button>
-            <button type="button" class="preset-btn preset-yellow" data-preset="yellow">
-              <span class="preset-circle" style="background: #eab308;"></span>
-              <span>🟡 Amarelo (Âmbar)</span>
-            </button>
+          <div class="theme-dropdown-header">
+            <h4 class="theme-subtitle">🎭 Selecionar Tema Pré-Definido:</h4>
+            <span class="theme-dropdown-desc">Escolha um dos Clãs temáticos ou uma paleta clássica no menu abaixo:</span>
+          </div>
+
+          <div class="theme-dropdown-wrapper">
+            <select id="preset-theme-select" class="theme-dropdown-select">
+              <optgroup label="🦇 Temas dos Clãs de Vampiro (V20)">
+                <option value="clan_ventrue">👑 Ventrue (Dourado Aristocrático & Púrpura Real)</option>
+                <option value="clan_tremere">🩸 Tremere (Carmesim Hermético & Ouro Arcano)</option>
+                <option value="clan_toreador">🌹 Toreador (Rosa Escarlate & Ouro Champanhe)</option>
+                <option value="clan_brujah">🔥 Brujah (Fogo Revolucionário & Aço Urbano)</option>
+                <option value="clan_lasombra">🌑 Lasombra (Escuridão Abissal & Prata Lunar)</option>
+                <option value="clan_tzimisce">🐉 Tzimisce (Esmeralda Draconiana & Ouro Ancestral)</option>
+                <option value="clan_giovanni">⚰️ Giovanni (Púrpura Espectral & Ouro Veneziano)</option>
+              </optgroup>
+              <optgroup label="🎨 Cores Clássicas V20">
+                <option value="red">🔴 Vermelho Carmesim (Padrão Oficial)</option>
+                <option value="green">🟢 Verde Esmeralda</option>
+                <option value="purple">🟣 Roxo Abissal</option>
+                <option value="yellow">🟡 Amarelo Âmbar</option>
+              </optgroup>
+              <option value="custom" disabled hidden>⚙️ Personalizado (Sliders Manuais)</option>
+            </select>
           </div>
         </div>
 
@@ -472,6 +478,55 @@
                 <button type="button" id="btn-add-discipline" class="btn-add-trait" title="Adicionar Disciplina">＋</button>
               </div>
               <div id="disciplines-list" class="dynamic-trait-list"></div>
+              <datalist id="disciplines-datalist">
+                <!-- 1. Disciplinas Clássicas e de Grandes Clãs -->
+                <option value="Animalismo (Animalism)"></option>
+                <option value="Auspícios (Auspex)"></option>
+                <option value="Celeridade (Celerity)"></option>
+                <option value="Dementação (Dementation)"></option>
+                <option value="Dominação (Dominate)"></option>
+                <option value="Fortitude (Fortitude)"></option>
+                <option value="Necromancia (Necromancy)"></option>
+                <option value="Ofuscação (Obfuscate)"></option>
+                <option value="Obtenebração (Obtenebration)"></option>
+                <option value="Potência (Potence)"></option>
+                <option value="Presença (Presence)"></option>
+                <option value="Metamorfose (Protean)"></option>
+                <option value="Quimerismo (Chimerstry)"></option>
+                <option value="Quietus (Quietus)"></option>
+                <option value="Serpentis (Serpentis)"></option>
+                <option value="Taumaturgia (Thaumaturgy)"></option>
+                <option value="Vicissitude (Vicissitude)"></option>
+
+                <!-- 2. Disciplinas Exclusivas de Linhagens e Idade das Trevas -->
+                <option value="Abombwe"></option>
+                <option value="Bardo"></option>
+                <option value="Daimoinon"></option>
+                <option value="Flight / Voo"></option>
+                <option value="Melpominee"></option>
+                <option value="Mortis"></option>
+                <option value="Mytherceria"></option>
+                <option value="Obeah"></option>
+                <option value="Ogham"></option>
+                <option value="Sanguinus"></option>
+                <option value="Spiritus"></option>
+                <option value="Striga"></option>
+                <option value="Thanatosis"></option>
+                <option value="Valeren"></option>
+                <option value="Visceratika"></option>
+
+                <!-- 3. Tradições de Feitiçaria e Magia de Sangue -->
+                <option value="Taumaturgia Hermética"></option>
+                <option value="Feitiçaria Koldúnica (Koldunic Sorcery)"></option>
+                <option value="Dur-An-Ki"></option>
+                <option value="Feitiçaria Setita (Akhu)"></option>
+                <option value="Feitiçaria Anarquista (Punk Sorcery)"></option>
+                <option value="Sādhana"></option>
+                <option value="Nahualismo"></option>
+                <option value="Wanga"></option>
+                <option value="Misticismo do Abismo (Abyss Mysticism)"></option>
+                <option value="Necromancia (Ritos Mortuários)"></option>
+              </datalist>
             </div>
 
             <!-- 2. Especializações (0 a 9) -->

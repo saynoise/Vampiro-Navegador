@@ -55,8 +55,74 @@ function snapToGrid(val, step = SNAP_GRID) {
 const THEME_CUSTOMIZATION_KEY = 'v20_theme_customizations';
 
 const THEME_PRESETS = {
+  // Temas de Clãs
+  clan_ventrue: {
+    name: '👑 Ventrue (Aristocracia & Púrpura) WIP',
+    primaryHue: 345,
+    primarySat: 80,
+    secondaryHue: 44,
+    secondarySat: 90,
+    bgLightness: 7,
+    noiseOpacity: 7
+  },
+  clan_tremere: {
+    name: '🩸 Tremere (Carmesim & Ouro Arcano) WIP',
+    primaryHue: 358,
+    primarySat: 100,
+    secondaryHue: 32,
+    secondarySat: 85,
+    bgLightness: 6,
+    noiseOpacity: 7
+  },
+  clan_toreador: {
+    name: '🌹 Toreador (Rosa Escarlate & Champanhe) WIP',
+    primaryHue: 332,
+    primarySat: 95,
+    secondaryHue: 50,
+    secondarySat: 92,
+    bgLightness: 8,
+    noiseOpacity: 7
+  },
+  clan_brujah: {
+    name: '🔥 Brujah (Fogo Revolucionário & Aço) WIP',
+    primaryHue: 16,
+    primarySat: 100,
+    secondaryHue: 210,
+    secondarySat: 25,
+    bgLightness: 8,
+    noiseOpacity: 7
+  },
+  clan_lasombra: {
+    name: '🌑 Lasombra (Escuridão Abissal & Prata) WIP',
+    primaryHue: 235,
+    primarySat: 90,
+    secondaryHue: 215,
+    secondarySat: 20,
+    bgLightness: 5,
+    noiseOpacity: 9
+  },
+  clan_tzimisce: {
+    name: '🐉 Tzimisce (Esmeralda & Ouro Ancestral) WIP',
+    primaryHue: 155,
+    primarySat: 85,
+    secondaryHue: 38,
+    secondarySat: 80,
+    bgLightness: 6,
+    noiseOpacity: 8
+  },
+  clan_giovanni: {
+    name: '⚰️ Giovanni (Púrpura & Ouro Veneziano) WIP',
+    primaryHue: 280,
+    primarySat: 85,
+    secondaryHue: 46,
+    secondarySat: 88,
+    bgLightness: 6,
+    noiseOpacity: 8
+  },
+
+  // Cores Clássicas
   red: {
-    name: 'Vermelho (Carmesim)',
+    name: '🔴 Vermelho (Carmesim Padrão)',
     primaryHue: 0,
     primarySat: 100,
     secondaryHue: 40,
@@ -65,7 +131,7 @@ const THEME_PRESETS = {
     noiseOpacity: 7
   },
   green: {
-    name: 'Verde (Esmeralda)',
+    name: '🟢 Verde (Esmeralda)',
     primaryHue: 142,
     primarySat: 80,
     secondaryHue: 85,
@@ -74,7 +140,7 @@ const THEME_PRESETS = {
     noiseOpacity: 7
   },
   purple: {
-    name: 'Roxo (Abissal)',
+    name: '🟣 Roxo (Abissal)',
     primaryHue: 275,
     primarySat: 85,
     secondaryHue: 310,
@@ -83,7 +149,7 @@ const THEME_PRESETS = {
     noiseOpacity: 7
   },
   yellow: {
-    name: 'Amarelo (Âmbar)',
+    name: '🟡 Amarelo (Âmbar)',
     primaryHue: 42,
     primarySat: 95,
     secondaryHue: 48,
@@ -129,6 +195,7 @@ const ThemeManager = {
 
   applyTheme(theme) {
     const root = document.documentElement;
+    document.body.setAttribute('data-clan-theme', theme.preset || 'custom');
 
     const cssVarsToManage = [
       '--crimson-base', '--crimson-dark', '--crimson-bright', '--crimson-glow', '--crimson-cable',
@@ -246,12 +313,21 @@ const ThemeManager = {
     if (vBgL) vBgL.textContent = `${this.currentTheme.bgLightness}%`;
     if (vNoise) vNoise.textContent = `${this.currentTheme.noiseOpacity}%`;
 
-    document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+    const presetSelect = document.getElementById('preset-theme-select');
+    if (presetSelect) presetSelect.value = 'custom';
+
+    document.querySelectorAll('.clan-preset-card, .preset-btn').forEach(btn => btn.classList.remove('active'));
     this.save();
   },
 
   updateControlsUI() {
     const t = this.currentTheme;
+
+    // Dropdown de seleção de tema
+    const presetSelect = document.getElementById('preset-theme-select');
+    if (presetSelect) {
+      presetSelect.value = t.preset || 'custom';
+    }
 
     const sPriHue = document.getElementById('slider-primary-hue');
     const sPriSat = document.getElementById('slider-primary-sat');
@@ -281,7 +357,7 @@ const ThemeManager = {
     if (vBgL) vBgL.textContent = `${t.bgLightness}%`;
     if (vNoise) vNoise.textContent = `${t.noiseOpacity}%`;
 
-    document.querySelectorAll('.preset-btn').forEach(btn => {
+    document.querySelectorAll('.clan-preset-card, .preset-btn').forEach(btn => {
       if (btn.getAttribute('data-preset') === t.preset) {
         btn.classList.add('active');
       } else {
@@ -1723,6 +1799,14 @@ const UIRenderer = {
 
   buildDotsHtml(container, currentVal, min, max, onValueChange) {
     container.innerHTML = '';
+
+    // Indicador numérico exato do valor selecionado ao lado ESQUERDO das bolinhas
+    const valBadge = document.createElement('span');
+    valBadge.className = 'dots-value-num';
+    valBadge.textContent = currentVal;
+    valBadge.title = `Valor atual: ${currentVal}`;
+    container.appendChild(valBadge);
+
     for (let i = 1; i <= max; i++) {
       const dot = document.createElement('span');
       dot.className = 'dot' + (i <= currentVal ? ' active' : '');
@@ -1807,6 +1891,8 @@ const UIRenderer = {
       input.type = 'text';
       input.className = 'dynamic-input';
       input.placeholder = 'Nome da Disciplina';
+      input.setAttribute('list', 'disciplines-datalist');
+      input.setAttribute('autocomplete', 'off');
       input.value = disc.name || '';
       input.addEventListener('input', (e) => {
         disc.name = e.target.value;
@@ -2681,12 +2767,26 @@ function setupEventListeners() {
     });
   }
 
-  // Presets Rápidos
-  document.querySelectorAll('.preset-btn').forEach(btn => {
+  // Dropdown de Presets
+  const presetThemeSelect = document.getElementById('preset-theme-select');
+  if (presetThemeSelect) {
+    presetThemeSelect.addEventListener('change', (e) => {
+      const presetKey = e.target.value;
+      if (THEME_PRESETS[presetKey]) {
+        ThemeManager.applyPreset(presetKey);
+        showToast(`Tema "${THEME_PRESETS[presetKey].name}" aplicado!`, 'info');
+      }
+    });
+  }
+
+  // Cards de Clã e Botões de Preset
+  document.querySelectorAll('.clan-preset-card, .preset-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const presetKey = btn.getAttribute('data-preset');
-      ThemeManager.applyPreset(presetKey);
-      showToast(`Preset "${THEME_PRESETS[presetKey]?.name || presetKey}" aplicado!`, 'info');
+      if (THEME_PRESETS[presetKey]) {
+        ThemeManager.applyPreset(presetKey);
+        showToast(`Tema "${THEME_PRESETS[presetKey].name}" aplicado!`, 'info');
+      }
     });
   });
 
