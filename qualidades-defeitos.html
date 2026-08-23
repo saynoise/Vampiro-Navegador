@@ -65,12 +65,34 @@
       pointer-events: none;
       opacity: 0.6;
     }
-    .mf-filter-pills {
+    .mf-filter-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      margin: 18px 0 24px 0;
+      background: #12111a;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+    }
+    .mf-filter-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      align-items: center;
       justify-content: center;
-      margin: 18px 0 26px 0;
+      gap: 8px;
+      width: 100%;
+    }
+    .mf-filter-label {
+      font-family: var(--font-header);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--gold-base);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-right: 4px;
+      white-space: nowrap;
     }
     .mf-pill {
       background: #1c1824;
@@ -96,6 +118,16 @@
       color: #ffffff;
       border-color: var(--crimson-bright);
       box-shadow: 0 0 10px var(--crimson-glow);
+    }
+    .mf-pill-green.active {
+      background: linear-gradient(180deg, #165b27 0%, #0d3817 100%);
+      border-color: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+    }
+    .mf-pill-red.active {
+      background: linear-gradient(180deg, #7a1515 0%, #4a0c0c 100%);
+      border-color: #ef4444;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
     }
     .mf-stats-bar {
       display: flex;
@@ -221,6 +253,7 @@
       .mf-grid { grid-template-columns: 1fr; }
       .mf-nav-bar { flex-direction: column; align-items: stretch; }
       .mf-search-box { max-width: 100%; }
+      .mf-filter-group { justify-content: flex-start; }
     }
   </style>
 </head>
@@ -261,15 +294,25 @@
         <div class="ornament-line"></div>
       </div>
 
-      <!-- FILTROS POR TIPO E CATEGORIA -->
-      <div class="mf-filter-pills" id="filter-pills-container">
-        <button type="button" class="mf-pill active" data-filter="all">Todos (<span id="count-all">0</span>)</button>
-        <button type="button" class="mf-pill" data-filter="qualidade">✨ Apenas Qualidades (<span id="count-qualidades">0</span>)</button>
-        <button type="button" class="mf-pill" data-filter="defeito">💀 Apenas Defeitos (<span id="count-defeitos">0</span>)</button>
-        <button type="button" class="mf-pill" data-filter="fisica">🩸 Físicas</button>
-        <button type="button" class="mf-pill" data-filter="mental">🧠 Mentais</button>
-        <button type="button" class="mf-pill" data-filter="social">🏛️ Sociais</button>
-        <button type="button" class="mf-pill" data-filter="sobrenatural">🔮 Sobrenaturais</button>
+      <!-- SEÇÃO DE FILTROS DUPLOS (TIPO + CATEGORIA COMBINÁVEIS) -->
+      <div class="mf-filter-section">
+        <!-- LINHA 1: TIPO (QUALIDADE OU DEFEITO) -->
+        <div class="mf-filter-group" id="filter-type-group">
+          <span class="mf-filter-label">🎭 Tipo:</span>
+          <button type="button" class="mf-pill active" data-type="all">Todos os Tipos (<span id="count-all">0</span>)</button>
+          <button type="button" class="mf-pill mf-pill-green" data-type="qualidade">✨ Apenas Qualidades (<span id="count-qualidades">0</span>)</button>
+          <button type="button" class="mf-pill mf-pill-red" data-type="defeito">💀 Apenas Defeitos (<span id="count-defeitos">0</span>)</button>
+        </div>
+
+        <!-- LINHA 2: CATEGORIA (FÍSICA, MENTAL, SOCIAL, SOBRENATURAL) -->
+        <div class="mf-filter-group" id="filter-category-group">
+          <span class="mf-filter-label">📂 Categoria:</span>
+          <button type="button" class="mf-pill active" data-category="all">Todas as Categorias</button>
+          <button type="button" class="mf-pill" data-category="fisica">🩸 Físicas</button>
+          <button type="button" class="mf-pill" data-category="mental">🧠 Mentais</button>
+          <button type="button" class="mf-pill" data-category="social">🏛️ Sociais</button>
+          <button type="button" class="mf-pill" data-category="sobrenatural">🔮 Sobrenaturais</button>
+        </div>
       </div>
 
       <div class="mf-stats-bar">
@@ -279,7 +322,7 @@
 
       <!-- GRID DE CARDS -->
       <div class="mf-grid" id="mf-cards-grid">
-        <!-- Itens inseridos dinamicamente pelo JavaScript com base no texto completo fornecido -->
+        <!-- Itens inseridos dinamicamente pelo JavaScript -->
       </div>
 
     </div>
@@ -287,13 +330,15 @@
 
   <script src="qualidades-defeitos-data.js"></script>
   <script>
-    // Inicialização e renderização dinâmica
+    // Inicialização e renderização dinâmica com filtros combináveis
     const grid = document.getElementById('mf-cards-grid');
     const searchInput = document.getElementById('mf-search-input');
-    const pills = document.querySelectorAll('.mf-pill');
+    const typePills = document.querySelectorAll('#filter-type-group .mf-pill');
+    const categoryPills = document.querySelectorAll('#filter-category-group .mf-pill');
     const resultsCountDisplay = document.getElementById('results-count-display');
 
-    let currentFilter = 'all';
+    let currentType = 'all';         // 'all', 'qualidade', 'defeito'
+    let currentCategory = 'all';     // 'all', 'fisica', 'mental', 'social', 'sobrenatural'
     let searchQuery = '';
 
     // Contadores
@@ -306,15 +351,13 @@
       const q = searchQuery.toLowerCase().trim();
 
       const filtered = MERITS_FLAWS_DATA.filter(item => {
-        // Filtro por categoria / tipo
-        if (currentFilter === 'qualidade' && item.type !== 'qualidade') return false;
-        if (currentFilter === 'defeito' && item.type !== 'defeito') return false;
-        if (currentFilter === 'fisica' && item.category !== 'fisica') return false;
-        if (currentFilter === 'mental' && item.category !== 'mental') return false;
-        if (currentFilter === 'social' && item.category !== 'social') return false;
-        if (currentFilter === 'sobrenatural' && item.category !== 'sobrenatural') return false;
+        // 1. Filtro por Tipo (Qualidade / Defeito)
+        if (currentType !== 'all' && item.type !== currentType) return false;
 
-        // Filtro por texto
+        // 2. Filtro por Categoria (Física, Mental, Social, Sobrenatural)
+        if (currentCategory !== 'all' && item.category !== currentCategory) return false;
+
+        // 3. Filtro por Busca em Texto
         if (q) {
           const matchText = `${item.name} ${item.points} ${item.category} ${item.type} ${item.desc} ${item.source}`.toLowerCase();
           if (!matchText.includes(q)) return false;
@@ -323,10 +366,13 @@
         return true;
       });
 
-      resultsCountDisplay.textContent = `Exibindo ${filtered.length} de ${MERITS_FLAWS_DATA.length} características`;
+      // Formatação do texto do status de resultados
+      let typeLabel = currentType === 'qualidade' ? 'Qualidades' : (currentType === 'defeito' ? 'Defeitos' : 'Qualidades & Defeitos');
+      let catLabel = currentCategory === 'all' ? '' : ` (${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}s)`;
+      resultsCountDisplay.textContent = `Exibindo ${filtered.length} de ${MERITS_FLAWS_DATA.length} características • ${typeLabel}${catLabel}`;
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div class="mf-no-results">Nenhuma qualidade ou defeito encontrado para "<strong>${searchQuery}</strong>".</div>`;
+        grid.innerHTML = `<div class="mf-no-results">Nenhum resultado encontrado para os filtros selecionados (${typeLabel}${catLabel}${q ? ' com busca "' + searchQuery + '"' : ''}).</div>`;
         return;
       }
 
@@ -334,20 +380,20 @@
         const card = document.createElement('div');
         card.className = `mf-card type-${item.type}`;
 
-        const categoryLabel = {
+        const categoryName = {
           fisica: 'Física',
           mental: 'Mental',
           social: 'Social',
           sobrenatural: 'Sobrenatural'
         }[item.category] || item.category;
 
-        const typeLabel = item.type === 'qualidade' ? 'Qualidade' : 'Defeito';
+        const itemType = item.type === 'qualidade' ? 'Qualidade' : 'Defeito';
         const pointsBadge = item.type === 'qualidade' ? `+${item.points}` : `-${item.points}`;
 
         card.innerHTML = `
           <div class="mf-card-top">
             <div class="mf-card-title-group">
-              <span class="mf-card-category-tag">${typeLabel} • ${categoryLabel}</span>
+              <span class="mf-card-category-tag">${itemType} • ${categoryName}</span>
               <h3 class="mf-card-title">${item.name}</h3>
             </div>
             <span class="mf-card-points">${pointsBadge}</span>
@@ -381,11 +427,22 @@
       renderCards();
     });
 
-    pills.forEach(pill => {
+    // Eventos do Grupo de Tipos (Qualidades / Defeitos)
+    typePills.forEach(pill => {
       pill.addEventListener('click', () => {
-        pills.forEach(p => p.classList.remove('active'));
+        typePills.forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
-        currentFilter = pill.getAttribute('data-filter');
+        currentType = pill.getAttribute('data-type');
+        renderCards();
+      });
+    });
+
+    // Eventos do Grupo de Categorias (Física, Mental, Social, Sobrenatural)
+    categoryPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        categoryPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentCategory = pill.getAttribute('data-category');
         renderCards();
       });
     });
