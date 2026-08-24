@@ -1,0 +1,238 @@
+/**
+ * FICHA DE PERSONAGEM V20 - JANELAS ARRASTÁVEIS & REDIMENSIONÁVEIS
+ * Ímã Magnético, Puxadores de Redimensionamento, Colapso e Container Queries
+ */
+
+/* DRAGGABLE CARDS, IMÃ & RESIZE */
+.draggable-card {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  will-change: transform;
+  touch-action: none;
+  min-width: 220px;
+  min-height: 80px;
+  box-sizing: border-box;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
+}
+.draggable-handle { cursor: grab; user-select: none; flex-shrink: 0; }
+.draggable-handle:active { cursor: grabbing; }
+.drag-grip { display: inline-flex; align-items: center; justify-content: center; color: var(--gold-base); font-size: 1.05rem; margin-right: 5px; opacity: 0.6; transition: opacity 0.2s, transform 0.2s, color 0.2s; cursor: grab; }
+.draggable-handle:hover .drag-grip { opacity: 1; color: var(--crimson-bright); transform: scale(1.2); text-shadow: 0 0 6px var(--crimson-glow); }
+.draggable-card.is-dragging { z-index: 85 !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 26, 26, 0.7) !important; border-color: var(--crimson-bright) !important; opacity: 0.96; cursor: grabbing !important; }
+
+.card-resize-handle { position: absolute; right: 2px; bottom: 0px; width: 18px; height: 18px; cursor: nwse-resize; color: var(--gold-base); font-size: 0.85rem; line-height: 1; display: flex; align-items: flex-end; justify-content: flex-end; opacity: 0.45; transition: opacity 0.2s, color 0.2s, transform 0.2s; user-select: none; z-index: 30; touch-action: none; }
+.draggable-card:hover .card-resize-handle { opacity: 0.9; color: var(--gold-bright); }
+.card-resize-handle:hover, .card-resize-handle.is-resizing { opacity: 1 !important; color: var(--crimson-bright) !important; transform: scale(1.3); text-shadow: 0 0 8px var(--crimson-glow); }
+.draggable-card.is-resizing { z-index: 86 !important; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 15px rgba(197, 160, 89, 0.6) !important; border-color: var(--gold-bright) !important; user-select: none; }
+.draggable-card.snap-aligned { outline: 1.5px dashed var(--gold-bright); outline-offset: 2px; }
+
+.sheet-footer { margin-top: 25px; text-align: center; }
+.footer-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border-accent), transparent); margin-bottom: 12px; }
+.sheet-footer p { font-size: 0.88rem; color: var(--text-muted); font-style: italic; }
+
+
+/* CONTAINER QUERIES RESPONSIVAS GLOBAIS (APLICADAS APÓS TODAS AS DEFINIÇÕES BASE) */
+@container (max-width: 360px) {
+  .trait-category, .status-card, .text-card { padding: 10px 8px; }
+  .category-heading { font-size: 0.88rem; letter-spacing: 0.6px; margin-bottom: 6px; }
+  .status-card-header { margin-bottom: 6px; padding-bottom: 4px; }
+  
+  .dots-9 .dot, .dots-10 .dot { width: 8.5px; height: 8.5px; }
+  .dots-9, .dots-10 { gap: 2px; }
+  .dots-5 .dot { width: 10px; height: 10px; }
+  .dots-5 { gap: 2.5px; }
+  
+  /* VITALIDADE */
+  .health-name { font-size: 0.82rem; }
+  .health-penalty { font-size: 0.75rem; margin-right: 3px; }
+  .health-box { width: 14px; height: 14px; font-size: 0.75rem; }
+  .health-cycle-badge { display: none; }
+  
+  /* FORÇA DE VONTADE */
+  .willpower-subline .subline-label { font-size: 0.82rem; }
+  .boxes-group { gap: 2px; }
+  .box-item { width: 10.5px; height: 10.5px; font-size: 0.6rem; }
+  
+  /* SANGUE */
+  .blood-pool-grid { gap: 2px; padding: 4px 2px; }
+  .blood-point { max-width: 14px; height: 16px; font-size: 0.55rem; }
+  .blood-counter { font-size: 0.82rem; padding: 2px 5px; }
+  .generation-rules-badge { font-size: 0.72rem; padding: 2px 4px; }
+  .blood-controls .btn-tiny, .health-controls .btn-tiny { font-size: 0.7rem; padding: 2px 4px; }
+  
+  /* HUMANIDADE */
+  .path-title-group label { font-size: 0.8rem; }
+  .path-title-group input { font-size: 0.9rem; }
+  
+  /* XP */
+  .xp-fields-row { gap: 4px; }
+  .xp-label { font-size: 0.76rem; }
+  .xp-input-box input { width: 38px; font-size: 0.88rem; padding: 1px 2px; }
+  .xp-badge-value { font-size: 0.88rem; padding: 1px 4px; }
+}
+
+@container (max-width: 290px) {
+  .trait-category, .status-card, .text-card { padding: 6px 4px; }
+  .category-heading { font-size: 0.78rem; letter-spacing: 0.3px; padding-bottom: 3px; margin-bottom: 4px; }
+  .status-card-header { margin-bottom: 4px; padding-bottom: 3px; }
+  
+  .dots-9 .dot, .dots-10 .dot { width: 6.5px; height: 6.5px; border-width: 0.8px; }
+  .dots-9, .dots-10 { gap: 1.2px; }
+  .dots-5 .dot { width: 8px; height: 8px; }
+  .dots-5 { gap: 1.5px; }
+  .trait-link-node { width: 11px; height: 11px; margin-left: 0; margin-right: 2px; }
+  .btn-remove-trait { font-size: 0.7rem; padding: 0 1px; }
+  .btn-add-trait { width: 18px; height: 18px; font-size: 0.8rem; }
+  .trait-name { font-size: 0.76rem; }
+  .dynamic-input { font-size: 0.76rem; }
+  
+  /* VITALIDADE */
+  .health-name { font-size: 0.74rem; }
+  .health-penalty { font-size: 0.68rem; margin-right: 2px; }
+  .health-box { width: 12px; height: 12px; font-size: 0.65rem; }
+  
+  /* FORÇA DE VONTADE */
+  .willpower-subline .subline-label { font-size: 0.74rem; }
+  .boxes-group { gap: 1.2px; }
+  .box-item { width: 8.5px; height: 8.5px; font-size: 0.48rem; }
+  
+  /* SANGUE */
+  .blood-pool-grid { gap: 1.5px; padding: 2px 1px; }
+  .blood-point { max-width: 11px; height: 13px; font-size: 0.45rem; }
+  .blood-counter { font-size: 0.75rem; padding: 1px 4px; }
+  .generation-rules-badge { display: none; }
+  
+  /* HUMANIDADE */
+  .path-title-group label { font-size: 0.72rem; }
+  .path-title-group input { font-size: 0.8rem; }
+  
+  /* XP */
+  .xp-fields-row { gap: 2px; }
+  .xp-label { font-size: 0.68rem; }
+  .xp-input-box input { width: 30px; font-size: 0.8rem; padding: 1px 1px; }
+  .xp-badge-value { font-size: 0.8rem; padding: 1px 3px; }
+}
+
+@container (max-width: 195px) {
+  .xp-card .xp-fields-row,
+  .willpower-card .willpower-subline,
+  .blood-card .generation-rules-badge,
+  .blood-card .blood-pool-grid,
+  .blood-card .blood-controls,
+  .blood-card .blood-counter {
+    display: none !important;
+  }
+
+  .xp-card, .willpower-card, .blood-card {
+    justify-content: center;
+    align-items: center;
+    padding: 6px 8px;
+  }
+
+  .xp-card .category-heading,
+  .willpower-card .category-heading,
+  .blood-card .category-heading {
+    margin: auto 0;
+    padding: 0;
+    border-bottom: none;
+    text-align: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    width: 100%;
+  }
+
+  .blood-card .status-card-header {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    justify-content: center;
+  }
+}
+
+/* CLASSE JS PARA QUANDO REDIMENSIONADA MUITO PEQUENA (LARGURA < 250px OU ALTURA < 95px) */
+.is-collapsed-small.xp-card .xp-fields-row,
+.is-collapsed-small.willpower-card .willpower-subline,
+.is-collapsed-small.humanity-card .dots-track-box,
+.is-collapsed-small.blood-card .generation-rules-badge,
+.is-collapsed-small.blood-card .blood-pool-grid,
+.is-collapsed-small.blood-card .blood-controls,
+.is-collapsed-small.blood-card .blood-counter {
+  display: none !important;
+}
+
+.is-collapsed-small.xp-card,
+.is-collapsed-small.willpower-card,
+.is-collapsed-small.humanity-card,
+.is-collapsed-small.blood-card {
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 4px 8px !important;
+  overflow: hidden !important;
+}
+
+.is-collapsed-small.xp-card .category-heading,
+.is-collapsed-small.willpower-card .category-heading,
+.is-collapsed-small.blood-card .category-heading,
+.is-collapsed-small.humanity-card .path-title-group {
+  margin: auto 0 !important;
+  padding: 0 !important;
+  border-bottom: none !important;
+  text-align: center !important;
+  justify-content: center !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.5px !important;
+  width: 100% !important;
+}
+
+.is-collapsed-small.blood-card .status-card-header {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  justify-content: center;
+  width: 100%;
+}
+
+@container (max-height: 280px) {
+  .trait-category, .status-card, .text-card { padding: 8px 10px; }
+  .category-heading { margin-bottom: 4px; padding-bottom: 2px; }
+  .trait-list, .dynamic-trait-list, .health-track-list { gap: 3px; }
+  .trait-row, .dynamic-row, .health-row { padding: 1px 0; }
+  .dynamic-category-header { margin-bottom: 4px; padding-bottom: 2px; }
+  .blood-pool-grid { max-height: 110px; }
+}
+
+@container (max-height: 200px) {
+  .trait-category, .status-card, .text-card { padding: 6px 8px; }
+  .category-heading { font-size: 0.8rem; margin-bottom: 2px; padding-bottom: 1px; }
+  .trait-list, .dynamic-trait-list, .health-track-list { gap: 1.5px; }
+  .trait-row, .dynamic-row, .health-row { padding: 0.5px 0; }
+  .dynamic-category-header { margin-bottom: 2px; padding-bottom: 1px; }
+  .blood-pool-grid { max-height: 75px; }
+}
+
+@media print {
+  .no-print, .app-toolbar, .toast-container, .blood-web-overlay, .dice-roller-dock, .trait-link-node, .sheet-tabs-nav, .drag-grip, .card-resize-handle { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 14px !important; }
+  body::before { display: none !important; }
+  .sheet-viewport { margin: 0; padding: 0; max-width: 100%; gap: 0; }
+  .sheet-card { background: #fff !important; border: 2px solid #333 !important; box-shadow: none !important; color: #000 !important; padding: 15px; margin-bottom: 20px; }
+  #page-2 { page-break-before: always; }
+  .page-container.hidden-page { display: block !important; }
+  .section-banner { background: #eee !important; border-color: #333 !important; }
+  .section-banner h3, .category-heading, .field-item label, .ornament-center h2 { color: #000 !important; text-shadow: none !important; }
+  .header-grid, .trait-category, .status-card, .text-card { background: #fff !important; border-color: #888 !important; }
+  .dot { border-color: #333 !important; background: #fff !important; }
+  .dot.active { background: #000 !important; border-color: #000 !important; box-shadow: none !important; }
+  .dots-value-num { border-color: #666 !important; background: #f0f0f0 !important; color: #000 !important; text-shadow: none !important; }
+  .box-item { border-color: #333 !important; background: #fff !important; }
+  .box-item.checked { background: #000 !important; border-color: #000 !important; }
+  .blood-point { border-color: #333 !important; background: #fff !important; }
+  .blood-point.active { background: #444 !important; border-color: #000 !important; }
+  .health-row { background: #f8f8f8 !important; border-color: #ccc !important; }
+  .health-box { border-color: #333 !important; background: #fff !important; }
+  .field-item input, .dynamic-input, .text-card textarea, .weakness-textarea, .generation-dropdown { color: #000 !important; background: transparent !important; }
+}

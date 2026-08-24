@@ -1,0 +1,188 @@
+/**
+ * FICHA DE PERSONAGEM V20 - ESTILOS BASE & VARIÁVEIS GLOBAIS
+ * Reset, Tipografia Gótica, Variáveis CSS, Ruído de Fundo e Toasts
+ */
+
+/* ==========================================================================
+   FICHA DE PERSONAGEM - VAMPIRO: A MÁSCARA (V20)
+   Layout Padrão Oficial 3 Colunas + Ruído de Fundo Micro-Fino + Imã + Redimensionamento
+   ========================================================================== */
+
+:root {
+  --bg-app: #0c0c0f;
+  --bg-sheet: #14141a;
+  --bg-card: #1a1a23;
+  --bg-card-alt: #16161f;
+  --bg-input: #101015;
+  --bg-input-focus: #181822;
+
+  --crimson-dark: #500808;
+  --crimson-base: #8b0000;
+  --crimson-bright: #ff1a1a;
+  --crimson-glow: rgba(255, 26, 26, 0.55);
+  --crimson-cable: #ff2b2b;
+  
+  --gold-dark: #7a602c;
+  --gold-base: #c5a059;
+  --gold-bright: #e5c158;
+  --gold-glow: rgba(197, 160, 89, 0.35);
+
+  --text-primary: #ebe6dc;
+  --text-secondary: #beb8ab;
+  --text-muted: #959086;
+
+  --border-subtle: #2d2b38;
+  --border-accent: #4a3e26;
+  --border-crimson: #631212;
+
+  --font-header: 'Cinzel', 'Times New Roman', Georgia, serif;
+  --font-body: 'Crimson Pro', Georgia, Garamond, serif;
+
+  --shadow-sheet: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(197, 160, 89, 0.15);
+  --shadow-dock: 0 -5px 25px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 26, 26, 0.3);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+body {
+  background-color: #0c0c0f;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(139, 0, 0, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 10% 90%, rgba(197, 160, 89, 0.05) 0%, transparent 40%),
+    linear-gradient(180deg, #09090c 0%, #0e0e13 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 17.5px;
+  line-height: 1.45;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* RUÍDO MICRO-FINO DE FUNDO (ULTRA-FINE GRAIN - VISIBILIDADE AUMENTADA) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--noise-opacity, 0.072);
+  background-size: 120px 120px;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='fineNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.4' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23fineNoise)'/%3E%3C/svg%3E");
+}
+
+
+/* SLIM SCROLLBARS INTERNOS */
+.trait-list::-webkit-scrollbar,
+.dynamic-trait-list::-webkit-scrollbar,
+.health-track-list::-webkit-scrollbar,
+.dynamic-rituals-list::-webkit-scrollbar,
+.blood-pool-grid::-webkit-scrollbar,
+.draggable-card textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.trait-list::-webkit-scrollbar-thumb,
+.dynamic-trait-list::-webkit-scrollbar-thumb,
+.health-track-list::-webkit-scrollbar-thumb,
+.dynamic-rituals-list::-webkit-scrollbar-thumb,
+.blood-pool-grid::-webkit-scrollbar-thumb,
+.draggable-card textarea::-webkit-scrollbar-thumb {
+  background: var(--border-accent);
+  border-radius: 4px;
+}
+
+.trait-list::-webkit-scrollbar-thumb:hover,
+.dynamic-trait-list::-webkit-scrollbar-thumb:hover,
+.health-track-list::-webkit-scrollbar-thumb:hover {
+  background: var(--crimson-bright);
+}
+
+
+/* =============================================================================
+   TEXTURAS EXCLUSIVAS DE CLÃ: ⚰️ GIOVANNI (MÁRMORE FÚNEBRE REAL)
+   ============================================================================= */
+/* 1. Fundo Geral do Site (Ambiente Noturno Sombrio) */
+body[data-clan-theme="clan_giovanni"] {
+  background-color: #0c0c0f;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(147, 51, 234, 0.18) 0%, transparent 60%),
+    radial-gradient(circle at 10% 90%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    linear-gradient(180deg, #09080e 0%, #0d0c14 100%);
+  background-attachment: fixed;
+}
+
+/* 2. Textura Real de Mármore em Alta Resolução na Ficha */
+body[data-clan-theme="clan_giovanni"] .sheet-card {
+  background-color: #0c0b12 !important;
+  background-image: 
+    linear-gradient(180deg, rgba(12, 11, 18, 0.58) 0%, rgba(18, 15, 26, 0.68) 100%),
+    url("../assets/textures/giovanni-marble.jpg") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  border-color: #553b70;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(168, 85, 247, 0.12);
+}
+
+/* 3. Cards Internos Translúcidos que revelam a Textura de Mármore da Ficha */
+body[data-clan-theme="clan_giovanni"] .draggable-card,
+body[data-clan-theme="clan_giovanni"] .header-section {
+  background: rgba(14, 12, 20, 0.78) !important;
+  backdrop-filter: blur(2px);
+  border-color: #46325a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+body[data-clan-theme="clan_giovanni"] .draggable-card:hover {
+  border-color: var(--gold-bright);
+  background: rgba(22, 18, 32, 0.85) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75), 0 0 14px rgba(168, 85, 247, 0.3);
+}
+
+
+/* TOAST */
+.toast-container { position: fixed; bottom: 85px; right: 25px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+.toast { background: rgba(22, 22, 30, 0.96); border: 1px solid var(--gold-base); border-left: 5px solid var(--crimson-bright); box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8); color: var(--text-primary); font-family: var(--font-body); font-size: 1rem; font-weight: 600; padding: 12px 20px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 10px; animation: toastSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto; }
+.toast.toast-success { border-left-color: #22c55e; }
+.toast.toast-danger { border-left-color: #ef4444; }
+.toast.toast-info { border-left-color: var(--gold-bright); }
+@keyframes toastSlideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+@media (max-width: 1200px) {
+  .three-col-grid { grid-template-columns: repeat(2, 1fr); }
+  .header-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .header-flex-wrapper { flex-direction: column; align-items: center; }
+  .header-avatar-box { border-left: none; border-top: 1px solid var(--border-subtle); padding-left: 0; padding-top: 15px; width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .sheet-card { padding: 18px 12px; }
+  .three-col-grid, .two-col-grid, .header-grid { grid-template-columns: 1fr; }
+  .span-two-cols { grid-column: span 1; }
+  .toolbar-content { flex-direction: column; align-items: stretch; }
+  .toolbar-center { max-width: 100%; }
+  .toolbar-actions { justify-content: center; }
+  .blood-pool-grid { grid-template-columns: repeat(10, 1fr); }
+  .dock-body { flex-direction: column; align-items: stretch; }
+  .sheet-tabs-nav { flex-direction: column; align-items: stretch; }
+}
+
