@@ -707,8 +707,12 @@ body::before {
 .dots-track-box { display: flex; justify-content: center; align-items: center; padding: 2px 0; width: 100%; min-width: 0; overflow: hidden; }
 
 /* FORÇA DE VONTADE */
-.willpower-card { border-top-color: var(--crimson-dark); }
-.willpower-subline { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; width: 100%; min-width: 0; gap: 6px; flex-wrap: nowrap; box-sizing: border-box; }
+.willpower-card {
+  border-top-color: var(--crimson-dark);
+  overflow: hidden !important;
+  min-height: 0;
+}
+.willpower-subline { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; width: 100%; min-width: 0; gap: 6px; flex-wrap: nowrap; box-sizing: border-box; }
 .willpower-label-group { display: flex; align-items: center; gap: 4px; min-width: 0; flex-shrink: 0; }
 .willpower-spacer { width: 14px; height: 14px; display: inline-block; flex-shrink: 0; }
 .willpower-subline .subline-label { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
@@ -2125,6 +2129,7 @@ body[data-clan-theme="clan_giovanni"] .field-item input {
 /* CLASSE JS PARA QUANDO REDIMENSIONADA MUITO PEQUENA (LARGURA < 250px OU ALTURA < 95px) */
 .is-collapsed-small.xp-card .xp-fields-row,
 .is-collapsed-small.willpower-card .willpower-subline,
+.is-collapsed-small.humanity-card .dots-track-box,
 .is-collapsed-small.blood-card .generation-rules-badge,
 .is-collapsed-small.blood-card .blood-pool-grid,
 .is-collapsed-small.blood-card .blood-controls,
@@ -2134,23 +2139,26 @@ body[data-clan-theme="clan_giovanni"] .field-item input {
 
 .is-collapsed-small.xp-card,
 .is-collapsed-small.willpower-card,
+.is-collapsed-small.humanity-card,
 .is-collapsed-small.blood-card {
-  justify-content: center;
-  align-items: center;
-  padding: 6px 8px;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 4px 8px !important;
+  overflow: hidden !important;
 }
 
 .is-collapsed-small.xp-card .category-heading,
 .is-collapsed-small.willpower-card .category-heading,
-.is-collapsed-small.blood-card .category-heading {
-  margin: auto 0;
-  padding: 0;
-  border-bottom: none;
-  text-align: center;
-  justify-content: center;
-  font-size: 0.82rem;
-  letter-spacing: 0.5px;
-  width: 100%;
+.is-collapsed-small.blood-card .category-heading,
+.is-collapsed-small.humanity-card .path-title-group {
+  margin: auto 0 !important;
+  padding: 0 !important;
+  border-bottom: none !important;
+  text-align: center !important;
+  justify-content: center !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.5px !important;
+  width: 100% !important;
 }
 
 .is-collapsed-small.blood-card .status-card-header {

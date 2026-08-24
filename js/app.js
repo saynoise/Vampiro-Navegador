@@ -57,16 +57,16 @@ const THEME_CUSTOMIZATION_KEY = 'v20_theme_customizations';
 const THEME_PRESETS = {
   // Temas de Clãs
   clan_ventrue: {
-    name: '👑 Ventrue (Aristocracia & Púrpura) WIP',
-    primaryHue: 345,
-    primarySat: 80,
-    secondaryHue: 44,
-    secondarySat: 90,
+    name: '👑 Ventrue (Sangue Azul & Ouro Nobre)',
+    primaryHue: 218,
+    primarySat: 92,
+    secondaryHue: 46,
+    secondarySat: 95,
     bgLightness: 7,
     noiseOpacity: 7
   },
   clan_tremere: {
-    name: '🩸 Tremere (Carmesim & Ouro Arcano) WIP',
+    name: '🩸 Tremere (Carmesim & Ouro Arcano)',
     primaryHue: 358,
     primarySat: 100,
     secondaryHue: 32,
@@ -75,16 +75,16 @@ const THEME_PRESETS = {
     noiseOpacity: 7
   },
   clan_toreador: {
-    name: '🌹 Toreador (Rosa Escarlate & Champanhe) WIP',
-    primaryHue: 332,
+    name: '🌹 Toreador (Rosa das Paixões & Ouro Rosé)',
+    primaryHue: 330,
     primarySat: 95,
-    secondaryHue: 50,
-    secondarySat: 92,
+    secondaryHue: 15,
+    secondarySat: 85,
     bgLightness: 8,
     noiseOpacity: 7
   },
   clan_brujah: {
-    name: '🔥 Brujah (Fogo Revolucionário & Aço) WIP',
+    name: '🔥 Brujah (Fogo Revolucionário & Aço)',
     primaryHue: 16,
     primarySat: 100,
     secondaryHue: 210,
@@ -93,7 +93,7 @@ const THEME_PRESETS = {
     noiseOpacity: 7
   },
   clan_lasombra: {
-    name: '🌑 Lasombra (Escuridão Abissal & Prata) WIP',
+    name: '🌑 Lasombra (Escuridão Abissal & Prata)',
     primaryHue: 235,
     primarySat: 90,
     secondaryHue: 215,
@@ -102,7 +102,7 @@ const THEME_PRESETS = {
     noiseOpacity: 9
   },
   clan_tzimisce: {
-    name: '🐉 Tzimisce (Esmeralda & Ouro Ancestral) WIP',
+    name: '🐉 Tzimisce (Esmeralda & Ouro Ancestral)',
     primaryHue: 155,
     primarySat: 85,
     secondaryHue: 38,
@@ -111,7 +111,7 @@ const THEME_PRESETS = {
     noiseOpacity: 8
   },
   clan_giovanni: {
-    name: '⚰️ Giovanni (Púrpura & Ouro Veneziano) WIP',
+    name: '⚰️ Giovanni (Púrpura & Ouro Veneziano)',
     primaryHue: 280,
     primarySat: 85,
     secondaryHue: 46,
@@ -813,9 +813,10 @@ const DraggableWindowManager = {
     let isHeightCollapsed = false;
     if (hasCustomHeight) {
       if (winId === 'win-xp' && rect.height < 52) isHeightCollapsed = true;
-      else if (winId === 'win-willpower' && rect.height < 70) isHeightCollapsed = true;
-      else if (winId === 'win-blood' && rect.height < 90) isHeightCollapsed = true;
-      else if (rect.height < 55) isHeightCollapsed = true;
+      else if (winId === 'win-willpower' && rect.height < 82) isHeightCollapsed = true;
+      else if (winId === 'win-humanity' && rect.height < 55) isHeightCollapsed = true;
+      else if (winId === 'win-blood' && rect.height < 95) isHeightCollapsed = true;
+      else if (rect.height < 52) isHeightCollapsed = true;
     }
 
     const isWidthCollapsed = rect.width < 195;
@@ -948,7 +949,7 @@ const DraggableWindowManager = {
           const rawDh = e.clientY - this.startY;
 
           const newW = Math.max(140, snapToGrid(this.initialW + rawDw, SNAP_GRID));
-          const newH = Math.max(42, snapToGrid(this.initialH + rawDh, SNAP_GRID));
+          const newH = Math.max(34, snapToGrid(this.initialH + rawDh, SNAP_GRID));
 
           card.style.width = `${newW}px`;
           card.style.height = `${newH}px`;
