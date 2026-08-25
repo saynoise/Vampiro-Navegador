@@ -448,11 +448,11 @@ const DiceHistoryManager = {
 
   updateBadgeCount() {
     const countEl = document.getElementById('history-roll-count');
-    const toolbarCountEl = document.getElementById('toolbar-history-roll-count');
+    const mobileCountEl = document.getElementById('mobile-sticky-history-roll-count');
     const totalTag = document.getElementById('history-total-tag');
     const history = this.getHistory();
     if (countEl) countEl.textContent = history.length;
-    if (toolbarCountEl) toolbarCountEl.textContent = history.length;
+    if (mobileCountEl) mobileCountEl.textContent = history.length;
     if (totalTag) totalTag.textContent = `${history.length} rolagem${history.length === 1 ? '' : 'ns'} gravada${history.length === 1 ? '' : 's'}`;
   },
 

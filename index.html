@@ -61,8 +61,6 @@
         </div>
 
         <div class="btn-group layout-group">
-          <button type="button" id="toolbar-btn-wiki" class="btn btn-outline" title="Compêndio & Wiki V20"><span class="btn-icon" style="font-family: var(--font-header), serif; font-size: 1.15rem; font-weight: 700; color: var(--gold-bright);">𝖂</span><span class="btn-text">Wiki</span></button>
-          <button type="button" id="toolbar-btn-history" class="btn btn-outline" title="Histórico de Rolagens"><span class="btn-icon" style="font-family: var(--font-header), serif; font-size: 1.15rem; font-weight: 700; color: var(--crimson-bright);">𝕮</span><span class="btn-text">Histórico</span> <span class="history-btn-badge" id="toolbar-history-roll-count" style="font-size: 0.65rem; padding: 1px 5px; border-radius: 10px; margin-left: 2px;">0</span></button>
           <button id="btn-reset-layout" class="btn btn-outline" title="Restaurar layout padrão"><span class="btn-icon">🔄</span><span class="btn-text">Resetar Layout</span></button>
           <button id="btn-theme-modal" class="btn btn-outline" title="Personalizar cores e tema da ficha"><span class="btn-icon">🎨</span><span class="btn-text">Personalizar</span></button>
           <button id="btn-discord-modal" class="btn btn-outline" title="Configurar Webhook do Discord"><span class="btn-icon">💬</span><span class="btn-text">Discord</span></button>
@@ -75,6 +73,19 @@
       </div>
     </div>
   </header>
+
+  <!-- BARRA FLUTUANTE COMPACTA MOBILE (WIKI & HISTÓRICO) -->
+  <div id="mobile-sticky-toolbar" class="mobile-sticky-toolbar no-print">
+    <button type="button" id="mobile-sticky-btn-wiki" class="btn btn-outline mobile-nav-btn" title="Compêndio & Wiki V20">
+      <span class="btn-icon" style="font-family: var(--font-header), serif; font-size: 1.2rem; font-weight: 700; color: var(--gold-bright);">𝖂</span>
+      <span class="btn-text">Wiki</span>
+    </button>
+    <button type="button" id="mobile-sticky-btn-history" class="btn btn-outline mobile-nav-btn" title="Histórico de Rolagens">
+      <span class="btn-icon" style="font-family: var(--font-header), serif; font-size: 1.2rem; font-weight: 700; color: var(--crimson-bright);">𝕮</span>
+      <span class="btn-text">Histórico</span>
+      <span class="history-btn-badge" id="mobile-sticky-history-roll-count" style="font-size: 0.65rem; padding: 1px 6px; border-radius: 10px; margin-left: 4px;">0</span>
+    </button>
+  </div>
 
   <!-- MODAL DE PERSONALIZAÇÃO DE CORES & TEMAS (NO-PRINT) -->
   <div id="theme-customizer-modal" class="gothic-modal-overlay hidden no-print">

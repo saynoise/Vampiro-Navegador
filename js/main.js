@@ -159,7 +159,7 @@ function setupEventListeners() {
   // Drawer de Histórico de Rolagens
   const historyDrawer = document.getElementById('dice-history-drawer');
   const btnOpenHistory = document.getElementById('btn-open-dice-history');
-  const toolbarBtnHistory = document.getElementById('toolbar-btn-history');
+  const mobileStickyBtnHistory = document.getElementById('mobile-sticky-btn-history');
   const btnCloseHistory = document.getElementById('btn-close-dice-history');
   const btnClearHistory = document.getElementById('btn-clear-dice-history');
 
@@ -170,8 +170,8 @@ function setupEventListeners() {
     });
   }
 
-  if (toolbarBtnHistory && historyDrawer) {
-    toolbarBtnHistory.addEventListener('click', () => {
+  if (mobileStickyBtnHistory && historyDrawer) {
+    mobileStickyBtnHistory.addEventListener('click', () => {
       DiceHistoryManager.renderHistory();
       historyDrawer.classList.remove('hidden');
     });
@@ -199,7 +199,7 @@ function setupEventListeners() {
 
   // Drawer de Ajuda & Wiki V20 (Lado Esquerdo)
   const btnOpenWiki = document.getElementById('btn-open-wiki-help');
-  const toolbarBtnWiki = document.getElementById('toolbar-btn-wiki');
+  const mobileStickyBtnWiki = document.getElementById('mobile-sticky-btn-wiki');
   const btnCloseWiki = document.getElementById('btn-close-wiki-help');
   const wikiDrawer = document.getElementById('wiki-help-drawer');
   const wikiSearchInput = document.getElementById('wiki-search-input');
@@ -213,8 +213,8 @@ function setupEventListeners() {
     });
   }
 
-  if (toolbarBtnWiki && wikiDrawer) {
-    toolbarBtnWiki.addEventListener('click', () => {
+  if (mobileStickyBtnWiki && wikiDrawer) {
+    mobileStickyBtnWiki.addEventListener('click', () => {
       wikiDrawer.classList.remove('hidden');
       if (wikiSearchInput) {
         setTimeout(() => wikiSearchInput.focus(), 50);
@@ -603,14 +603,15 @@ function setupEventListeners() {
     }
   });
 
-  const appToolbar = document.querySelector('.app-toolbar');
+  const mobileStickyBar = document.getElementById('mobile-sticky-toolbar');
   window.addEventListener('scroll', () => {
     LinkCableSystem.updateWebLines();
-    if (appToolbar) {
-      if (window.scrollY > 35) {
-        appToolbar.classList.add('toolbar-scrolled');
+    if (mobileStickyBar) {
+      const scrollPos = window.scrollY || window.pageYOffset || 0;
+      if (scrollPos > 120) {
+        mobileStickyBar.classList.add('visible');
       } else {
-        appToolbar.classList.remove('toolbar-scrolled');
+        mobileStickyBar.classList.remove('visible');
       }
     }
   }, { passive: true });
