@@ -56,6 +56,7 @@ const LinkCableSystem = {
       this.animationFrameId = null;
     }
 
+    const overlaySvg = document.getElementById('blood-web-overlay');
     const svgLinesGroup = document.getElementById('blood-web-lines');
     if (!svgLinesGroup) return;
     svgLinesGroup.innerHTML = '';
@@ -64,6 +65,8 @@ const LinkCableSystem = {
     document.querySelectorAll('.card-cable-linked-active').forEach(c => c.classList.remove('card-cable-linked-active'));
 
     if (this.selectedNodes.length === 0) return;
+
+    const svgRect = overlaySvg ? overlaySvg.getBoundingClientRect() : { left: 0, top: 0 };
 
     // 1º Passo: Avalia a visibilidade de cada nó e coleta referências
     const rawNodes = this.selectedNodes.map(node => {
@@ -93,8 +96,8 @@ const LinkCableSystem = {
 
       if (isNodeVisible) {
         return {
-          x: rect.left + rect.width / 2,
-          y: rect.top + rect.height / 2,
+          x: rect.left + rect.width / 2 - svgRect.left,
+          y: rect.top + rect.height / 2 - svgRect.top,
           isCardFallback: false,
           card: null,
           cardRect: null
@@ -107,8 +110,8 @@ const LinkCableSystem = {
         if (cardRect.width > 0 && cardRect.height > 0) {
           card.classList.add('card-cable-linked-active');
           return {
-            x: cardRect.left + cardRect.width / 2,
-            y: cardRect.top + cardRect.height / 2,
+            x: cardRect.left + cardRect.width / 2 - svgRect.left,
+            y: cardRect.top + cardRect.height / 2 - svgRect.top,
             isCardFallback: true,
             card: card,
             cardRect: cardRect
@@ -125,8 +128,8 @@ const LinkCableSystem = {
     const dockEl = document.getElementById('dice-roller-dock');
     const dockRect = dockEl ? dockEl.getBoundingClientRect() : null;
     const defaultTarget = dockRect 
-      ? { x: dockRect.left + dockRect.width / 2, y: dockRect.top + 8 }
-      : { x: window.innerWidth / 2, y: window.innerHeight - 30 };
+      ? { x: dockRect.left + dockRect.width / 2 - svgRect.left, y: dockRect.top + 8 - svgRect.top }
+      : { x: window.innerWidth / 2 - svgRect.left, y: window.innerHeight - 30 - svgRect.top };
 
     // 2º Passo: Calcula o ponto grudado exatamente na borda do container na direção do cabo
     const coords = rawNodes.map((item, idx) => {
@@ -140,13 +143,13 @@ const LinkCableSystem = {
         else target = rawNodes[idx - 1];
       }
 
-      const cx = item.cardRect.left + item.cardRect.width / 2;
-      const cy = item.cardRect.top + item.cardRect.height / 2;
+      const cx = item.cardRect.left + item.cardRect.width / 2 - svgRect.left;
+      const cy = item.cardRect.top + item.cardRect.height / 2 - svgRect.top;
       const dx = target.x - cx;
       const dy = target.y - cy;
 
       let borderX = cx;
-      let borderY = item.cardRect.top;
+      let borderY = item.cardRect.top - svgRect.top;
 
       if (Math.abs(dx) > 0.001 || Math.abs(dy) > 0.001) {
         const halfW = item.cardRect.width / 2;

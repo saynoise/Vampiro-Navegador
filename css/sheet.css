@@ -184,7 +184,19 @@
 }
 
 /* SHEET VIEWPORT & CARDS */
-.sheet-viewport { max-width: 1360px; margin: 20px auto 90px auto; padding: 0 15px; display: flex; flex-direction: column; gap: 26px; position: relative; z-index: 2; }
+.sheet-viewport {
+  max-width: 1360px;
+  width: 100%;
+  margin: 20px auto 90px auto;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  position: relative;
+  z-index: 2;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
 .sheet-card { background: var(--bg-sheet); border: 2px solid var(--border-accent); border-radius: var(--radius-md); box-shadow: var(--shadow-sheet); padding: 36px 36px; position: relative; box-sizing: border-box; }
 
 .gothic-header-ornament { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 25px; }

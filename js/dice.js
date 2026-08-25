@@ -512,14 +512,16 @@ const DiceHistoryManager = {
       }).join('');
 
       card.innerHTML = `
-        <div class="history-card-top">
-          <span class="history-char-name">👤 ${escapeHtml(item.charName)}</span>
-          <span class="history-timestamp">⏱️ ${escapeHtml(item.time)}</span>
-        </div>
-        <div class="history-traits-line">🎲 ${escapeHtml(item.traitsSummary)} ${rerollBadge}</div>
-        <div class="history-meta-line">
-          <span class="history-diff-tag">Dif ${item.difficulty} • ${item.totalPool} dados</span>
+        <div class="history-card-header">
+          <span class="history-traits-title">${escapeHtml(item.traitsSummary)} ${rerollBadge}</span>
           <span class="history-outcome-badge ${outcomeClass}">${outcomeText}</span>
+        </div>
+        <div class="history-card-meta">
+          <span class="history-meta-item history-meta-char">${escapeHtml(item.charName)}</span>
+          <span class="history-meta-dot">•</span>
+          <span class="history-meta-item">Dif ${item.difficulty} (${item.totalPool} dados)</span>
+          <span class="history-meta-dot">•</span>
+          <span class="history-meta-item history-meta-time">${escapeHtml(item.time)}</span>
         </div>
         <div class="history-dice-row">${diceHtml}</div>
       `;
