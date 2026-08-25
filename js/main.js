@@ -603,7 +603,17 @@ function setupEventListeners() {
     }
   });
 
-  window.addEventListener('scroll', () => LinkCableSystem.updateWebLines(), { passive: true });
+  const appToolbar = document.querySelector('.app-toolbar');
+  window.addEventListener('scroll', () => {
+    LinkCableSystem.updateWebLines();
+    if (appToolbar) {
+      if (window.scrollY > 35) {
+        appToolbar.classList.add('toolbar-scrolled');
+      } else {
+        appToolbar.classList.remove('toolbar-scrolled');
+      }
+    }
+  }, { passive: true });
   window.addEventListener('resize', () => LinkCableSystem.updateWebLines());
 
   // Sincronização em tempo real quando rituais forem adicionados via Grimório em outra aba

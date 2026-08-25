@@ -127,6 +127,37 @@
   .main-char-actions .btn { width: 100%; padding: 7px 4px; font-size: 0.78rem; justify-content: center; text-align: center; }
   .layout-group { width: 100%; justify-content: center; flex-wrap: wrap; gap: 4px; }
   .layout-group .btn { padding: 5px 8px; font-size: 0.72rem; }
+
+  /* ESTADO COMPACTO AO ROLAR NO MOBILE: Apenas Wiki e Histórico */
+  .app-toolbar.toolbar-scrolled {
+    padding: 8px 12px !important;
+  }
+  .app-toolbar.toolbar-scrolled .toolbar-brand,
+  .app-toolbar.toolbar-scrolled .toolbar-center,
+  .app-toolbar.toolbar-scrolled .main-char-actions,
+  .app-toolbar.toolbar-scrolled .layout-group > *:not(#toolbar-btn-wiki):not(#toolbar-btn-history) {
+    display: none !important;
+  }
+  .app-toolbar.toolbar-scrolled .toolbar-content {
+    gap: 0 !important;
+  }
+  .app-toolbar.toolbar-scrolled .toolbar-actions,
+  .app-toolbar.toolbar-scrolled .layout-group {
+    width: 100% !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+  .app-toolbar.toolbar-scrolled #toolbar-btn-wiki,
+  .app-toolbar.toolbar-scrolled #toolbar-btn-history {
+    display: inline-flex !important;
+    padding: 8px 22px !important;
+    font-size: 0.92rem !important;
+    font-weight: 800 !important;
+  }
+  .app-toolbar.toolbar-scrolled #toolbar-btn-wiki .btn-icon,
+  .app-toolbar.toolbar-scrolled #toolbar-btn-history .btn-icon {
+    font-size: 1.25rem !important;
+  }
 }
 
 @media (max-width: 550px) {
