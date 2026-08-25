@@ -449,6 +449,10 @@
 }
 
 /* DRAWER LATERAL DE HISTÓRICO */
+body.drawer-open {
+  overflow: hidden;
+}
+
 .history-drawer-overlay {
   position: fixed;
   inset: 0;
@@ -458,6 +462,7 @@
   display: flex;
   justify-content: flex-end;
   animation: fadeInModal 0.2s ease-out;
+  touch-action: none;
 }
 
 .history-drawer-overlay.hidden {
@@ -474,6 +479,7 @@
   display: flex;
   flex-direction: column;
   animation: slideDrawerIn 0.25s ease-out;
+  touch-action: pan-y;
 }
 
 @keyframes slideDrawerIn {
@@ -694,7 +700,11 @@
     max-height: 90vh;
   }
 
-  .history-drawer-panel,
+  .history-drawer-panel {
+    width: 82vw !important;
+    max-width: 360px !important;
+  }
+
   .wiki-help-panel {
     width: 100vw !important;
     max-width: 100vw !important;

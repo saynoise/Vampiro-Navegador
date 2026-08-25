@@ -163,30 +163,84 @@ function setupEventListeners() {
   const btnCloseHistory = document.getElementById('btn-close-dice-history');
   const btnClearHistory = document.getElementById('btn-clear-dice-history');
 
+  const openHistory = () => {
+    DiceHistoryManager.renderHistory();
+    if (historyDrawer) historyDrawer.classList.remove('hidden');
+    document.body.classList.add('drawer-open');
+  };
+
+  const closeHistory = () => {
+    if (historyDrawer) historyDrawer.classList.add('hidden');
+    document.body.classList.remove('drawer-open');
+  };
+
   if (btnOpenHistory && historyDrawer) {
-    btnOpenHistory.addEventListener('click', () => {
-      DiceHistoryManager.renderHistory();
-      historyDrawer.classList.remove('hidden');
-    });
+    btnOpenHistory.addEventListener('click', openHistory);
   }
 
   if (mobileStickyBtnHistory && historyDrawer) {
-    mobileStickyBtnHistory.addEventListener('click', () => {
-      DiceHistoryManager.renderHistory();
-      historyDrawer.classList.remove('hidden');
-    });
+    mobileStickyBtnHistory.addEventListener('click', openHistory);
   }
 
   if (btnCloseHistory && historyDrawer) {
-    btnCloseHistory.addEventListener('click', () => {
-      historyDrawer.classList.add('hidden');
-    });
+    btnCloseHistory.addEventListener('click', closeHistory);
   }
 
   if (historyDrawer) {
     historyDrawer.addEventListener('click', (e) => {
-      if (e.target === historyDrawer) historyDrawer.classList.add('hidden');
+      if (e.target === historyDrawer) closeHistory();
     });
+
+    const historyPanel = historyDrawer.querySelector('.history-drawer-panel');
+    if (historyPanel) {
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let currentDeltaX = 0;
+      let isHorizontalSwipe = false;
+
+      historyPanel.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        currentDeltaX = 0;
+        isHorizontalSwipe = false;
+      }, { passive: true });
+
+      historyPanel.addEventListener('touchmove', (e) => {
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        const diffX = currentX - touchStartX;
+        const diffY = currentY - touchStartY;
+
+        if (!isHorizontalSwipe && Math.abs(diffX) > 10 && Math.abs(diffX) > Math.abs(diffY)) {
+          isHorizontalSwipe = true;
+        }
+
+        if (isHorizontalSwipe && diffX > 0) {
+          currentDeltaX = diffX;
+          historyPanel.style.transform = `translateX(${diffX}px)`;
+          historyPanel.style.transition = 'none';
+        }
+      }, { passive: true });
+
+      historyPanel.addEventListener('touchend', () => {
+        if (isHorizontalSwipe && currentDeltaX > 60) {
+          historyPanel.style.transition = 'transform 0.2s ease';
+          historyPanel.style.transform = 'translateX(100%)';
+          setTimeout(() => {
+            closeHistory();
+            historyPanel.style.transform = '';
+            historyPanel.style.transition = '';
+          }, 200);
+        } else if (isHorizontalSwipe) {
+          historyPanel.style.transition = 'transform 0.2s ease';
+          historyPanel.style.transform = 'translateX(0)';
+          setTimeout(() => {
+            historyPanel.style.transform = '';
+            historyPanel.style.transition = '';
+          }, 200);
+        }
+      });
+    }
   }
 
   if (btnClearHistory) {
@@ -204,33 +258,34 @@ function setupEventListeners() {
   const wikiDrawer = document.getElementById('wiki-help-drawer');
   const wikiSearchInput = document.getElementById('wiki-search-input');
 
-  if (btnOpenWiki && wikiDrawer) {
-    btnOpenWiki.addEventListener('click', () => {
+  const openWiki = () => {
+    if (wikiDrawer) {
       wikiDrawer.classList.remove('hidden');
-      if (wikiSearchInput) {
-        setTimeout(() => wikiSearchInput.focus(), 50);
-      }
-    });
+      document.body.classList.add('drawer-open');
+      if (wikiSearchInput) setTimeout(() => wikiSearchInput.focus(), 50);
+    }
+  };
+
+  const closeWiki = () => {
+    if (wikiDrawer) wikiDrawer.classList.add('hidden');
+    document.body.classList.remove('drawer-open');
+  };
+
+  if (btnOpenWiki && wikiDrawer) {
+    btnOpenWiki.addEventListener('click', openWiki);
   }
 
   if (mobileStickyBtnWiki && wikiDrawer) {
-    mobileStickyBtnWiki.addEventListener('click', () => {
-      wikiDrawer.classList.remove('hidden');
-      if (wikiSearchInput) {
-        setTimeout(() => wikiSearchInput.focus(), 50);
-      }
-    });
+    mobileStickyBtnWiki.addEventListener('click', openWiki);
   }
 
   if (btnCloseWiki && wikiDrawer) {
-    btnCloseWiki.addEventListener('click', () => {
-      wikiDrawer.classList.add('hidden');
-    });
+    btnCloseWiki.addEventListener('click', closeWiki);
   }
 
   if (wikiDrawer) {
     wikiDrawer.addEventListener('click', (e) => {
-      if (e.target === wikiDrawer) wikiDrawer.classList.add('hidden');
+      if (e.target === wikiDrawer) closeWiki();
     });
   }
 
@@ -595,11 +650,12 @@ function setupEventListeners() {
       const wikiDrawer = document.getElementById('wiki-help-drawer');
       const historyDrawer = document.getElementById('dice-history-drawer');
       const themeModal = document.getElementById('theme-customizer-modal');
-      const discordModal = document.getElementById('discord-modal');
+      const discordModal = document.getElementById('discord-webhook-modal');
       if (wikiDrawer) wikiDrawer.classList.add('hidden');
       if (historyDrawer) historyDrawer.classList.add('hidden');
       if (themeModal) themeModal.classList.add('hidden');
       if (discordModal) discordModal.classList.add('hidden');
+      document.body.classList.remove('drawer-open');
     }
   });
 
