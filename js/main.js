@@ -275,7 +275,7 @@ function setupEventListeners() {
     });
   }
 
-  // Foto de Perfil do Personagem (Upload, URL, Remoção)
+    // Foto de Perfil do Personagem (Upload, URL, Remoção)
   const avatarInput = document.getElementById('char-avatar-input');
   const avatarFrame = document.getElementById('char-avatar-frame');
   const btnAvatarUrl = document.getElementById('btn-avatar-url');
@@ -341,9 +341,8 @@ function setupEventListeners() {
   }
 
   if (btnAvatarRemove) {
-    btnAvatarRemove.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (confirm('Deseja remover a foto de perfil deste personagem?')) {
+    btnAvatarRemove.addEventListener('click', () => {
+      if (confirm('Deseja realmente remover a foto de perfil?')) {
         if (AppState.activeCharacter && AppState.activeCharacter.header) {
           AppState.activeCharacter.header.avatar = '';
           AppState.activeCharacter.header.avatarUrl = '';

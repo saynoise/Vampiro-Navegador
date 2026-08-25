@@ -66,7 +66,7 @@ const DiscordIntegration = {
     }
   },
 
-  async getValidAvatarUrl(header) {
+    async getValidAvatarUrl(header) {
     if (!header) return '';
     if (header.avatarUrl && header.avatarUrl.startsWith('http')) return header.avatarUrl;
     if (header.avatar && (header.avatar.startsWith('http://') || header.avatar.startsWith('https://'))) return header.avatar;

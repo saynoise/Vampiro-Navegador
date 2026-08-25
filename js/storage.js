@@ -12,46 +12,7 @@ const AppState = {
   init() {
     this.loadFromStorage();
     if (this.characters.length === 0) {
-      const defaultChar = createBlankCharacter('Julian Lucian');
-      defaultChar.header.clan = 'Ventrue';
-      defaultChar.header.generation = '8ª';
-      defaultChar.header.concept = 'Aristocrata Noturno';
-      defaultChar.attributes.physical.strength = 4;
-      defaultChar.attributes.physical.dexterity = 4;
-      defaultChar.attributes.social.charisma = 4;
-      defaultChar.attributes.mental.wits = 3;
-      defaultChar.virtues.conscience = 3;
-      defaultChar.virtues.self_control = 4;
-      defaultChar.virtues.courage = 3;
-      defaultChar.status.humanity = 7;
-      defaultChar.status.willpower_perm = 7;
-      defaultChar.disciplines = [
-        { id: generateUniqueId(), name: 'Vicissitude', level: 7 },
-        { id: generateUniqueId(), name: 'Gargoyle Flight', level: 4 },
-        { id: generateUniqueId(), name: 'Koldunic Sorcery', level: 6 },
-        { id: generateUniqueId(), name: 'Fortitude', level: 4 },
-        { id: generateUniqueId(), name: 'Auspex', level: 5 },
-        { id: generateUniqueId(), name: 'Thaumaturgy', level: 3 }
-      ];
-      defaultChar.specializations = [
-        { id: generateUniqueId(), name: 'Ex: Força: Empurrão, Snip', level: 1 },
-        { id: generateUniqueId(), name: 'Ex: Força: Empurrão, Snip', level: 1 },
-        { id: generateUniqueId(), name: 'Ex: Força: Empurrão, Snip', level: 1 },
-        { id: generateUniqueId(), name: 'Ex: Força: Empurrão, Snip', level: 1 },
-        { id: generateUniqueId(), name: 'Ex: Força: Empurrão, Snip', level: 1 }
-      ];
-      defaultChar.backgrounds = [
-        { id: generateUniqueId(), name: 'Recursos', level: 4 }
-      ];
-      defaultChar.paths = [
-        { id: generateUniqueId(), name: 'Trilha do Sangue (Primária)', level: 3 }
-      ];
-      defaultChar.rituals_list = [
-        { id: generateUniqueId(), level: 1, name: 'Defesa do Refúgio Sagrado', description: 'Protege o refúgio do vampiro contra a luz solar.' }
-      ];
-      defaultChar.notes.weakness = 'Fraqueza do Clã ou pessoal...';
-      defaultChar.notes.merits_flaws = 'Sentidos Aguçados (+1pt): Reduz a dificuldade de percepção em 2.\nInimigo do Clã (-2pts): Desavença com um ancião rival.';
-      defaultChar.notes.other_traits = 'Refúgio: Cobertura blindada no centro da cidade.\nIdiomas: Latim, Inglês, Francês e Alemão.';
+      const defaultChar = createBlankCharacter('Novo Personagem');
       syncBloodPoolWithGeneration(defaultChar);
       this.characters.push(defaultChar);
       this.activeCharacter = defaultChar;
@@ -69,7 +30,9 @@ const AppState = {
       const data = localStorage.getItem(STORAGE_KEY);
       this.characters = data ? JSON.parse(data) : [];
       this.characters.forEach(c => {
+        if (!Array.isArray(c.disciplines)) c.disciplines = [];
         if (!Array.isArray(c.specializations)) c.specializations = [];
+        if (!Array.isArray(c.backgrounds)) c.backgrounds = [];
         if (!Array.isArray(c.paths)) c.paths = [];
         if (!Array.isArray(c.rituals_list)) c.rituals_list = [];
         if (!c.notes) c.notes = {};
@@ -98,78 +61,59 @@ const AppState = {
         if (!Array.isArray(c.roll_history)) {
           c.roll_history = [];
         }
-        if (c.abilities && c.abilities.talents) {
-          if (c.abilities.talents.foresight === undefined && c.abilities.talents.dodge !== undefined) {
-            c.abilities.talents.foresight = c.abilities.talents.dodge;
-          }
-        }
-        if (c.abilities && c.abilities.skills) {
-          if (c.abilities.skills.larceny === undefined && c.abilities.skills.security !== undefined) {
-            c.abilities.skills.larceny = c.abilities.skills.security;
-          }
-        }
       });
-
-      // Garante a reconexão imediata do activeCharacter à instância correspondente na lista
-      if (this.characters.length > 0) {
-        const targetId = (this.activeCharacter && this.activeCharacter.id) || localStorage.getItem(ACTIVE_CHAR_KEY);
-        const found = this.characters.find(c => c.id === targetId);
-        this.activeCharacter = found || this.characters[0];
-        syncBloodPoolWithGeneration(this.activeCharacter);
-      }
     } catch (e) {
-      console.error('Erro ao ler do LocalStorage:', e);
+      console.error('Erro ao ler LocalStorage:', e);
       this.characters = [];
     }
   },
 
   saveToStorage() {
     try {
-      // Sincroniza o activeCharacter na lista de personagens antes de serializar
-      if (this.activeCharacter && Array.isArray(this.characters)) {
-        const idx = this.characters.findIndex(c => c.id === this.activeCharacter.id);
-        if (idx !== -1) {
-          this.characters[idx] = this.activeCharacter;
-        } else {
-          this.characters.push(this.activeCharacter);
-        }
-      }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.characters));
       if (this.activeCharacter) {
         localStorage.setItem(ACTIVE_CHAR_KEY, this.activeCharacter.id);
       }
     } catch (e) {
       console.error('Erro ao salvar no LocalStorage:', e);
-      if (e.name === 'QuotaExceededError' || e.code === 22) {
-        showToast('⚠️ Limite de armazenamento do navegador atingido! Remova ou reduza fotos grandes.', 'danger');
-      } else {
-        showToast('⚠️ Falha ao salvar no armazenamento local.', 'danger');
-      }
+      showToast('Erro ao salvar ficha: armazenamento cheio ou bloqueado.', 'danger');
     }
   },
 
+  getActive() {
+    return this.activeCharacter;
+  },
+
   setActive(id) {
-    const char = this.characters.find(c => c.id === id);
-    if (char) {
-      this.activeCharacter = char;
+    const found = this.characters.find(c => c.id === id);
+    if (found) {
+      this.activeCharacter = found;
       syncBloodPoolWithGeneration(this.activeCharacter);
-      localStorage.setItem(ACTIVE_CHAR_KEY, id);
-      LinkCableSystem.clear();
-      ThemeManager.loadForActiveCharacter();
-      if (typeof DiceHistoryManager !== 'undefined') {
-        DiceHistoryManager.updateBadgeCount();
-      }
+      localStorage.setItem(ACTIVE_CHAR_KEY, this.activeCharacter.id);
+      if (typeof LinkCableSystem !== 'undefined') LinkCableSystem.clear();
+      if (typeof ThemeManager !== 'undefined') ThemeManager.loadForActiveCharacter();
+      if (typeof DiceHistoryManager !== 'undefined') DiceHistoryManager.updateBadgeCount();
       return true;
     }
     return false;
   },
 
+  createCharacter(name) {
+    const newChar = createBlankCharacter(name || 'Novo Personagem');
+    syncBloodPoolWithGeneration(newChar);
+    this.characters.push(newChar);
+    this.setActive(newChar.id);
+    this.saveToStorage();
+    if (typeof LinkCableSystem !== 'undefined') LinkCableSystem.clear();
+    return newChar;
+  },
+
   addCharacter(newChar) {
     syncBloodPoolWithGeneration(newChar);
     this.characters.push(newChar);
-    this.activeCharacter = newChar;
+    this.setActive(newChar.id);
     this.saveToStorage();
-    LinkCableSystem.clear();
+    if (typeof LinkCableSystem !== 'undefined') LinkCableSystem.clear();
   },
 
   duplicateActive() {
@@ -182,12 +126,18 @@ const AppState = {
     if (Array.isArray(cloned.backgrounds)) cloned.backgrounds.forEach(b => b.id = generateUniqueId());
     if (Array.isArray(cloned.paths)) cloned.paths.forEach(p => p.id = generateUniqueId());
     if (Array.isArray(cloned.rituals_list)) cloned.rituals_list.forEach(r => r.id = generateUniqueId());
+    cloned.roll_history = [];
+    
     syncBloodPoolWithGeneration(cloned);
     this.characters.push(cloned);
-    this.activeCharacter = cloned;
+    this.setActive(cloned.id);
     this.saveToStorage();
-    LinkCableSystem.clear();
+    if (typeof LinkCableSystem !== 'undefined') LinkCableSystem.clear();
     return cloned;
+  },
+
+  duplicateCharacter(id) {
+    return this.duplicateActive();
   },
 
   deleteActive() {
@@ -195,14 +145,41 @@ const AppState = {
       const blank = createBlankCharacter('Novo Personagem');
       this.characters = [blank];
       this.activeCharacter = blank;
-    } else {
-      const currentId = this.activeCharacter.id;
-      this.characters = this.characters.filter(c => c.id !== currentId);
-      this.activeCharacter = this.characters[0];
+      this.saveToStorage();
+      if (typeof LinkCableSystem !== 'undefined') LinkCableSystem.clear();
+      showToast('Ficha restaurada para o padrão.', 'info');
+      return true;
     }
-    syncBloodPoolWithGeneration(this.activeCharacter);
+
+    const idx = this.characters.findIndex(c => c.id === this.activeCharacter.id);
+    if (idx !== -1) {
+      this.characters.splice(idx, 1);
+      this.activeCharacter = this.characters[0];
+      syncBloodPoolWithGeneration(this.activeCharacter);
+      this.saveToStorage();
+      if (typeof LinkCableSystem !== 'undefined') LinkCableSystem.clear();
+      return true;
+    }
+    return false;
+  },
+
+  deleteCharacter(id) {
+    if (this.activeCharacter && this.activeCharacter.id === id) {
+      return this.deleteActive();
+    }
+    const idx = this.characters.findIndex(c => c.id === id);
+    if (idx !== -1) {
+      this.characters.splice(idx, 1);
+      this.saveToStorage();
+      return true;
+    }
+    return false;
+  },
+
+  updateField(path, value) {
+    if (!this.activeCharacter) return;
+    setNestedValue(this.activeCharacter, path, value);
     this.saveToStorage();
-    LinkCableSystem.clear();
   }
 };
 
@@ -282,5 +259,3 @@ async function uploadImageToHost(fileOrBlob) {
   }
   return null;
 }
-
-// =============================================================================

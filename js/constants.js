@@ -106,23 +106,11 @@ function createBlankCharacter(customName) {
       skills: { animal_ken: 0, crafts: 0, drive: 0, etiquette: 0, firearms: 0, melee: 0, performance: 0, larceny: 0, stealth: 0, survival: 0 },
       knowledges: { academics: 0, computer: 0, finance: 0, investigation: 0, law: 0, medicine: 0, occult: 0, politics: 0, science: 0, technology: 0 }
     },
-    disciplines: [
-      { id: generateUniqueId(), name: 'Potência', level: 1 },
-      { id: generateUniqueId(), name: 'Celeridade', level: 1 }
-    ],
-    specializations: [
-      { id: generateUniqueId(), name: 'Força: Empurrão Poderoso', level: 1 }
-    ],
-    backgrounds: [
-      { id: generateUniqueId(), name: 'Recursos', level: 2 },
-      { id: generateUniqueId(), name: 'Contatos', level: 1 }
-    ],
-    paths: [
-      { id: generateUniqueId(), name: 'Trilha do Sangue (Principal)', level: 2 }
-    ],
-    rituals_list: [
-      { id: generateUniqueId(), level: 1, name: 'Defesa do Refúgio Sagrado', description: 'Protege o refúgio contra a luz solar direta.' }
-    ],
+    disciplines: [],
+    specializations: [],
+    backgrounds: [],
+    paths: [],
+    rituals_list: [],
     virtues: { conscience: 1, self_control: 1, courage: 1 },
     status: {
       path_name: 'Humanidade',
