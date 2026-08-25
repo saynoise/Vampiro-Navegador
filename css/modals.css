@@ -700,20 +700,9 @@
     max-width: 100vw !important;
   }
 
-  .floating-history-btn {
-    bottom: 20px;
-    right: 14px;
-    width: 44px;
-    height: 44px;
-    font-size: 1.2rem;
-  }
-
+  .floating-history-btn,
   .floating-wiki-btn {
-    bottom: 20px;
-    left: 14px;
-    width: 44px;
-    height: 44px;
-    font-size: 1.2rem;
+    display: none !important;
   }
 
   .sheet-tabs-nav {

@@ -124,12 +124,14 @@
   position: relative;
   z-index: 10;
 }
-.trait-link-node:hover {
-  background: var(--crimson-dark);
-  border-color: var(--crimson-bright);
-  transform: scale(1.25);
-  box-shadow: 0 0 9px var(--crimson-glow);
-  z-index: 20;
+@media (hover: hover) {
+  .trait-link-node:hover {
+    background: var(--crimson-dark);
+    border-color: var(--crimson-bright);
+    transform: scale(1.25);
+    box-shadow: 0 0 9px var(--crimson-glow);
+    z-index: 20;
+  }
 }
 .trait-link-node.active-linked {
   background: var(--crimson-bright);

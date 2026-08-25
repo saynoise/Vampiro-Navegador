@@ -102,6 +102,12 @@
 .file-btn-label { margin-bottom: 0; cursor: pointer; }
 .hidden-input { display: none !important; }
 
+/* Botões de Wiki e Histórico no cabeçalho: ocultos no PC e visíveis apenas no Mobile */
+#toolbar-btn-wiki,
+#toolbar-btn-history {
+  display: none !important;
+}
+
 /* RESPONSIVIDADE DA TOOLBAR (NOVO, SALVAR, DUPLICAR, EXCLUIR) */
 @media (max-width: 1200px) {
   .app-toolbar { padding: 8px 12px; }
@@ -110,6 +116,10 @@
 }
 
 @media (max-width: 900px) {
+  #toolbar-btn-wiki,
+  #toolbar-btn-history {
+    display: inline-flex !important;
+  }
   .toolbar-brand { width: 100%; justify-content: center; text-align: center; }
   .toolbar-center { width: 100%; max-width: 420px; }
   .toolbar-actions { width: 100%; justify-content: center; gap: 6px; }
