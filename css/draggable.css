@@ -268,6 +268,7 @@
     position: relative !important;
     top: auto !important;
     left: auto !important;
+    touch-action: pan-y !important;
   }
 
   .card-resize-handle {
@@ -280,5 +281,6 @@
 
   .draggable-handle {
     cursor: default !important;
+    touch-action: pan-y !important;
   }
 }
