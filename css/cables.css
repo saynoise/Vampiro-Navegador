@@ -147,33 +147,81 @@
 
 
 /* DOCK FLUTUANTE */
-.dice-roller-dock { position: fixed; bottom: 0; left: 0; right: 0; z-index: 95; background: rgba(18, 17, 24, 0.97); backdrop-filter: blur(10px); border-top: 2px solid var(--crimson-bright); box-shadow: var(--shadow-dock); padding: 12px 20px 14px 20px; animation: slideUpDock 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.dice-roller-dock { position: fixed; bottom: 0; left: 0; right: 0; z-index: 95; background: rgba(18, 17, 24, 0.97); backdrop-filter: blur(10px); border-top: 2px solid var(--crimson-bright); box-shadow: var(--shadow-dock); padding: 9px 18px; animation: slideUpDock 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 .dice-roller-dock.hidden { display: none !important; }
 @keyframes slideUpDock { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.dock-container { max-width: 1360px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-.dock-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px; }
-.dock-title-group { display: flex; align-items: center; gap: 8px; }
-.dock-blood-icon { font-size: 1.25rem; }
-.dock-header h4 { font-family: var(--font-header); font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; color: var(--crimson-bright); text-shadow: 0 0 8px rgba(255, 26, 26, 0.5); }
-.dock-badges-list { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; flex: 1; margin: 0 10px; }
-.dock-trait-badge { background: #281515; border: 1px solid #731e1e; border-radius: 12px; padding: 3px 10px; font-size: 0.88rem; color: var(--text-primary); font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
-.dock-trait-badge strong { color: var(--gold-bright); }
-.btn-clear-web { background: #301616; color: #ff9999; border: 1px solid #632020; border-radius: 3px; font-family: var(--font-header); font-size: 0.8rem; font-weight: 700; padding: 4px 12px; cursor: pointer; transition: all 0.2s; }
+.dock-container { max-width: 1360px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+.btn-clear-web { background: #301616; color: #ff9999; border: 1px solid #632020; border-radius: 3px; font-family: var(--font-header); font-size: 0.88rem; font-weight: 800; padding: 5px 12px; cursor: pointer; transition: all 0.2s; margin-left: 6px; flex-shrink: 0; }
 .btn-clear-web:hover { background: #501515; color: #fff; border-color: #ff3333; }
-.dock-body { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
-.dock-pool-summary { display: flex; align-items: center; gap: 8px; }
-.pool-math-display { font-family: var(--font-header); font-size: 0.98rem; color: var(--gold-base); font-weight: 700; }
-.pool-total-badge { font-family: var(--font-header); font-size: 1.35rem; font-weight: 900; color: #fff; background: var(--crimson-base); border: 1.5px solid var(--crimson-bright); box-shadow: 0 0 10px var(--crimson-glow); padding: 3px 16px; border-radius: 16px; line-height: 1; }
-.dock-control-item { display: flex; align-items: center; gap: 6px; }
-.dock-control-item label { font-family: var(--font-header); font-size: 0.88rem; color: var(--text-secondary); font-weight: 700; }
-.dock-diff-select { background: var(--bg-input); border: 1px solid var(--border-accent); border-radius: 3px; color: var(--gold-bright); font-family: var(--font-body); font-size: 0.95rem; font-weight: 700; padding: 4px 8px; outline: none; cursor: pointer; }
-.dock-command-box { display: flex; align-items: center; gap: 6px; }
-.dock-command-box label { font-family: var(--font-header); font-size: 0.88rem; color: var(--text-secondary); font-weight: 700; }
+.dock-body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 8px 24px;
+  align-items: center;
+}
+.dock-pool-summary {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.pool-math-display {
+  font-family: var(--font-header);
+  font-size: 1.15rem;
+  color: var(--gold-base);
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.pool-total-badge {
+  font-family: var(--font-header);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  background: var(--crimson-base);
+  border: 1.5px solid var(--crimson-bright);
+  box-shadow: 0 0 10px var(--crimson-glow);
+  padding: 4px 18px;
+  border-radius: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.dock-control-item {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.dock-control-item label { font-family: var(--font-header); font-size: 1rem; color: var(--text-secondary); font-weight: 700; white-space: nowrap; }
+.dock-diff-select { background: var(--bg-input); border: 1px solid var(--border-accent); border-radius: 3px; color: var(--gold-bright); font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; padding: 5px 10px; outline: none; cursor: pointer; }
+.dock-command-box {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dock-command-box label { font-family: var(--font-header); font-size: 1rem; color: var(--text-secondary); font-weight: 700; white-space: nowrap; }
 .command-input-group { display: flex; align-items: center; }
-.command-input { width: 95px; background: #09090c; border: 1.5px solid var(--gold-base); border-right: none; border-radius: 3px 0 0 3px; color: #66ff66; font-family: 'Courier New', monospace; font-size: 1.15rem; font-weight: bold; padding: 4px 8px; text-align: center; outline: none; }
-.btn-copy-cmd { background: #252430; border: 1.5px solid var(--gold-base); border-radius: 0 3px 3px 0; color: var(--gold-bright); font-family: var(--font-header); font-size: 0.82rem; font-weight: 700; padding: 5px 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px; }
+.command-input { width: 105px; background: #09090c; border: 1.5px solid var(--gold-base); border-right: none; border-radius: 3px 0 0 3px; color: #66ff66; font-family: 'Courier New', monospace; font-size: 1.25rem; font-weight: bold; padding: 5px 10px; text-align: center; outline: none; }
+.btn-copy-cmd { background: #252430; border: 1.5px solid var(--gold-base); border-radius: 0 3px 3px 0; color: var(--gold-bright); font-family: var(--font-header); font-size: 0.9rem; font-weight: 700; padding: 6px 14px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px; }
 .btn-copy-cmd:hover { background: var(--gold-base); color: #000; }
-.btn-dock-roll { background: linear-gradient(180deg, #b21212 0%, #660000 100%); border: 1.5px solid #ff4444; color: #ffffff; box-shadow: 0 0 10px rgba(255, 26, 26, 0.5); font-family: var(--font-header); font-size: 0.95rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; padding: 7px 20px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.dock-action-item {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  justify-content: flex-end;
+}
+.btn-dock-roll { background: linear-gradient(180deg, #b21212 0%, #660000 100%); border: 1.5px solid #ff4444; color: #ffffff; box-shadow: 0 0 10px rgba(255, 26, 26, 0.5); font-family: var(--font-header); font-size: 1.08rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; padding: 8px 24px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; white-space: nowrap; }
 .btn-dock-roll:hover { background: linear-gradient(180deg, #d31a1a 0%, #880000 100%); box-shadow: 0 0 16px rgba(255, 26, 26, 0.85); transform: translateY(-1px); }
 
 /* RESULTADOS DADOS */
@@ -256,54 +304,85 @@
     padding: 10px 12px 14px 12px;
   }
 
-  .dock-header {
-    gap: 6px;
-  }
-
-  .dock-header h4 {
-    font-size: 0.95rem;
-  }
-
-  .dock-badges-list {
-    margin: 4px 0;
-    width: 100%;
-  }
-
-  .dock-trait-badge {
-    font-size: 0.78rem;
-    padding: 2px 7px;
-  }
-
   .dock-body {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 8px 12px;
   }
 
   .dock-pool-summary {
-    justify-content: space-between;
-    width: 100%;
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
   }
 
   .pool-math-display {
-    font-size: 0.85rem;
+    font-size: 1rem;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   .pool-total-badge {
-    font-size: 1.15rem;
-    padding: 2px 12px;
+    font-size: 1.35rem;
+    padding: 3px 14px;
+    flex-shrink: 0;
+    margin-left: auto;
   }
 
-  .dock-control-item,
+  .btn-clear-web {
+    font-size: 0.82rem;
+    padding: 4px 8px;
+    flex-shrink: 0;
+  }
+
+  .dock-control-item {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
+  }
+
+  .dock-control-item label,
+  .dock-command-box label {
+    font-size: 0.92rem;
+  }
+
+  .dock-diff-select {
+    font-size: 0.95rem;
+    padding: 4px 6px;
+  }
+
   .dock-command-box {
-    justify-content: space-between;
-    width: 100%;
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .command-input {
+    font-size: 1.1rem;
+    width: 80px;
+    padding: 4px 6px;
+  }
+
+  .btn-copy-cmd {
+    font-size: 0.82rem;
+    padding: 4px 8px;
+  }
+
+  .dock-action-item {
+    grid-column: 2;
+    grid-row: 2;
+    justify-content: flex-end;
   }
 
   .btn-dock-roll {
-    width: 100%;
-    justify-content: center;
-    padding: 9px;
+    padding: 8px 16px;
     font-size: 0.95rem;
   }
 
@@ -311,6 +390,21 @@
     margin-left: 0;
     width: 100%;
     justify-content: center;
-    padding: 7px;
+    padding: 8px;
+    font-size: 0.9rem;
   }
+}
+
+/* Telas ultra-estreitas (< 520px) */
+@media (max-width: 520px) {
+  .dock-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 6px;
+  }
+  .dock-pool-summary { grid-column: 1; grid-row: 1; justify-content: space-between; }
+  .dock-control-item { grid-column: 1; grid-row: 2; justify-content: space-between; }
+  .dock-command-box { grid-column: 1; grid-row: 3; justify-content: space-between; }
+  .dock-action-item { grid-column: 1; grid-row: 4; width: 100%; }
+  .btn-dock-roll { width: 100%; justify-content: center; }
 }
