@@ -250,6 +250,72 @@
     </div>
   </div>
 
+  <!-- MODAL DE BOAS-VINDAS E AVISO DE SALVAMENTO & PRIVACIDADE (NO-PRINT) -->
+  <div id="welcome-notice-modal" class="gothic-modal-overlay hidden no-print">
+    <div class="gothic-modal-box welcome-modal-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">🦇</span>
+          <h3>BEM-VINDO À FICHA V20 • AVISO DE SALVAMENTO</h3>
+        </div>
+        <button type="button" id="btn-close-welcome-modal" class="btn-modal-close" title="Fechar">✕</button>
+      </div>
+
+      <div class="modal-body welcome-modal-body">
+        <p class="welcome-intro">
+          Esta ficha de personagem é uma <strong>aplicação web rápida e segura</strong>. Antes de começar suas crônicas, confira como funciona o salvamento e as boas práticas:
+        </p>
+
+        <div class="notice-cards-grid">
+          <div class="notice-card">
+            <span class="notice-card-icon">💾</span>
+            <div class="notice-card-content">
+              <h4>Salvamento no Seu Navegador</h4>
+              <p>Suas fichas e histórico ficam salvos exclusivamente no <code>localStorage</code> do seu navegador neste aparelho.</p>
+            </div>
+          </div>
+
+          <div class="notice-card">
+            <span class="notice-card-icon">📥</span>
+            <div class="notice-card-content">
+              <h4>Faça Backups com Exportar</h4>
+              <p>Recomendamos clicar no botão <strong>📥 Exportar</strong> para guardar cópias em <code>.json</code> no seu PC ou celular.</p>
+            </div>
+          </div>
+
+          <div class="notice-card">
+            <span class="notice-card-icon">🕶️</span>
+            <div class="notice-card-content">
+              <h4>Cuidado com Abas Anônimas</h4>
+              <p>No modo anônimo, o navegador descarta todas as alterações e fichas assim que você fecha a janela.</p>
+            </div>
+          </div>
+
+          <div class="notice-card">
+            <span class="notice-card-icon">💬</span>
+            <div class="notice-card-content">
+              <h4>Privacidade do Discord Webhook</h4>
+              <p>Sua URL de Webhook fica gravada apenas no seu aparelho e é enviada diretamente aos servidores oficiais do Discord.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="welcome-checkbox-row">
+          <label class="welcome-checkbox-label" for="chk-dont-show-welcome">
+            <input type="checkbox" id="chk-dont-show-welcome" checked>
+            <span>Não mostrar este aviso novamente neste navegador</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="modal-footer welcome-modal-footer">
+        <button type="button" id="btn-confirm-welcome" class="btn btn-primary btn-welcome-confirm">
+          <span class="btn-icon">🩸</span> Entendi e Desejo Continuar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ABAS DE NAVEGAÇÃO DE PÁGINAS (NO-PRINT) -->
   <div class="sheet-tabs-nav no-print">
     <button type="button" class="tab-nav-btn active" data-tab="page-1">

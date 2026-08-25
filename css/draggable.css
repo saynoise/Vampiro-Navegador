@@ -236,3 +236,49 @@
   .health-box { border-color: #333 !important; background: #fff !important; }
   .field-item input, .dynamic-input, .text-card textarea, .weakness-textarea, .generation-dropdown { color: #000 !important; background: transparent !important; }
 }
+
+
+/* =============================================================================
+   RESPONSIVIDADE GERAL MOBILE PARA JANELAS ARRASTÁVEIS E GRIDS
+   ============================================================================= */
+@media (max-width: 920px) {
+  .three-col-grid,
+  .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .span-two-cols {
+    grid-column: span 1 !important;
+  }
+
+  .vantagens-col {
+    gap: 16px !important;
+  }
+
+  /* Desativa offsets absolutos e tamanhos fixos para manter o fluxo vertical natural */
+  .draggable-card {
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-bottom: 0 !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+  }
+
+  .card-resize-handle {
+    display: none !important;
+  }
+
+  .drag-grip {
+    display: none !important;
+  }
+
+  .draggable-handle {
+    cursor: default !important;
+  }
+}

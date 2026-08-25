@@ -244,4 +244,71 @@
 }
 
 
-
+
+
+/* =============================================================================
+   RESPONSIVIDADE MOBILE PARA DOCK DE DADOS E LAÇOS
+   ============================================================================= */
+@media (max-width: 768px) {
+  .dice-roller-dock {
+    padding: 10px 12px 14px 12px;
+  }
+
+  .dock-header {
+    gap: 6px;
+  }
+
+  .dock-header h4 {
+    font-size: 0.95rem;
+  }
+
+  .dock-badges-list {
+    margin: 4px 0;
+    width: 100%;
+  }
+
+  .dock-trait-badge {
+    font-size: 0.78rem;
+    padding: 2px 7px;
+  }
+
+  .dock-body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .dock-pool-summary {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .pool-math-display {
+    font-size: 0.85rem;
+  }
+
+  .pool-total-badge {
+    font-size: 1.15rem;
+    padding: 2px 12px;
+  }
+
+  .dock-control-item,
+  .dock-command-box {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .btn-dock-roll {
+    width: 100%;
+    justify-content: center;
+    padding: 9px;
+    font-size: 0.95rem;
+  }
+
+  .btn-reroll-dock {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+    padding: 7px;
+  }
+}

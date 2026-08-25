@@ -511,10 +511,10 @@ const DiceHistoryManager = {
 
       card.innerHTML = `
         <div class="history-card-top">
-          <span class="history-char-name">👤 ${item.charName}</span>
-          <span class="history-timestamp">⏱️ ${item.time}</span>
+          <span class="history-char-name">👤 ${escapeHtml(item.charName)}</span>
+          <span class="history-timestamp">⏱️ ${escapeHtml(item.time)}</span>
         </div>
-        <div class="history-traits-line">🎲 ${item.traitsSummary} ${rerollBadge}</div>
+        <div class="history-traits-line">🎲 ${escapeHtml(item.traitsSummary)} ${rerollBadge}</div>
         <div class="history-meta-line">
           <span class="history-diff-tag">Dif ${item.difficulty} • ${item.totalPool} dados</span>
           <span class="history-outcome-badge ${outcomeClass}">${outcomeText}</span>

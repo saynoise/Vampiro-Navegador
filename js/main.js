@@ -679,6 +679,40 @@ function handleJsonImport(event) {
   reader.readAsText(file);
 }
 
+const WELCOME_NOTICE_KEY = 'v20_welcome_notice_dismissed';
+
+const WelcomeNoticeManager = {
+  init() {
+    const modal = document.getElementById('welcome-notice-modal');
+    const btnClose = document.getElementById('btn-close-welcome-modal');
+    const btnConfirm = document.getElementById('btn-confirm-welcome');
+    const chkDontShow = document.getElementById('chk-dont-show-welcome');
+
+    if (!modal) return;
+
+    // Se o usuário ainda não descartou com a opção "não mostrar novamente", exibe o modal
+    const isDismissed = localStorage.getItem(WELCOME_NOTICE_KEY);
+    if (!isDismissed) {
+      setTimeout(() => {
+        modal.classList.remove('hidden');
+      }, 350);
+    }
+
+    const closeAndSave = () => {
+      if (chkDontShow && chkDontShow.checked) {
+        localStorage.setItem(WELCOME_NOTICE_KEY, 'true');
+      }
+      modal.classList.add('hidden');
+    };
+
+    if (btnConfirm) btnConfirm.addEventListener('click', closeAndSave);
+    if (btnClose) btnClose.addEventListener('click', closeAndSave);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeAndSave();
+    });
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   ThemeManager.init();
   AppState.init();
@@ -686,5 +720,6 @@ document.addEventListener('DOMContentLoaded', () => {
   DraggableWindowManager.init();
   setupEventListeners();
   DiceHistoryManager.updateBadgeCount();
+  WelcomeNoticeManager.init();
   console.log('Ficha V20 Automatizada (Histórico + Temas + Noise + Regra de 10s e 1s) pronta.');
 });

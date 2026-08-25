@@ -208,4 +208,14 @@ function getNextDamageState(currentState) {
   const currentIndex = DAMAGE_CYCLE.indexOf(currentState);
   if (currentIndex === -1 || currentIndex === DAMAGE_CYCLE.length - 1) return DAMAGE_CYCLE[0];
   return DAMAGE_CYCLE[currentIndex + 1];
-}
+}
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}

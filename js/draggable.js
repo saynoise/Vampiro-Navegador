@@ -24,11 +24,16 @@ const DraggableWindowManager = {
     this.setupResizeObserver();
 
     window.addEventListener('resize', () => {
-      LinkCableSystem.updateWebLines();
+      this.applyAllPositions();
+      if (typeof LinkCableSystem !== 'undefined') {
+        LinkCableSystem.updateWebLines();
+      }
     });
 
     window.addEventListener('scroll', () => {
-      LinkCableSystem.updateWebLines();
+      if (typeof LinkCableSystem !== 'undefined') {
+        LinkCableSystem.updateWebLines();
+      }
     }, { passive: true, capture: true });
   },
 
@@ -64,7 +69,17 @@ const DraggableWindowManager = {
 
   applyAllPositions() {
     const cards = document.querySelectorAll('.draggable-card[data-window-id]');
+    const isMobile = window.innerWidth <= 920;
+
     cards.forEach(card => {
+      if (isMobile) {
+        card.style.transform = '';
+        card.style.width = '';
+        card.style.height = '';
+        card.classList.remove('is-custom-positioned', 'is-collapsed-small');
+        return;
+      }
+
       const winId = card.getAttribute('data-window-id');
       const pos = this.positions[winId];
       if (pos) {
@@ -94,11 +109,15 @@ const DraggableWindowManager = {
 
   checkCardCollapseState(card) {
     if (!card) return;
+    if (window.innerWidth <= 920) {
+      card.classList.remove('is-collapsed-small');
+      return;
+    }
+
     const winId = card.getAttribute('data-window-id');
     const rect = card.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
 
-    // Se o card não tem altura customizada definida pelo usuário (layout padrão), nunca colapsa por altura
     const hasCustomHeight = !!card.style.height;
     
     let isHeightCollapsed = false;
@@ -140,7 +159,9 @@ const DraggableWindowManager = {
       card.style.height = '';
       card.classList.remove('is-custom-positioned', 'is-dragging', 'is-resizing', 'snap-aligned', 'is-collapsed-small');
     });
-    LinkCableSystem.updateWebLines();
+    if (typeof LinkCableSystem !== 'undefined') {
+      LinkCableSystem.updateWebLines();
+    }
     showToast('Layout e tamanhos das janelas restaurados para o padrão!', 'info');
   },
 
@@ -154,6 +175,8 @@ const DraggableWindowManager = {
 
       // 1. ARRASTE COM ÍMÃ (MAGNETIC DRAG)
       dragHandle.addEventListener('pointerdown', (e) => {
+        if (window.innerWidth <= 920) return; // Em mobile, desativa arraste para permitir scroll de toque natural
+
         if (e.target.closest('a') || e.target.closest('button') || e.target.closest('input') || 
             e.target.closest('select') || e.target.closest('textarea') || e.target.closest('.card-badge-link') || 
             e.target.closest('.dot') || e.target.closest('.trait-link-node') || 
@@ -172,10 +195,11 @@ const DraggableWindowManager = {
         this.initialY = currentPos.y || 0;
 
         card.classList.add('is-dragging');
-        dragHandle.setPointerCapture(e.pointerId);
+        try { dragHandle.setPointerCapture(e.pointerId); } catch (_) {}
       });
 
       dragHandle.addEventListener('pointermove', (e) => {
+        if (window.innerWidth <= 920) return;
         if (!this.activeCard || this.activeCard !== card || this.isResizing) return;
 
         const rawDx = e.clientX - this.startX;
@@ -189,7 +213,9 @@ const DraggableWindowManager = {
         card.classList.add('is-custom-positioned');
         card.classList.add('snap-aligned');
 
-        requestAnimationFrame(() => LinkCableSystem.updateWebLines());
+        if (typeof LinkCableSystem !== 'undefined') {
+          requestAnimationFrame(() => LinkCableSystem.updateWebLines());
+        }
       });
 
       const endDrag = (e) => {
@@ -209,7 +235,9 @@ const DraggableWindowManager = {
         try { dragHandle.releasePointerCapture(e.pointerId); } catch (_) {}
         this.activeCard = null;
 
-        LinkCableSystem.updateWebLines();
+        if (typeof LinkCableSystem !== 'undefined') {
+          LinkCableSystem.updateWebLines();
+        }
       };
 
       dragHandle.addEventListener('pointerup', endDrag);
@@ -218,6 +246,7 @@ const DraggableWindowManager = {
       // 2. REDIMENSIONAMENTO DE TAMANHO (RESIZABLE CARDS)
       if (resizeHandle) {
         resizeHandle.addEventListener('pointerdown', (e) => {
+          if (window.innerWidth <= 920) return;
           e.stopPropagation();
           this.activeCard = card;
           this.isResizing = true;
@@ -230,10 +259,11 @@ const DraggableWindowManager = {
 
           card.classList.add('is-resizing');
           resizeHandle.classList.add('is-resizing');
-          resizeHandle.setPointerCapture(e.pointerId);
+          try { resizeHandle.setPointerCapture(e.pointerId); } catch (_) {}
         });
 
         resizeHandle.addEventListener('pointermove', (e) => {
+          if (window.innerWidth <= 920) return;
           if (!this.activeCard || this.activeCard !== card || !this.isResizing) return;
 
           const rawDw = e.clientX - this.startX;
@@ -247,7 +277,9 @@ const DraggableWindowManager = {
           card.classList.add('is-custom-positioned');
           this.checkCardCollapseState(card);
 
-          requestAnimationFrame(() => LinkCableSystem.updateWebLines());
+          if (typeof LinkCableSystem !== 'undefined') {
+            requestAnimationFrame(() => LinkCableSystem.updateWebLines());
+          }
         });
 
         const endResize = (e) => {
@@ -270,7 +302,9 @@ const DraggableWindowManager = {
           this.activeCard = null;
           this.isResizing = false;
 
-          LinkCableSystem.updateWebLines();
+          if (typeof LinkCableSystem !== 'undefined') {
+            LinkCableSystem.updateWebLines();
+          }
         };
 
         resizeHandle.addEventListener('pointerup', endResize);
@@ -278,4 +312,4 @@ const DraggableWindowManager = {
       }
     });
   }
-};
+};

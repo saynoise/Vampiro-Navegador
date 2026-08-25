@@ -204,4 +204,118 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-
+
+
+/* =============================================================================
+   RESPONSIVIDADE MOBILE PARA TRAÇOS, BOLINHAS E STATUS
+   ============================================================================= */
+@media (max-width: 600px) {
+  .trait-category, .status-card, .text-card {
+    padding: 12px 10px !important;
+  }
+
+  .category-heading {
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+
+  .trait-name {
+    font-size: 0.92rem;
+  }
+
+  .dynamic-input {
+    font-size: 0.9rem;
+  }
+
+  .dots-9 .dot, .dots-10 .dot {
+    width: 9px;
+    height: 9px;
+    border-width: 1px;
+  }
+  .dots-9, .dots-10 {
+    gap: 2px;
+  }
+
+  .dots-5 .dot {
+    width: 11px;
+    height: 11px;
+  }
+  .dots-5 {
+    gap: 3px;
+  }
+
+  .dots-value-num {
+    min-width: 15px;
+    height: 15px;
+    font-size: 0.72rem;
+    margin-right: 4px;
+  }
+
+  .trait-link-node {
+    width: 13px;
+    height: 13px;
+    margin-left: 2px;
+    margin-right: 4px;
+  }
+
+  /* Status Cards no Mobile */
+  .blood-pool-grid {
+    gap: 3px;
+    padding: 6px 4px;
+  }
+  .blood-point {
+    max-width: 18px;
+    height: 22px;
+    font-size: 0.65rem;
+  }
+
+  .health-row {
+    padding: 3px 0;
+  }
+  .health-name {
+    font-size: 0.88rem;
+  }
+  .health-penalty {
+    font-size: 0.82rem;
+  }
+  .health-box {
+    width: 16px;
+    height: 16px;
+    font-size: 0.85rem;
+  }
+
+  .boxes-group {
+    gap: 2.5px;
+  }
+  .box-item {
+    width: 12px;
+    height: 12px;
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .dots-9 .dot, .dots-10 .dot {
+    width: 8px;
+    height: 8px;
+  }
+  .dots-9, .dots-10 {
+    gap: 1.5px;
+  }
+  .dots-5 .dot {
+    width: 9.5px;
+    height: 9.5px;
+  }
+  .dots-value-num {
+    min-width: 13px;
+    height: 13px;
+    font-size: 0.65rem;
+    margin-right: 3px;
+    padding: 0 1px;
+  }
+  .trait-name {
+    font-size: 0.85rem;
+  }
+}

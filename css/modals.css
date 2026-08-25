@@ -680,4 +680,151 @@
   font-size: 2.5rem;
   opacity: 0.4;
 }
-
+
+
+/* =============================================================================
+   RESPONSIVIDADE MOBILE PARA MODAIS E DRAWERS
+   ============================================================================= */
+@media (max-width: 768px) {
+  .gothic-modal-box {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    margin: 10px auto;
+    padding: 18px 14px;
+    max-height: 90vh;
+  }
+
+  .history-drawer-panel,
+  .wiki-help-panel {
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+
+  .floating-history-btn {
+    bottom: 20px;
+    right: 14px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .floating-wiki-btn {
+    bottom: 20px;
+    left: 14px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .sheet-tabs-nav {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tab-nav-btn {
+    flex: 1 1 calc(50% - 6px);
+    padding: 7px 10px;
+    font-size: 0.78rem;
+    justify-content: center;
+  }
+}
+
+/* =============================================================================
+   ESTILOS DO MODAL DE BOAS-VINDAS E AVISO DE SALVAMENTO
+   ============================================================================= */
+.welcome-modal-box {
+  max-width: 620px;
+}
+
+.welcome-intro {
+  font-size: 1.02rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.notice-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 580px) {
+  .notice-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.notice-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: border-color 0.2s;
+}
+
+.notice-card:hover {
+  border-color: var(--gold-dark);
+}
+
+.notice-card-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.notice-card-content h4 {
+  font-family: var(--font-header);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.notice-card-content p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.welcome-checkbox-row {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.welcome-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--gold-base);
+  font-family: var(--font-header);
+  font-size: 0.88rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+.welcome-checkbox-label input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--crimson-bright);
+  cursor: pointer;
+}
+
+.welcome-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-welcome-confirm {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+}
