@@ -1,27 +1,30 @@
 # ☥ Ficha Automatizada V20 — Vampiro: A Máscara 🦇
 
-Uma ficha de personagem interativa, automatizada e rica em recursos para **Vampiro: A Máscara (20th Anniversary Edition / V20)**, desenvolvida em JavaScript puro, CSS3 moderno, física de cabos SVG e interface modular customizável.
+Uma ficha de personagem interativa, automatizada e rica em recursos para **Vampiro: A Máscara (20th Anniversary Edition / V20)**, desenvolvida em JavaScript puro, CSS3 moderno modular, física de cabos SVG, responsividade mobile completa e interface customizável.
 
 ![Vampire The Masquerade V20 Sheet Banner](https://img.shields.io/badge/Sistema-V20_%7C_Vampiro%3A_A_M%C3%A1scara-8b0000?style=for-the-badge&logo=tabletop)
-![JavaScript](https://img.shields.io/badge/Vanilla_JS-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![CSS3](https://img.shields.io/badge/CSS3-Modern_Gothic_UI-1572B6?style=for-the-badge&logo=css3)
+![JavaScript](https://img.shields.io/badge/Vanilla_JS-ES6+_Modular-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![CSS3](https://img.shields.io/badge/CSS3-Modular_Gothic_UI-1572B6?style=for-the-badge&logo=css3)
+![Mobile Ready](https://img.shields.io/badge/Mobile-100%25_Responsivo-22c55e?style=for-the-badge&logo=android)
 ![Discord Webhook](https://img.shields.io/badge/Discord-Webhook_Integrado-5865F2?style=for-the-badge&logo=discord&logoColor=white)
 
 ---
 
 ## 📖 Visão Geral
 
-Esta aplicação web foi criada para jogadores e narradores de RPG que desejam uma experiência moderna, imersiva e completa para gerenciar seus Membros. Ela une a elegância visual clássica gótica do Mundo das Trevas com automações avançadas de regras, física interativa de cabos sangüíneos, janelas modulares magnéticas, compêndio completo de Qualidades e Defeitos, histórico de rolagens e integração em tempo real com o Discord.
+Esta aplicação web foi criada para jogadores e narradores de RPG que desejam uma experiência moderna, imersiva e completa para gerenciar seus Membros. Ela une a elegância visual clássica gótica do Mundo das Trevas com automações avançadas de regras, física interativa de cabos sangüíneos, janelas modulares magnéticas, compêndios completos de Qualidades, Defeitos e Rituais, histórico de rolagens, temas exclusivos dos Clãs e integração em tempo real com o Discord.
+
+A aplicação roda **100% no navegador (Client-Side)**, sem necessidade de servidores backend ou banco de dados externo, garantindo privacidade total, portabilidade offline e compatibilidade imediata com **GitHub Pages**, **Vercel** ou abertura local por duplo clique (`file:///`).
 
 ---
 
 ## ✨ Principais Funcionalidades
 
 ### 🩸 1. Sistema Completo de Regras V20
-- **Atributos & Habilidades:** Seleção fluida de bolinhas para Atributos (Físicos, Sociais, Mentais) e Habilidades (Talentos, Perícias, Conhecimentos).
+- **Atributos & Habilidades:** Seleção fluida de bolinhas para Atributos (*Físicos, Sociais, Mentais*) e Habilidades (*Talentos, Perícias, Conhecimentos*), com **indicadores numéricos à esquerda** de cada linha de traço.
 - **Disciplinas & Especializações Dinâmicas:** Adicione, renomeie e remova Disciplinas, Especializações, Antecedentes e Caminhos customizados.
 - **Controle de Geração & Sangue Automático:**
-  - Suporte dinâmico da **4ª à 15ª Geração**.
+  - Suporte dinâmico da **3ª à 15ª Geração**.
   - O tamanho da Parada de Sangue (*Blood Pool*) e o gasto máximo de pontos por turno se ajustam automaticamente de acordo com as tabelas oficiais de Geração do V20.
   - Botões de conveniência para encher (`Encher Max`) e esvaziar a reserva.
 - **Força de Vontade & Trilha/Humanidade:** Controle de Força de Vontade permanente (bolinhas) e temporária (caixas de marcação `✕`), além de Trilha da Sabedoria / Humanidade com Virtudes associadas.
@@ -29,69 +32,50 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 - **Controle de Experiência (XP):** Cálculo automático de saldo disponível com base no total adquirido e gasto.
 - **Página 2 Completa (Grimório & Detalhes):**
   - Lista dinâmica de Rituais e Linhas Taumatúrgicas / Necromancia (Níveis 1 a 9 com efeitos e anotações).
-  - Campos dedicados para Qualidades & Defeitos com link direto para o compêndio, Fraqueza do Clã, Outras Características e Histórico detalhado.
+  - Campos dedicados com fundo escuro gótico para Qualidades & Defeitos, Fraqueza do Clã, Outras Características e Histórico detalhado.
 
 ---
 
-### 🪟 2. Janelas Modulares Flutuantes (Drag, Snap Magnético & Resize)
-- **Arraste Livre (*Draggable Cards*):** Todas as categorias e cartões de status podem ser arrastados livremente para qualquer posição na tela.
-- **Ímã Magnético (*Magnetic Grid Snap*):** Encaixe inteligente em grade magnética de 12px para alinhamento perfeito e simetria visual.
-- **Redimensionamento Livre (*Card Resizing*):** Puxe o manipulador no canto inferior direito de cada card para redimensionar sua largura e altura livremente.
-- **Modo Badge Compacto Automático:**
-  - Ao reduzir os cards de **Experiência**, **Força de Vontade** ou **Ponto de Sangue** para tamanhos muito pequenos, os campos internos se ocultam automaticamente e o card se transforma em uma elegante badge centralizada com o título da seção.
-- **Persistência de Layout & Reset:** As posições e tamanhos customizados de cada janela são salvos no navegador, com o botão **`🔄 Resetar Layout`** na barra superior para restaurar o padrão clássico a qualquer momento.
+### 📱 2. Responsividade Mobile & Tablet Completa
+- **Design Adaptativo para Celulares:** Em smartphones e tablets, a ficha se reorganiza automaticamente em **1 coluna vertical fluida**, sem sobreposição de janelas.
+- **Bolinhas Proporcionais:** Em telas estreitas (320px a 600px), o diâmetro das bolinhas de 1 a 9 se adapta proporcionalmente para caber em qualquer smartphone sem transbordar.
+- **Dock de Dados Verticalizado:** O painel de rolagem inferior se ajusta perfeitamente na vertical para toque confortável no polegar.
+- **Modais e Drawers em Tela Cheia:** O personalizador de temas, a gaveta do Histórico (`𝕮`) e a Wiki abrem em visual confortável de tela cheia no mobile.
 
 ---
 
-### 🕸️ 3. Cabos de Ligação Sangüínea (*Blood Link Cables*) & Ancoragem Inteligente
-- **Conexão Dinâmica de Traços:** Clique nos nós circulares de um Atributo e de uma Habilidade (ou Disciplina/Especialização) para ligá-los e formar paradas de dados.
-- **Física SVG 2D em Tempo Real:** Conexões em curvas Bezier com oscilação física amortecida (*harmonic sway physics*) que reagem a cada nova ligação.
-- **Ancoragem Inteligente na Borda do Container (*Border Snapping*):**
-  - Se você conectar um traço para rolagem e em seguida redimensionar ou colapsar o card onde ele está, o cabo não se perde: ele **gruda perfeitamente na borda externa da janela** voltada na direção do outro nó ou do dock de dados.
-- **Brilho Carmesim Pulsante no Container:**
-  - A janela que possui nós conectados ocultos começa a brilhar com uma aura carmesim pulsante (`.card-cable-linked-active`), mantendo o brilho vermelho mesmo enquanto é redimensionada.
-- **Auras em Overlay Global:** Os anéis de brilho e pontos de junção são renderizados em um layer SVG global (z-index 90), 100% livres de cortes de borda.
+### 🎭 3. Temas Oficiais dos 7 Clãs & Ajuste Fino HSL
+- **Presets Temáticos dos Clãs:**
+  - 👑 **Ventrue:** Sangue Azul Nobre & Ouro Aristocrático
+  - 🩸 **Tremere:** Carmesim Hermético & Ouro Arcano
+  - 🌹 **Toreador:** Rosa das Paixões & Ouro Rosé
+  - 🔥 **Brujah:** Fogo Revolucionário & Aço Urbano
+  - 🌑 **Lasombra:** Escuridão Abissal & Prata Lunar
+  - 🐉 **Tzimisce:** Esmeralda Draconiana & Ouro Ancestral
+  - ⚰️ **Giovanni:** Púrpura Espectral & Ouro Veneziano
+- **Cores Clássicas V20:** Vermelho Carmesim, Verde Esmeralda, Roxo Abissal e Amarelo Âmbar.
+- **Sliders em Tempo Real:** Ajuste fino de Matiz, Saturação, Luminosidade de fundo e Ruído de película (*film grain noise*).
 
 ---
 
-### 🎭 4. Compêndio Completo de Qualidades & Defeitos (`qualidades-defeitos.html`)
-- **Catálogo Integral V20 & 3ª Edição:** Mais de 130 Qualidades e Defeitos categorizados fielmente a partir dos livros oficiais (*Livro Básico, Guia da Camarilla, Guia do Sabá, Livros de Clã, Tempo de Sangue Fraco*).
-- **Filtros Combináveis em Dois Eixos:**
-  - **Eixo 1 (Tipo):** *Todos os Tipos*, *✨ Apenas Qualidades*, *💀 Apenas Defeitos*.
-  - **Eixo 2 (Categoria):** *Todas as Categorias*, *🩸 Físicas*, *🧠 Mentais*, *🏛️ Sociais*, *🔮 Sobrenaturais*.
-  - Exemplo: Escolha *Defeitos* + *Físicas* para visualizar **exatamente e apenas os Defeitos Físicos**.
-- **Busca em Tempo Real (`🔍`):** Pesquisa instantânea por nome, pontos, livro de origem ou termos descritivos (ex: *"frenesi"*, *"fogo"*, *"tremere"*).
-- **Botão "📋 Copiar":** Copia a qualidade/defeito formatada diretamente para a área de transferência para colar na ficha.
-- **Acesso Rápido:** Botão `[📖 Lista Completa ↗]` presente diretamente no cabeçalho de Qualidades & Defeitos na Página 2 da ficha e no menu Wiki.
+### 🪟 4. Janelas Modulares Flutuantes (Drag, Snap Magnético & Resize)
+- **Arraste Livre (*Draggable Cards*):** Em computadores e telas amplas, todas as categorias e cartões de status podem ser arrastados livremente.
+- **Ímã Magnético (*Magnetic Grid Snap*):** Encaixe inteligente em grade de 12px para alinhamento perfeito.
+- **Redimensionamento Livre (*Card Resizing*):** Puxe o manipulador (`◢`) no canto inferior direito de cada card para redimensionar largura e altura.
+- **Modo Badge Compacto Automático:** Ao reduzir cards para tamanhos mínimos, os campos internos se ocultam para economizar espaço de tela.
+- **Persistência de Layout & Reset:** Posições e tamanhos salvos no navegador, com botão **`🔄 Resetar Layout`** na barra superior.
 
 ---
 
-### 📜 5. Grimório Oficial de Rituais V20 (`compendios/grimorio-rituais.html`)
-- **Catálogo Abrangente de Magia de Sangue:** Mais de 45 rituais canônicos (Níveis 1 a 5) cobrindo todas as **7 Grandes Tradições Oficiais da White Wolf Wiki**:
-  - 🩸 **Taumaturgia Hermética** (*Clã Tremere*)
-  - 💀 **Necromancia** (*Clã Giovanni & Capadócios*)
-  - 🐍 **Akhu / Feitiçaria Setita** (*Seguidores de Set / Ministério*)
-  - ⚡ **Feitiçaria Anarquista** (*Hacktivista & Punk dos Anarquistas*)
-  - 🗡️ **Dur-An-Ki / Feitiçaria Assamita** (*Clã Banu Haqim*)
-  - 🌲 **Koldunismo / Feitiçaria Koldúnica** (*Clã Tzimisce*)
-  - 🕉️ **Sādhana / Feitiçaria Indiana** (*Clã Ravnos & Daityas*)
-- **Ficha Completa por Ritual:** Componentes materiais, tempos de conjuração, sistemas de paradas de dados, livros de referência e links diretos para a **White Wolf Fandom Wiki**.
-- **Filtros por Nível & Tradição:** Filtre instantaneamente por Nível (1 ao 5) e por qualquer uma das 7 tradições místicas.
-- **Botão "➕ Adicionar à Ficha":** Integração direta com o personagem ativo: adiciona o ritual pré-carregado diretamente à lista de rituais na Página 2 da ficha!
-- **Preservação de Rituais Customizados:** A ficha mantém 100% da flexibilidade para adicionar e editar rituais personalizados livremente pelo botão `＋`.
+### 🕸️ 5. Cabos de Ligação Sangüínea (*Blood Link Cables*)
+- **Conexão Dinâmica de Traços:** Clique nos nós circulares de um Atributo e de uma Habilidade (ou Disciplina) para ligá-los e formar paradas de dados.
+- **Física SVG 2D em Tempo Real:** Conexões em curvas Bézier com oscilação física amortecida que reagem a cada nova ligação.
+- **Ancoragem Inteligente na Borda (*Border Snapping*):** Quando um card conectado é redimensionado ou colapsado, o cabo se fixa na borda externa voltada para o nó destino.
+- **Brilho Carmesim Pulsante:** O container com nós ativos brilha suavemente com aura carmesim pulsante.
 
 ---
 
-### 📖 6. Painel Lateral de Ajuda & Wiki V20 (`𝖂 Wiki`)
-- **Botão Flutuante Espelhado à Esquerda:** Aba gótica fixa na lateral esquerda com o símbolo **`𝖂`** e efeito hover luminoso.
-- **Drawer Deslizante com Busca Rápida:**
-  - Campo de pesquisa em tempo real para localizar regras e lore rapidamente.
-  - Links oficiais e enciclopédias (*White Wolf Fandom Wiki, Índice de Disciplinas 1-10, Clãs & Linhagens, Rituais Taumatúrgicos, Geração e Sangue, Sistema Storyteller*).
-  - **Cartões de Consulta Rápida In-App:** Resumos de regras essenciais (Cálculo de parada de dados, Danos e Absorção, Usos de Força de Vontade e Gastos de Sangue).
-
----
-
-### 🎲 7. Rolador de Dados V20 Avançado
+### 🎲 6. Rolador de Dados V20 Avançado
 - **Regras Oficiais do Sistema Storyteller:**
   - **Sucessos:** Dados iguais ou maiores que a Dificuldade selecionada (Dif padrão 6).
   - **Críticos (10s):** Contabilizam **2 sucessos** e recebem destaque neon **Ciano**.
@@ -101,58 +85,89 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
 
 ---
 
-### 💬 8. Integração com Discord Webhook (Por Personagem)
+### 💬 7. Integração com Discord Webhook (Por Personagem)
 - **Envio Automático:** Envia os resultados das rolagens diretamente para o canal de texto do Discord do seu grupo.
 - **Embeds Góticos Ricos:**
-  - Exibe nome do personagem, clã, nome do jogador, foto/avatar do personagem, traços usados e resultado detalhado.
+  - Exibe nome do personagem, clã, nome do jogador, foto de perfil, traços usados e resultado detalhado.
   - **Cores Dinâmicas:** Ciano para Sucessos Críticos, Verde para Sucessos, Vermelho para Falhas Críticas e Cinza para Falhas Simples.
   - **Edição em Tempo Real (`PATCH`):** Ao rerrolar falhas na ficha, a mensagem original no Discord é editada automaticamente com o novo resultado.
 - **Emotes Customizados:** Suporte nativo para emojis personalizados do servidor (ex: `<:critico:ID>`, `<:sucesso:ID>`, `<:falha:ID>`, `<:falhacritica:ID>`).
-- **Isolamento Total:** Cada personagem da sua lista tem sua própria URL de Webhook independente.
 
 ---
 
-### 𝕮 9. Gaveta de Histórico de Rolagens (*Slide-Out Drawer*)
+### 𝕮 8. Gaveta de Histórico de Rolagens (*Slide-Out Drawer*)
 - **Botão Flutuante Gótico à Direita:** Aba fixa na lateral direita com o símbolo **`𝕮`** e contador numérico em tempo real.
-- **Painel Lateral Deslizante:**
-  - Visualização cronológica organizada (mais antigas no topo, mais recentes no fundo com auto-scroll).
-  - Exibição de horário exato, traços selecionados, badge de resultado, mini-dados individuais coloridos e destaque nos dados rerrolados.
-- **Escopo por Personagem:** Cada ficha mantém seu próprio histórico de rolagens gravado individualmente no navegador.
+- **Painel Lateral Deslizante:** Visualização cronológica com horário, traços usados, badge de resultado, mini-dados individuais coloridos e destaque nos dados rerrolados.
 
 ---
 
-### 🎨 10. Customizador de Temas & Cores (Por Personagem)
-- **Presets Rápidos:**
-  - 🩸 *Vermelho (Carmesim)*
-  - 🌿 *Verde (Esmeralda)*
-  - 🔮 *Roxo (Abissal)*
-  - ☀️ *Amarelo (Âmbar)*
-- **Ajuste Fino HSL:** Sliders de Matiz, Saturação, Luminosidade de fundo e Ruído de película (*film grain noise*).
-- **Sincronização dos Cabos:** Os cabos de ligação de sangue adaptam sua cor e brilho dinamicamente de acordo com o tema do personagem ativo.
+### 📚 9. Compêndios Integrados
+- **Qualidades & Defeitos (`qualidades-defeitos.html`):** Mais de 130 Qualidades e Defeitos oficiais catalogados com filtros duplos combináveis (Tipo e Categoria), busca em tempo real e botão de copiar.
+- **Grimório Oficial de Rituais (`compendios/grimorio-rituais.html`):** Mais de 45 rituais das **7 Tradições de Feitiçaria e Taumaturgia** (*Hermética, Necromancia, Setita, Anarquista, Assamita, Koldúnica e Indiana*) com botão **"➕ Adicionar à Ficha"**.
+- **Painel de Ajuda & Wiki (`𝖂 Wiki`):** Drawer lateral com busca rápida por regras, danos, absorção, virtudes e links oficiais da White Wolf Wiki.
 
 ---
 
-### 👥 11. Gerenciador Multi-Fichas & Responsividade
-- **Barra Superior Responsiva & Centralizada:** Menu de navegação harmonioso que se adapta automaticamente a telas menores, dividindo botões de ação em blocos simétricos.
-- **Múltiplos Personagens:** Crie, clone e alterne rapidamente entre personagens no menu superior.
-- **Importação/Exportação JSON:** Salve suas fichas em arquivos `.json` locais e compartilhe com seu Narrador ou amigos.
-- **Persistência Total:** Tudo é salvo automaticamente no `localStorage` do navegador com atalho `Ctrl + S`.
-- **Modo de Impressão (@media print):** Estilos limpos para gerar PDF da ficha ou imprimir em papel formato clássico.
+### 🛡️ 10. Segurança, Boas Práticas & Popup Informativo
+- **Popup de Boas-Vindas & Aviso de Salvamento:** Exibido no primeiro acesso com orientações claras sobre `localStorage`, backups `.json`, abas anônimas e privacidade do Webhook, com opção *"Não mostrar novamente"*.
+- **Proteção contra Injeção (XSS):** Sanitização com `escapeHtml()` em todas as exibições dinâmicas e no histórico.
+- **Compressão de Avatar em Canvas:** Redimensionamento e compressão automática de fotos de perfil para manter o `localStorage` leve e rápido.
+- **Backup Completo (`.json`):** Exportação e importação de personagens inteiros com 1 clique para transferência entre PC e Celular.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **HTML5:** Estruturação semântica e acessível com suporte a container queries.
-- **SVG Dinâmico:** Renderização vetorial dos cabos de sangue, auras pulsantes e nós de conexão.
-- **CSS3 Moderno:** Flexbox, CSS Grid, Container Queries (`@container`), Glassmorphism, Backdrop Filters, Animações e Variáveis CSS para tematização dinâmica.
-- **JavaScript Vanilla (ES6+):** Código limpo, modular, reativo e sem dependências externas pesadas.
+- **HTML5:** Estruturação semântica, formulários reativos e container queries.
+- **SVG Dinâmico:** Renderização vetorial dos cabos de sangue, auras e filtros gaussianos de brilho.
+- **CSS3 Modular:** Dividido em 7 módulos especializados com Flexbox, CSS Grid, Container Queries, Glassmorphism, ruído de fundo e variáveis CSS.
+- **JavaScript Vanilla (ES6+ Modular):** Dividido em 8 módulos independentes com zero dependências externas ou frameworks pesados.
+
+---
+
+## 📂 Estrutura de Arquivos do Projeto
+
+```
+v20-character-sheet/
+│
+├── index.html                      # ⭐ Ficha principal de personagem (raiz limpa)
+├── LICENSE                         # Licença MIT
+├── README.md                       # Documentação completa do projeto
+│
+├── css/                            # 🎨 Estilos e Tematização Gótica Modular
+│   ├── base.css                    # Variáveis globais, reset, tipografia, ruído e toasts
+│   ├── themes.css                  # Paletas e texturas dos 7 Clãs e cores clássicas
+│   ├── sheet.css                   # Layout da ficha, cabeçalho responsivo, avatar e grids
+│   ├── traits.css                  # Bolinhas, badges numéricos, vitalidade e sangue
+│   ├── draggable.css               # Janelas arrastáveis, ímã magnético e modo mobile
+│   ├── cables.css                  # Laços SVG de sangue, dock flutuante de rolagem
+│   ├── modals.css                  # Modals, drawer do histórico, wiki e aviso de boas-vindas
+│   └── styles.css                  # Ponto de entrada / importador dos módulos CSS
+│
+├── js/                             # ⚙️ Lógica e Módulos JavaScript (ES6+)
+│   ├── constants.js                # Regras V20, tabelas de geração, sanitização e utilitários
+│   ├── storage.js                  # Gerenciador AppState, localStorage e compressor de imagens
+│   ├── themes.js                   # ThemeManager, presets dos 7 Clãs e sliders HSL
+│   ├── cables.js                   # LinkCableSystem, física de cabos Bézier e auras SVG
+│   ├── draggable.js                # DraggableWindowManager, grid de 12px e layout fluido mobile
+│   ├── dice.js                     # Rolador Storyteller, Discord Webhook e DiceHistoryManager
+│   ├── renderer.js                 # UIRenderer, bolinhas dinâmicas e reatividade da ficha
+│   └── main.js                     # WelcomeNoticeManager, atalhos de teclado e ciclo de vida
+│
+├── compendios/                     # 📚 Enciclopédias e Compêndios Oficiais
+│   ├── qualidades-defeitos.html    # Catálogo de 130+ Qualidades & Defeitos com filtros
+│   └── grimorio-rituais.html       # Grimório Oficial de Rituais V20 (7 Tradições Místicas)
+│
+└── data/                           # 🗄️ Bases de Dados Canônicas
+    ├── qualidades-defeitos-data.js # Dados estruturados de Qualidades & Defeitos
+    └── grimorio-rituais-data.js    # Dados estruturados de Rituais com links da Wiki
+```
 
 ---
 
 ## 🚀 Como Utilizar
 
-### Executando Localmente
+### Execução Local (PC ou Notebook)
 
 1. Clone o repositório ou baixe os arquivos:
    ```bash
@@ -162,41 +177,15 @@ Esta aplicação web foi criada para jogadores e narradores de RPG que desejam u
    ```bash
    cd v20-character-sheet
    ```
-3. Abra o arquivo `index.html` em qualquer navegador moderno (Chrome, Firefox, Edge, Opera, Safari, etc.):
-   - Basta dar um clique duplo em `index.html` ou usar extensões como o *Live Server* do VS Code.
+3. Dê um duplo clique no arquivo `index.html` em qualquer navegador moderno (Chrome, Firefox, Edge, Opera, Safari).
 
-### Hospedagem no GitHub Pages
+### Publicação no GitHub Pages (Para Jogar Online e no Celular)
 
-Este projeto é 100% estático e funciona diretamente no **GitHub Pages**:
-1. Vá nas configurações do seu repositório no GitHub (**Settings** > **Pages**).
-2. Em **Source**, selecione a branch `main` (ou `master`) e a pasta `/ (root)`.
-3. Clique em **Save** e acesse a URL gerada!
-
----
-
-## 📂 Estrutura de Arquivos
-
-```
-v20-character-sheet/
-│
-├── index.html                  # ⭐ Ficha principal de personagem (raiz limpa)
-├── LICENSE                     # Licença MIT
-├── README.md                   # Documentação completa do projeto
-│
-├── css/                        # 🎨 Estilos e tematização gótica
-│   └── styles.css              # Variáveis CSS, layout responsivo e animações
-│
-├── js/                         # ⚙️ Scripts e lógica principal
-│   └── app.js                  # Regras V20, física dos cabos, Discord Webhook e storage
-│
-├── compendios/                 # 📚 Enciclopédias e páginas auxiliares
-│   ├── qualidades-defeitos.html # Compêndio de Qualidades & Defeitos com filtros duplos
-│   └── grimorio-rituais.html   # Grimório Oficial de Rituais V20 (Taumaturgia & Necromancia)
-│
-└── data/                       # 🗄️ Bases de dados oficiais
-    ├── qualidades-defeitos-data.js # Base com mais de 130 qualidades/defeitos catalogados
-    └── grimorio-rituais-data.js    # Catálogo de rituais com links oficiais da White Wolf Wiki
-```
+1. Envie o projeto para o seu repositório no GitHub.
+2. Acesse **Settings** > **Pages** no repositório.
+3. Em **Branch**, selecione `main` (ou `master`) e a pasta `/ (root)`.
+4. Clique em **Save**. Em instantes, o link público da sua ficha estará no ar!
+5. Abra o link no navegador do seu smartphone ou tablet e selecione **"Adicionar à Tela Inicial"** para usar a ficha como um aplicativo de celular.
 
 ---
 
