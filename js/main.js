@@ -651,10 +651,12 @@ function setupEventListeners() {
       const historyDrawer = document.getElementById('dice-history-drawer');
       const themeModal = document.getElementById('theme-customizer-modal');
       const discordModal = document.getElementById('discord-webhook-modal');
+      const ritualsWipModal = document.getElementById('rituals-wip-modal');
       if (wikiDrawer) wikiDrawer.classList.add('hidden');
       if (historyDrawer) historyDrawer.classList.add('hidden');
       if (themeModal) themeModal.classList.add('hidden');
       if (discordModal) discordModal.classList.add('hidden');
+      if (ritualsWipModal) ritualsWipModal.classList.add('hidden');
       document.body.classList.remove('drawer-open');
     }
   });

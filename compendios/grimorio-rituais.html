@@ -309,6 +309,108 @@
 </head>
 <body>
 
+  <!-- MODAL DE AVISO: GRIMÓRIO EM DESENVOLVIMENTO -->
+  <div id="rituals-wip-modal" style="
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(8, 8, 12, 0.85); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    animation: fadeInWip 0.25s ease-out;
+  ">
+    <div style="
+      background: linear-gradient(180deg, #1a1a23 0%, #111118 100%);
+      border: 2px solid var(--border-accent); border-radius: 12px;
+      max-width: 520px; width: 92%; box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+      overflow: hidden;
+    ">
+      <div style="
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 16px 20px; border-bottom: 1px solid var(--border-subtle);
+        border-top: 3px solid var(--crimson-bright); background: #13121b;
+      ">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.6rem;">🔮</span>
+          <h3 style="font-family: var(--font-header); font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; color: var(--gold-bright); margin: 0;">GRIMÓRIO • EM DESENVOLVIMENTO</h3>
+        </div>
+        <button type="button" id="btn-close-rituals-wip" style="
+          background: none; border: 1px solid var(--border-subtle); color: var(--text-muted);
+          font-size: 1.2rem; cursor: pointer; border-radius: 4px; padding: 2px 8px;
+        " title="Fechar">✕</button>
+      </div>
+
+      <div style="padding: 20px 22px;">
+        <p style="font-size: 1.02rem; color: var(--text-primary); line-height: 1.55; margin-bottom: 16px;">
+          A tradução e implementação dos rituais nesta página foi feita com <strong style="color: var(--crimson-bright);">auxílio de Inteligência Artificial</strong> e <strong style="color: var(--gold-bright);">contém erros</strong>. Alguns rituais listados aqui <strong>podem nem existir</strong> no material oficial do V20, tendo sido inventados por alucinação da IA.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px;">
+          <div style="background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 1.5rem;">🤖</span>
+            <div>
+              <h4 style="font-family: var(--font-header); font-size: 0.9rem; color: var(--gold-bright); margin: 0 0 4px 0;">Conteúdo Gerado por IA</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.4;">Traduções, descrições e mecânicas podem conter imprecisões, erros ou informações completamente fabricadas pela IA.</p>
+            </div>
+          </div>
+          <div style="background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 1.5rem;">⚠️</span>
+            <div>
+              <h4 style="font-family: var(--font-header); font-size: 0.9rem; color: var(--gold-bright); margin: 0 0 4px 0;">Rituais Inexistentes</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.4;">Alguns rituais foram criados por alucinação da IA e não existem nos livros oficiais. Sempre confira com o material original.</p>
+            </div>
+          </div>
+        </div>
+
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary);">
+          <input type="checkbox" id="chk-dont-show-rituals-wip" checked style="width: 16px; height: 16px; accent-color: var(--crimson-bright);">
+          <span>Não mostrar este aviso novamente neste navegador</span>
+        </label>
+      </div>
+
+      <div style="padding: 12px 22px 18px; display: flex; justify-content: flex-end;">
+        <button type="button" id="btn-confirm-rituals-wip" style="
+          background: linear-gradient(180deg, #601217 0%, #30080b 100%);
+          border: 1.5px solid var(--crimson-bright); color: #fff;
+          font-family: var(--font-header); font-size: 0.95rem; font-weight: 700;
+          padding: 10px 22px; border-radius: 6px; cursor: pointer;
+          letter-spacing: 1px; transition: all 0.2s ease;
+        ">🩸 Entendi e Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeInWip { from { opacity: 0; } to { opacity: 1; } }
+    @media (max-width: 580px) {
+      #rituals-wip-modal div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    }
+  </style>
+
+  <script>
+  (function() {
+    const STORAGE_KEY = 'v20_rituals_wip_dismissed';
+    const modal = document.getElementById('rituals-wip-modal');
+    const btnClose = document.getElementById('btn-close-rituals-wip');
+    const btnConfirm = document.getElementById('btn-confirm-rituals-wip');
+    const chk = document.getElementById('chk-dont-show-rituals-wip');
+
+    if (localStorage.getItem(STORAGE_KEY)) {
+      modal.style.display = 'none';
+    }
+
+    function closeModal() {
+      if (chk && chk.checked) {
+        localStorage.setItem(STORAGE_KEY, 'true');
+      }
+      modal.style.display = 'none';
+    }
+
+    btnConfirm.addEventListener('click', closeModal);
+    btnClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeModal();
+    });
+  })();
+  </script>
+
   <!-- BARRA DE NAVEGAÇÃO -->
   <nav class="grimorio-nav-bar">
     <a href="../index.html" class="grimorio-brand" title="Voltar à Ficha de Personagem">
