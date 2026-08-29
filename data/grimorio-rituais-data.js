@@ -4139,213 +4139,206 @@ const RITUALS_DATA = [
   },
   {
     "id": "ritual_koldunismo_414",
-    "name": "Batismo de Sangue",
-    "nameEn": "Baptism of Blood",
+    "name": "Bebendo a Morte",
+    "nameEn": "Drinking Death",
     "level": 1,
     "tradition": "koldunismo",
     "desc": "O Koldun unge a fronte do servo ou neófito com o sangue sob cânticos eslavos da terra. — Efeito: Sintoniza o indivíduo com os espíritos locais do território, reduzindo a hostilidade da natureza e facilitando comandos feudais.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um cálice de madeira consagrado com terra natal dos Cárpatos e 1 ponto de vitae"
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
+
   },
   {
     "id": "ritual_koldunismo_415",
-    "name": "Comunhão com o Domínio",
-    "nameEn": "Communion with the Domain",
+    "name": "Iluminação",
+    "nameEn": "Enlightenment",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O feiticeiro Tzimisce espalha a terra sobre o peito em transe sob as árvores. — Efeito: Permite ao Koldun sentir a presença de intrusos e o estado de saúde da vegetação e da fauna em seu domínio territorial.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um punhado de terra da Transilvânia e meditação ao anoitecer"
+    "desc": "O Koldun torna-se capaz de perceber léleks (espíritos elementais da natureza) em suas proximidades.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_416",
-    "name": "Encantar a Terra Natal",
-    "nameEn": "Enchant Soil",
+    "name": "Hospitalidade",
+    "nameEn": "Hospitality",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O Koldun abençoa a terra sob fórmulas dos velhos deuses eslavos. — Efeito: Aumenta a vitalidade mágica da terra natal necessária para o descanso diurno do cainita, acelerando a cura e regeneração de ferimentos durante o sono.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Terra do refúgio do Tzimisce misturada com cinzas de carvalho e vitae"
+    "desc": "O Koldun desperta os espíritos em uma área sintonizada com ele, como seu Refúgio, animando os objetos e concedendo-lhes senciência limitada. Os objetos falam se alguém se dirigir a eles e, às vezes, até mesmo quando o Koldun não ordena, embora sempre com deferência e temor.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_417",
-    "name": "Aliança com os Espíritos Menores",
-    "nameEn": "Lesser Spirit Alliance",
+    "name": "Mestre do Domínio",
+    "nameEn": "Master of the Domain",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O conjurador oferece o sacrifício aos espíritos menores da floresta (leshy e domovoi). — Efeito: Conquista a simpatia de espíritos menores locais, que passam a sussurrar avisos sobre perigos e rastros de invasores.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Uma oferenda de leite puro, mel silvestre e gotas de vitae derramadas na raiz de uma árvore antiga"
+    "desc": "O Koldun faz com que a si mesmo aparente ser mais imponente e intimidador para aqueles que estiverem dentro de seu domínio.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_418",
-    "name": "Refúgio da Terra",
-    "nameEn": "Haven of the Earth",
+    "name": "Bichano Mefistofélico",
+    "nameEn": "Mephistophelean Minx",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O Koldun delimita o perímetro de seu refúgio provisório sob cânticos telúricos. — Efeito: Camufla e protege o abrigo contra predadores naturais, animais selvagens e viajantes mundanos desatentos.",
+    "desc": "O Koldun alimenta um animal não maior que um gato com um ponto de seu sangue. Depois disso, o animal é enviado para perto de uma criança adormecida. Se o gato conseguir deitar-se sobre o rosto da criança, parte da essência dela é vinculada ao Koldun, que recupera Força de Vontade por uma noite. Uma criança cuja essência for roubada três vezes seguidas morre.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um círculo de galhos secos e terra do cemitério local"
+    "components": "1 ponto de vitae e um animal não maior que um gato"
   },
   {
     "id": "ritual_koldunismo_419",
-    "name": "Invocar o Sinal Menor de Poder",
-    "nameEn": "Invoke the Lesser Sign of Power",
+    "name": "Repertório da Água Morta",
+    "nameEn": "Reawakening the Dead Water",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O Koldun manifesta uma pequena emanação do elemento regente de sua trilha primária. — Efeito: Intimida servos mortais, animais e espíritos menores, facilitando testes sociais e de liderança tribal.",
+    "desc": "O Koldun pinga um pouco de seu sangue em um corpo d'água e bebe dele. Ele recupera um ponto de Força de Vontade temporária.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Gesto com a mão traçando o símbolo elemental no ar e uma palavra em eslavo arcaico"
+    "components": "Sangue do próprio Koldun e um corpo d'água"
   },
   {
     "id": "ritual_koldunismo_420",
-    "name": "Aliança da Matilha",
-    "nameEn": "Pack Alliance",
+    "name": "Reflexos",
+    "nameEn": "Reflections",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O feiticeiro Tzimisce alimenta o predador sob bênçãos da noite selvagem. — Efeito: Estabelece uma trégua e respeito mútuo com uma alcateia de lobos, permitindo que o cainita atravesse seus territórios sem ser atacado.",
+    "desc": "O Koldun toma um objeto feito de materiais naturais. Usando o objeto como uma âncora, o Koldun pode observar o local de onde ele foi retirado em exatos detalhes. O lugar aparece exatamente como estava quando o Koldun pegou o objeto.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Uma gota de sangue do Koldun oferecida ao lobo alfa de uma alcateia"
+    "components": "Um objeto feito de materiais naturais"
   },
   {
     "id": "ritual_koldunismo_421",
-    "name": "Vontade dos Espíritos",
-    "nameEn": "Spirit of the Land",
+    "name": "Ritual do Abraço da Morte",
+    "nameEn": "Ritual of Death's Embrace",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O Koldun consulta os espíritos da terra sobre as condições do tempo. — Efeito: Revela previsões meteorológicas exatas para os próximos três dias, avisando sobre tempestades, geadas ou chuvas torrenciais.",
+    "desc": "O Koldun bebe de um cálice contendo uma mistura repugnante de vinho, cinzas e sua própria vitae. Em seguida, ele pode se alimentar de uma vítima e substituir o sangue dela pela sua própria vitae. A vítima não se torna um carniçal, mas passa a sofrer de anemia. Quando o Koldun tiver substituído toda a Parada de Sangue da vítima por sua própria vitae, o alvo morre e é Abraçado.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Três pedras pretas de rio alinhadas no sentido do vento norte"
+    "components": "Um cálice com uma mistura de vinho, cinzas e vitae do Koldun"
   },
   {
     "id": "ritual_koldunismo_422",
-    "name": "Sussurros do Rio",
-    "nameEn": "Whispers of the Stream",
+    "name": "Percepção do Servidor",
+    "nameEn": "Servitor's Perception",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O feiticeiro inclina-se sobre as águas ouvindo as correntes fluviais. — Efeito: Permite ouvir conversas e ruídos que tenham ocorrido nas margens daquele mesmo rio a quilômetros de distância.",
+    "desc": "O Koldun compartilha seus poderes koldúnicos de Genius Loci com um animal carniçal, de modo que possa usar tal poder através de seu carniçal, enxergando através de seus olhos.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Uma gota de sangue derramada em um córrego ou rio de águas rápidas"
+    "components": "Um animal carniçal"
   },
   {
     "id": "ritual_koldunismo_423",
-    "name": "Voz do Vento",
-    "nameEn": "Voice of the Wind",
+    "name": "Ornamentos Estimados",
+    "nameEn": "Treasured Ornaments",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O Koldun sussurra uma mensagem secreta na brisa noturna. — Efeito: O vento carrega as palavras do feiticeiro diretamente aos ouvidos do destinatário pretendido onde quer que ele esteja na mesma montanha.",
+    "desc": "O Koldun desperta os espíritos simples de objetos dentro de sua morada. Esses espíritos atuam como sentinelas simples que podem ver, ouvir e se comunicar, mas fazem pouco além disso.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Uma pena de coruja soprada na direção do vento norte"
+    "components": "Objetos dentro da morada do Koldun"
   },
   {
     "id": "ritual_koldunismo_424",
-    "name": "Rastrear a Presa pelas Raízes",
-    "nameEn": "Trace the Prey",
+    "name": "Verdade na Água",
+    "nameEn": "Truth in Water",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O Koldun esmaga a folha sobre o solo úmido sob fórmulas de perseguição. — Efeito: As raízes das plantas indicam a direção exata por onde o fugitivo caminhou recentemente.",
+    "desc": "Ao macular uma pequena poça ou lago d'água com seu próprio sangue, o Koldun cria um detector de mentiras simples. Quando qualquer pessoa mente enquanto estiver de pé dentro da poça, dita poça começará a ferver.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Uma folha verde colhida no rastro da vítima e vitae"
+    "components": "Sangue do Koldun e uma pequena poça/lago d'água"
   },
   {
     "id": "ritual_koldunismo_425",
-    "name": "Pé da Terra Firme",
-    "nameEn": "Firm Footing",
+    "name": "Deterioração Não Natural",
+    "nameEn": "Unnatural Decay",
     "level": 1,
     "tradition": "koldunismo",
-    "desc": "O cainita abençoa seus passos com a solidez da rocha. — Efeito: Impede que o Koldun escorregue, caia em lamaçais ou perca o equilíbrio em encostas íngremes e penhascos gelados.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Pó de pedra esmagada esfregado nas solas das botas"
+    "desc": "O Koldun amaldiçoa 1 km de terra arável, tornando venenosas todas as plantações e colheitas dentro dessa área.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_426",
-    "name": "Véu das Névoas Cárpatas",
-    "nameEn": "Mist of the Carpathians",
-    "level": 1,
+    "name": "Armadura de Outono",
+    "nameEn": "Autumns Armor",
+    "level": 2,
     "tradition": "koldunismo",
-    "desc": "O feiticeiro sopra o vapor úmido sobre a clareira. — Efeito: Convoca uma névoa rasteira espessa que oculta a presença física e rastros do Koldun por uma cena.",
+    "desc": "O Koldun cria uma camada protetora de terra ao redor de si mesmo, fortalecendo seu corpo, mas reduzindo seus atributos Sociais.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Água fria aspergida sobre carvão em brasa"
+    "components": "Terra"
   },
   {
     "id": "ritual_koldunismo_427",
-    "name": "Animar as Árvores da Floresta",
-    "nameEn": "Awaken the Forest",
+    "name": "Sangue de Chamas",
+    "nameEn": "Blood of Flame",
     "level": 2,
     "tradition": "koldunismo",
-    "desc": "O feiticeiro sussurra palavras de despertar arbóreo. — Efeito: As árvores movem seus galhos e raízes lentamente para fechar caminhos, ocultar trilhas e bloquear a passagem de perseguidores.",
+    "desc": "O Koldun transforma sua própria vitae em uma lama lodosa que entra em combustão assim que alguém entra em contato com ela.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Uma gota de vitae do Koldun derramada sobre as raízes de três árvores antigas"
+    "components": "Vitae do Koldun"
   },
   {
     "id": "ritual_koldunismo_428",
-    "name": "Bênção da Terra Fértil",
-    "nameEn": "Blessing of the Soil",
+    "name": "Levado pelo Vento",
+    "nameEn": "Borne by Wind",
     "level": 2,
     "tradition": "koldunismo",
-    "desc": "O Koldun abençoa as plantações de seus camponeses sob ritos agrários arcaicos. — Efeito: Garante colheitas abundantes e saúde ao gado dos servos do lorde feudal, aumentando a lealdade da população mortal.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Cinzas de sacrifício animal misturadas à terra arada"
+    "desc": "O Koldun cavalga o vento de sua localização atual para qualquer lugar dentro de seu campo de visão.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_429",
-    "name": "Chamar os Lobos da Montanha",
-    "nameEn": "Call the Mountain Wolves",
+    "name": "Criar Pedra Estranha",
+    "nameEn": "Craft Weirding Stone",
     "level": 2,
     "tradition": "koldunismo",
-    "desc": "O Koldun sopra o chifre sob a lua crescente invocando os predadores. — Efeito: Convoca uma matilha de lobos selvagens dos Cárpatos para rastrear, caçar ou cercar os inimigos do lorde Tzimisce.",
+    "desc": "O Koldun toma um cristal e investe um ponto de sangue nele. O sangue investido na pedra mística permite que seu criador sempre a rastreie. Embora ele tenha pouco conhecimento exato sobre o paradeiro da pedra, ele tem uma noção constante de quão longe ela está e em qual direção geral. Além disso, aqueles em posse da pedra podem recorrer à Força de Vontade do Koldun para enviar-lhe uma breve mensagem telepática ou aprender algo sobre o ambiente ao redor.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um uivo cerimonial canalizado através de um chifre de boi consagrado"
+    "components": "Um cristal e 1 ponto de sangue"
   },
   {
     "id": "ritual_koldunismo_430",
-    "name": "Comunhão com o Fogo da Terra",
-    "nameEn": "Communion with Earth's Flame",
+    "name": "Vitae Concentrada",
+    "nameEn": "Concentrated Vitae",
     "level": 2,
     "tradition": "koldunismo",
-    "desc": "O Koldun medita diante das chamas ardentes sob encantamentos da Trilha do Fogo. — Efeito: Concede resistência temporária contra o pavor do fogo (Rötschreck) e maior facilidade para conjurar labaredas místicas.",
+    "desc": "O Koldun consagra um poço ou reservatório de água. Misturar sangue normal com esta água sagrada aumenta sua potência, dobrando os pontos de sangue despejados nela.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Uma fogueira alimentada com madeira de freixo e uma gota de vitae"
+    "components": "Um poço ou reservatório de água e sangue normal"
   },
   {
     "id": "ritual_koldunismo_431",
-    "name": "Muralha de Espinhos Vivos",
-    "nameEn": "Wall of Living Thorns",
+    "name": "Olhos dos Mortos",
+    "nameEn": "Eyes of the Dead",
     "level": 2,
     "tradition": "koldunismo",
-    "desc": "O Koldun planta as sementes em círculo ao redor da propriedade. — Efeito: Brota instantaneamente uma sebe impenetrável de espinheiros venenosos de 3 metros de altura que fere intrusos que tentem atravessá-la.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Sementes de espinheiro selvagem regadas com sangue de cabra"
+    "desc": "Este poder funciona de maneira muito semelhante ao ritual de Nível 1 \"Percepção do Servidor\", exceto que agora o Koldun pode transferir seu Genius Loci para um espírito em vez de um animal simples.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_432",
-    "name": "Olhos da Águia das Montanhas",
-    "nameEn": "Eyes of the Mountain Eagle",
+    "name": "Invocar o Sinal Menor de Poder",
+    "nameEn": "Invoke the Lesser Sign of Power",
     "level": 2,
     "tradition": "koldunismo",
-    "desc": "O feiticeiro foca sua visão no horizonte do alto dos picos rochosos. — Efeito: Permite ao Koldun enxergar com extrema nitidez e detalhes minúsculos a distâncias de vários quilômetros como se tivesse a visão de uma águia.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "A pena de uma águia imperial amarrada à fronte com tiras de couro"
+    "desc": "O Koldun manifesta uma ressonância sobrenatural em seus olhos que corresponde à sua Trilha mais elevada. Mortais são subjugados à submissão.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_433",
-    "name": "Serviço das Almas",
+    "name": "Serviço por Almas",
     "nameEn": "Service for Souls",
     "level": 2,
     "tradition": "koldunismo",
-    "desc": "O Koldun convoca espíritos da floresta e os vincula como 'carniçais espirituais'. — Efeito: Os espíritos vinculados servem ao feiticeiro com lealdade absoluta até que a tarefa designada seja plenamente cumprida.",
+    "desc": "O Koldun invoca os espíritos da natureza e misticamente os torna \"carniçais\" ao oferecer-lhes seu sangue. Os espíritos vinculados permanecem com ele até que sua tarefa seja cumprida.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Alimentar espíritos da natureza com 2 pontos de vitae do Koldun"
+    "components": "Sangue do Koldun"
   },
   {
     "id": "ritual_koldunismo_434",
-    "name": "Agonia Fenecente",
+    "name": "Agonia Debilitante",
     "nameEn": "Withering Agony",
     "level": 2,
     "tradition": "koldunismo",
-    "desc": "O Koldun introduz a essência doente no organismo da vítima através do toque. — Efeito: Faz com que o alvo sofra debilitações físicas graves, dores nas juntas e fraqueza muscular contínua por uma semana.",
+    "desc": "O Koldun extrai o espírito de uma árvore doente e o transfere para outro corpo. A criatura agora infectada sofre de debilitações físicas.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "O espírito definhante de uma árvore doente capturado em um nó de madeira"
+    "components": "Uma árvore doente e o corpo de uma criatura"
   },
   {
     "id": "ritual_koldunismo_435",
@@ -4353,29 +4346,29 @@ const RITUALS_DATA = [
     "nameEn": "Animate Curios",
     "level": 3,
     "tradition": "koldunismo",
-    "desc": "O Koldun anima objetos inanimados com espíritos menores. — Efeito: Os objetos levitam, movem-se de forma autônoma, limpam o castelo e atacam em enxame para defender seu mestre se invasores surgirem.",
+    "desc": "Este ritual é um aprimoramento do ritual de Nível 1 \"Ornamentos Estimados\". Os objetos animados agora podem se mover, levitar e até mesmo lutar por seu mestre.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Gotas de vitae aplicadas em pequenos objetos e estátuas de madeira ou pedra"
+    "components": "Objetos/curiosidades no domínio do Koldun"
   },
   {
     "id": "ritual_koldunismo_436",
-    "name": "Conjurar Espírito Maior",
+    "name": "Conjurar Espírito",
     "nameEn": "Conjure Spirit",
     "level": 3,
     "tradition": "koldunismo",
-    "desc": "O Koldun invoca um grande espírito elemental da natureza. — Efeito: Negocia serviços, proteção e favores arcanos poderosos com o espírito em troca de oblações de sangue e adoração.",
+    "desc": "O Koldun invoca um espírito da natureza maior para negociar a tarefa que a entidade realizará para ele. A maioria dos espíritos aceita oferendas e oblações em sangue, mas outros são mais exigentes.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um círculo de sacrifício com sangue de touro e terra pura da montanha"
+    "components": "Oferendas e oblações (geralmente sangue)"
   },
   {
     "id": "ritual_koldunismo_437",
-    "name": "Amedrontar o Servo",
+    "name": "Intimidando o Servo",
     "nameEn": "Cowing the Servant",
     "level": 3,
     "tradition": "koldunismo",
-    "desc": "O Koldun faz o servo ingerir a mistura sob cânticos de autoridade feudal. — Efeito: Imprime um pavor reverencial e lealdade cega na mente do servo, impedindo-o de trair ou desobedecer ordens do lorde.",
+    "desc": "O koldun mistura o cérebro de uma ovelha com terra de seu domínio juntamente com seu próprio sangue enquanto entoa um encantamento eslavo, forçando então um de seus servos a comer a mistura. A lealdade de um servo carniçal ou revenante é aumentada.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Cérebro de carneiro misturado com terra do domínio e vitae do Koldun"
+    "components": "Cérebro de ovelha, terra do domínio do koldun e sangue do próprio koldun"
   },
   {
     "id": "ritual_koldunismo_438",
@@ -4383,9 +4376,8 @@ const RITUALS_DATA = [
     "nameEn": "Invoke the Greater Sign of Power",
     "level": 3,
     "tradition": "koldunismo",
-    "desc": "O Koldun sintoniza sua carne com os elementos primordiais (rocha, gelo ou fogo). — Efeito: Facilita profundamente todas as conjurações subsequentes de Feitiçaria Koldúnica por uma noite inteira.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Adoção de fisionomia elemental condizente com a Trilha do Koldun"
+    "desc": "O Koldun assume uma aparência condizente com sua trilha mais favorecida. Essa maior sintonia com a terra o auxilia em todas as tentativas de praticar Feitiçaria Koldúnica.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_439",
@@ -4393,19 +4385,19 @@ const RITUALS_DATA = [
     "nameEn": "One With the Forest",
     "level": 3,
     "tradition": "koldunismo",
-    "desc": "O feiticeiro Tzimisce mergulha na madeira viva de um carvalho ancestral. — Efeito: Permite ao Koldun teletransportar-se instantaneamente emergindo do tronco de qualquer outra árvore dentro da mesma floresta.",
+    "desc": "O Koldun funde-se a uma árvore e pode emergir imediatamente de uma árvore diferente dentro da mesma floresta em que este ritual foi realizado.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Funde-se ao tronco de uma árvore milenar após ungi-la com vitae"
+    "components": "Uma árvore dentro de uma floresta"
   },
   {
     "id": "ritual_koldunismo_440",
-    "name": "Arruinar o Lélek (Destruir o Espírito do Objeto)",
+    "name": "Arrasar o Lélek",
     "nameEn": "Raze the Lélek",
     "level": 3,
     "tradition": "koldunismo",
-    "desc": "O Koldun arranca e dilacera o espírito residente na matéria inanimada. — Efeito: O objeto físico perde toda a sua integridade estrutural e desmorona instantaneamente em pó ou estilhaços inúteis.",
+    "desc": "O Koldun destrói um objeto físico ao arrancar o espírito que o habita.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Tocar o objeto sólido pronunciando a aniquilação de sua alma interior"
+    "components": "Um objeto físico habitado por um espírito"
   },
   {
     "id": "ritual_koldunismo_441",
@@ -4413,39 +4405,38 @@ const RITUALS_DATA = [
     "nameEn": "Sentinels of the Haven",
     "level": 3,
     "tradition": "koldunismo",
-    "desc": "O Koldun comanda a estrutura física de sua fortaleza sob fórmulas de sentinela. — Efeito: Portas batem e trancam sozinhas, móveis bloqueiam passagens e vigas atacam intrusos para proteger o castelo.",
+    "desc": "O Koldun anima o mobiliário para mover-se de acordo com seus desejos.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Portas, janelas e mobílias do castelo ungidas com cinzas e sangue"
+    "components": "Mobiliário do refúgio"
   },
   {
     "id": "ritual_koldunismo_442",
-    "name": "O Morto Flutuante (Caminhar sobre Águas)",
+    "name": "Os Mortos Flutuantes",
     "nameEn": "The Floating Dead",
     "level": 3,
     "tradition": "koldunismo",
-    "desc": "O Koldun recita fórmulas às ninfas e espíritos das águas fluviais. — Efeito: Permite ao feiticeiro caminhar, correr e lutar sobre a superfície de rios, lagos e pântanos como se fossem chão firme de pedra.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Ungir os pés com banha de lontra e vitae antes de pisar na água"
+    "desc": "Enquanto o ritual permanecer ativo, o Koldun pode caminhar sobre a água.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
-  {
+{
     "id": "ritual_koldunismo_443",
-    "name": "Além do Muro da Morte",
+    "name": "Além da Muralha da Morte",
     "nameEn": "Beyond the Wall of Death",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O Koldun invoca o reflexo espectral do mestre falecido sobre suas cinzas. — Efeito: O espírito do antigo Koldun manifesta-se para transmitir ensinamentos e tutoria avançada em Trilhas de Koldunismo.",
+    "desc": "O Koldun pega os restos mortais de um Feiticeiro Koldúnico recentemente assassinado e invoca um reflexo dele. Contanto que o Koldun saiba quais trilhas o reflexo praticava em vida, ele pode pedir tutoria nelas.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Restos mortais de um feiticeiro koldúnico recém-falecido e fogo sagrado"
+    "components": "Restos mortais de um Feiticeiro Koldúnico recém-assassinado"
   },
   {
     "id": "ritual_koldunismo_444",
-    "name": "Abraço da Terra Ancestral",
+    "name": "Abraço da Terra",
     "nameEn": "Earth's Embrace",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O Tzimisce realiza a transubstanciação mágica do solo ao seu redor. — Efeito: Converte qualquer terra comum na 'terra natal' de seu refúgio por algumas noites, contornando a fraqueza de clã dos Tzimisce durante viagens.",
+    "desc": "O Koldun contorna a Maldição do Clã Tzimisce ao invocar os espíritos locais, transubstanciando a terra sobre a qual repousa em \"terra natal\" por algumas noites.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um punhado de terra local e preces aos espíritos da terra"
+    "components": "Terra local"
   },
   {
     "id": "ritual_koldunismo_445",
@@ -4453,9 +4444,9 @@ const RITUALS_DATA = [
     "nameEn": "Evoke the Storm",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O Koldun golpeia o tambor no topo dos picos invocando os ventos dos Cárpatos. — Efeito: Convoca uma tempestade devastadora com relâmpagos, chuvas torrenciais e ventos cortantes sobre toda a região ao redor.",
+    "desc": "O Koldun fica no topo de uma montanha ou outro terreno elevado e invoca uma tempestade semelhante àquelas criadas através da trilha de Taumaturgia \"Controle do Clima\".",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "O topo de uma montanha rochosa, um tambor de couro de lobo e vitae"
+    "components": "Um topo de montanha ou terreno elevado"
   },
   {
     "id": "ritual_koldunismo_446",
@@ -4463,29 +4454,29 @@ const RITUALS_DATA = [
     "nameEn": "Incubus Visage",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O Koldun convoca um espírito da natureza para atormentar o alvo à distância. — Efeito: Deforma grotescamente os traços físicos e a fisionomia da vítima à distância durante um mês inteiro.",
+    "desc": "O Koldun bebe do sangue de um javali e consome um pedaço de pele da vítima pretendida. Ele então invoca um espírito da natureza na noite de meia-lua e o coage a assumir forma física; o Koldun pode então deformar as características físicas da vítima à distância durante um mês.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Sangue de javali selvagem e um pedaço da pele da vítima consumidos sob a meia-lua"
+    "components": "Sangue de javali, um pedaço de pele da vítima e a noite de meia-lua"
   },
   {
     "id": "ritual_koldunismo_447",
-    "name": "Fusão de Almas (Possessão de Carniçal)",
+    "name": "Fusão das Almas",
     "nameEn": "Merging of the Souls",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O Koldun introduz um espírito elemental da natureza no corpo de seu servo carniçal. — Efeito: O carniçal adquire poderes elementais e força sobre-humana monstruosa (suportando até três espíritos antes de deformar-se).",
+    "desc": "O Koldun envia um espírito da natureza para habitar o corpo de um de seus carniçais, alimentando-o com sangue extra destinado a atrair os espíritos. O corpo de um carniçal pode suportar até três espíritos antes de se deformar em algo desumano.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um carniçal leal alimentado com vitae especial e rito de infusão espiritual"
+    "components": "Um carniçal, sangue extra para alimentar o carniçal e um espírito da natureza"
   },
   {
     "id": "ritual_koldunismo_448",
-    "name": "Poço dos Segredos",
+    "name": "Poço de Segredos",
     "nameEn": "Pool of Secrets",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O Koldun passa as mãos sobre o poço sem tocar na água entoando nomes do passado. — Efeito: A água ondula e projeta visões nítidas em tempo real de qualquer pessoa ou lugar com quem o feiticeiro já teve contato.",
+    "desc": "O koldun passa as mãos sobre um poço de água salobra sem tocar a superfície. Se o ritual for bem-sucedido, a água ondula e o Koldun pode ver uma pessoa ou local alvo com quem já teve contato.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um poço de água salobra natural no fundo de uma caverna escura"
+    "components": "Um poço de água salobra"
   },
   {
     "id": "ritual_koldunismo_449",
@@ -4493,19 +4484,19 @@ const RITUALS_DATA = [
     "nameEn": "Refuge of the Thirsty Grave",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O Koldun comanda a terra a abrir-se e abraçar seu corpo. — Efeito: O corpo do vampiro afunda no solo maciço como se fosse líquido, protegendo-o com segurança absoluta contra a luz solar até o anoitecer.",
+    "desc": "Este ritual permite que o Koldun imite o poder de Metamorfose \"Fusão com a Terra\", afundando no solo para evitar o sol.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Deitar-se sobre o solo consagrado entoando fórmulas de absorção telúrica"
+    "components": "Solo/terra para imersão"
   },
   {
     "id": "ritual_koldunismo_450",
-    "name": "Poço de Adivinhação",
+    "name": "Poço de Vidência",
     "nameEn": "Scrying Pool",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O Koldun profere o nome do alvo diante da água estagnada. — Efeito: A superfície do caldeirão reflete com perfeição tudo o que o alvo está fazendo, dizendo e planejando naquele exato momento.",
+    "desc": "O Koldun pronuncia o nome de qualquer pessoa que conheça diante de um corpo d'água, e a água mostra o que a pessoa nomeada está fazendo no momento.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um caldeirão de bronze com água pura da nascente e o Nome Verdadeiro do alvo"
+    "components": "Um corpo d'água e o nome do alvo"
   },
   {
     "id": "ritual_koldunismo_451",
@@ -4513,29 +4504,28 @@ const RITUALS_DATA = [
     "nameEn": "Ties that Bind",
     "level": 4,
     "tradition": "koldunismo",
-    "desc": "O feiticeiro ingere a terra embebida em seu próprio sangue sob pactos com a terra. — Efeito: Restabelece uma conexão visceral com os espíritos telúricos, amplificando o poder e a precisão de todas as suas magias koldúnicas.",
+    "desc": "O Koldun derrama sangue sobre a terra diante de si. Em seguida, ele consome ritualisticamente a terra embebida em sangue para se reconectar com o território, ganhando uma conexão maior com seus espíritos e mais poder para suas feitiçarias.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Derramar 3 pontos de vitae sobre a terra e comer um punhado do solo ensanguentado"
+    "components": "Terra e sangue do Koldun"
   },
   {
     "id": "ritual_koldunismo_452",
-    "name": "Conjurar Demônio (Kupala)",
+    "name": "Conjurar Demônio",
     "nameEn": "Conjure Demon",
     "level": 5,
     "tradition": "koldunismo",
-    "desc": "O Koldun invoca uma das crias primordiais do demônio ancestral Kupala. — Efeito: Permite ao feiticeiro barganhar com a entidade demoníaca por segredos proibidos, imunidades e poderes de destruição em massa.",
+    "desc": "O Koldun invoca uma das crias de Kupala. O Koldun pode barganhar com o demônio em troca de favores.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um círculo de ossos humanos, enxofre em brasa e vitae sacrificada no centro da floresta"
+    "components": "Oferendas/barganha para o demônio"
   },
   {
     "id": "ritual_koldunismo_453",
-    "name": "Servo Elemental Maior",
+    "name": "Servo Elemental",
     "nameEn": "Elemental Servitor",
     "level": 5,
     "tradition": "koldunismo",
-    "desc": "O Koldun sopra vida na estátua através de sua vitae e fórmulas de animação primordial. — Efeito: Cria um servo elemental titânico com corpo de rocha e chamas que luta ferozmente até a morte pelo conjurador.",
-    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Argila dos Cárpatos, água de rio sagrado e fogo vivo moldados em estátua"
+    "desc": "O Koldun invoca um espírito para assumir forma corpórea e lutar por seu conjurador.",
+    "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals"
   },
   {
     "id": "ritual_koldunismo_454",
@@ -4543,9 +4533,9 @@ const RITUALS_DATA = [
     "nameEn": "Gorgon's Gaze",
     "level": 5,
     "tradition": "koldunismo",
-    "desc": "O Koldun faz o alvo beber de seu sangue enquanto recita a petrificação do ser. — Efeito: A carne, órgãos e ossos da vítima transformam-se permanentemente em rocha sólida inanimada, petrificando-a para sempre.",
+    "desc": "O Koldun amarra uma vítima durante uma cerimônia de uma hora de duração, que termina quando o Koldun alimenta a vítima com sua vitae. O alvo é então transformado em pedra sem vida.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Vítima amarrada no altar durante cerimônia de uma hora e ingestão forçada de vitae"
+    "components": "Uma vítima imobilizada e vitae do Koldun"
   },
   {
     "id": "ritual_koldunismo_455",
@@ -4553,19 +4543,19 @@ const RITUALS_DATA = [
     "nameEn": "Nemesis of the Living Earth",
     "level": 5,
     "tradition": "koldunismo",
-    "desc": "O Koldun proclama o indivíduo como inimigo mortal da natureza e de todos os seus espíritos. — Efeito: Os elementos passam a caçar a vítima: galhos caem sobre ela, a terra cede sob seus pés, rios tentam afogá-la e o ar lhe falta nos pulmões.",
+    "desc": "Iniciando uma longa maldição que dura da meia-noite ao nascer do sol, um koldun pode nomear um alvo como inimigo da natureza. Se for bem-sucedido, a vítima descobre que os elementos se voltam contra ela para feri-la.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Longa imprecação cerimonial realizada da meia-noite até o amanhecer sobre o nome do alvo"
+    "components": "O nome do alvo e uma maldição contínua da meia-noite ao amanhecer"
   },
   {
     "id": "ritual_koldunismo_456",
-    "name": "Espelho de Sangue (Criação de Irmãos de Sangue)",
+    "name": "Espelho de Sangue",
     "nameEn": "Mirror of Blood",
     "level": 5,
     "tradition": "koldunismo",
-    "desc": "O Koldun unifica as almas e a carne dos participantes sob ritos de simbiose koldúnica. — Efeito: Dá origem à linhagem artificial dos Irmãos de Sangue (Blood Brothers), dotando-os de mente coletiva e partilha de dano.",
+    "desc": "Em combinação com Vicissitude e o Laço de Sangue, este ritual é usado para criar Irmãos de Sangue (Blood Brothers).",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Vampiros submetidos a Vicissitude e Laço de Sangue mútuo em círculo hermético"
+    "components": "Vicissitude, Laço de Sangue e cobaias/alvos"
   },
   {
     "id": "ritual_koldunismo_457",
@@ -4573,59 +4563,59 @@ const RITUALS_DATA = [
     "nameEn": "The Inmost Tug",
     "level": 5,
     "tradition": "koldunismo",
-    "desc": "O Koldun manipula o Laço de Sangue que o une ao servo. — Efeito: Altera, molda e reescreve livremente os sentimentos, emoções e lealdades de qualquer criatura sob Laço de Sangue total em relação ao senhor.",
+    "desc": "O Koldun transforma as emoções de qualquer pessoa sob um Laço de Sangue completo de acordo com sua vontade.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Uma gota de sangue do servo vinculado queimada em incensário"
+    "components": "Um alvo sob Laço de Sangue completo com o Koldun"
   },
   {
     "id": "ritual_koldunismo_458",
-    "name": "Abraçar o Demônio",
+    "name": "Abraçando o Demônio",
     "nameEn": "Embracing the Demon",
     "level": 6,
     "tradition": "koldunismo",
-    "desc": "O Koldun funde a entidade infernal à carcaça humana sob ritos de amarração de alma. — Efeito: Dá vida a uma monstruosidade demoníaca corpórea com poderes mágicos brutais e lealdade cega ao Koldun.",
+    "desc": "O Koldun pode invocar um demônio para dentro do cadáver de um receptáculo de cria previamente submetido ao laço de sangue. Um demônio aprisionado dessa maneira servirá ao Koldun fielmente.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um demônio menor de Kupala aprisionado no cadáver de um servo sob Laço de Sangue"
+    "components": "Cadáver de uma cria sob Laço de Sangue e um demônio invocado"
   },
   {
     "id": "ritual_koldunismo_459",
-    "name": "Criar Vozhd (Leviatã Titânico)",
+    "name": "Criar Vozhd",
     "nameEn": "Create Vozhd",
     "level": 6,
     "tradition": "koldunismo",
-    "desc": "O Koldun funde a carne de mais de quinze criaturas vivas em uma massa colossal sob encantamentos de fúria. — Efeito: Cria um Vozhd titânico — um monstro de cerco gigantesco com dezenas de membros, couraça óssea e poder de demolição.",
+    "desc": "O Koldun pode combinar vários carniçais alimentados com sua vitae e forçados a beber uma mistura especial, em conjunto com Vicissitude, transformando-os em um carniçal de guerra gigantesco chamado Vozhd.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Dezenas de carniçais e animais amalgamados por Vicissitude, poções alquímicas e sangue de ancião"
+    "components": "Vários carniçais, vitae do Koldun, uma poção especial e o uso de Vicissitude"
   },
   {
     "id": "ritual_koldunismo_460",
-    "name": "Afogamento em Terra",
+    "name": "Afogando-se na Terra",
     "nameEn": "Drowning in Earth",
     "level": 6,
     "tradition": "koldunismo",
-    "desc": "O Koldun comanda o solo sólido a comportar-se como areia movediça líquida. — Efeito: O alvo afunda nas entranhas da rocha sólida e, quando o ritual cessa, o solo se solidifica instantaneamente, sepultando o inimigo vivo em pedra.",
+    "desc": "O Koldun amaldiçoa um alvo de modo que terra e pedra não sejam mais sólidas para ele, aprisionando-o em solo sólido após a maldição se esgotar.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Um punhado de terra atirado aos pés da vítima pronunciando a maldição de Kupala"
+    "components": "Um alvo designado e o solo sob seus pés"
   },
   {
     "id": "ritual_koldunismo_461",
-    "name": "Cão da Tempestade (Fúria de Perun)",
+    "name": "Cão da Tempestade",
     "nameEn": "Storm Hound",
     "level": 6,
     "tradition": "koldunismo",
-    "desc": "O Koldun cria uma tempestade viva dotada de consciência predatória através de uma amostra do alvo. — Efeito: A tempestade viaja pelo mundo caçando a vítima designada, desferindo raios contínuos e ventos dilacerantes onde quer que ela se esconda.",
+    "desc": "O Koldun acende uma fogueira feita de ervas secas e madeira de árvores atingidas por raios. Sacrificando um filhote de cachorro e vitae nas chamas ao deus eslavo da tempestade Perun, o Koldun cria uma tempestade que pode ser direcionada a qualquer pessoa no mundo, contanto que o Koldun possua uma parte do corpo do alvo (como cabelo). A tempestade encontrará o alvo mesmo que ele esteja no outro lado do mundo.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "Madeira atingida por raios, ervas raras e sacrifício ao deus eslavo do trovão Perun"
+    "components": "Ervas secas, madeira de árvore atingida por raio, um filhote de cachorro, vitae do Koldun e uma parte do corpo do alvo (como cabelo)"
   },
   {
     "id": "ritual_koldunismo_462",
-    "name": "Dracul (Avatar do Dragão Ancestral)",
+    "name": "Dracul",
     "nameEn": "Dracul",
-    "level": 9,
+    "level": 7,
     "tradition": "koldunismo",
-    "desc": "O patriarca Koldun canaliza as energias telúricas de toda a cordilheira dos Cárpatos. — Efeito: O vampiro transmuta seu corpo físico no mítico Dragão Koldúnico colossal (Dracul), dotado de asas gigantescas, hálito de fogo primordial e invulnerabilidade lendária.",
+    "desc": "O Koldun usa seu domínio supremo sobre a terra para se transformar em um dragão.",
     "wikiUrl": "https://whitewolf.fandom.com/wiki/List_of_Koldunic_Rituals",
-    "components": "O comando absoluto sobre a terra primordial dos Cárpatos e 10 pontos de vitae de Matusalém"
+    "components": "Comunhão e domínio supremo sobre a terra natal"
   },
   {
     "id": "ritual_sadhana_463",

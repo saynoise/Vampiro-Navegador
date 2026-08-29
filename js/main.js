@@ -348,6 +348,42 @@ function setupEventListeners() {
     });
   }
 
+  // Botão de Travar/Destravar Edição de Bolinhas
+  const btnToggleLock = document.getElementById('btn-toggle-lock');
+  const lockIcon = document.getElementById('lock-icon');
+  const lockText = document.getElementById('lock-text');
+  
+  let isTraitsLocked = localStorage.getItem('v20_traits_locked') === 'true';
+  
+  const updateLockState = () => {
+    if (isTraitsLocked) {
+      document.body.classList.add('traits-locked');
+      if (lockIcon) lockIcon.textContent = '🔒';
+      if (lockText) lockText.textContent = 'Travado';
+      if (btnToggleLock) {
+        btnToggleLock.classList.add('btn-primary');
+        btnToggleLock.classList.remove('btn-outline');
+      }
+    } else {
+      document.body.classList.remove('traits-locked');
+      if (lockIcon) lockIcon.textContent = '🔓';
+      if (lockText) lockText.textContent = 'Edição Livre';
+      if (btnToggleLock) {
+        btnToggleLock.classList.remove('btn-primary');
+        btnToggleLock.classList.add('btn-outline');
+      }
+    }
+  };
+
+  if (btnToggleLock) {
+    btnToggleLock.addEventListener('click', () => {
+      isTraitsLocked = !isTraitsLocked;
+      localStorage.setItem('v20_traits_locked', isTraitsLocked);
+      updateLockState();
+    });
+  }
+  updateLockState();
+
     // Foto de Perfil do Personagem (Upload, URL, Remoção)
   const avatarInput = document.getElementById('char-avatar-input');
   const avatarFrame = document.getElementById('char-avatar-frame');
