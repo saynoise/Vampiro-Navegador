@@ -319,11 +319,20 @@ const LinkCableSystem = {
     }
 
     const total = this.selectedNodes.reduce((acc, curr) => acc + (parseInt(curr.value, 10) || 0), 0);
+    const guaranteedSelect = document.getElementById('dock-guaranteed');
+    const guaranteed = guaranteedSelect ? (parseInt(guaranteedSelect.value, 10) || 0) : 0;
+    const actualDice = Math.max(0, total - guaranteed);
+
     const mathStr = this.selectedNodes.map(n => `${n.label} (${n.value})`).join(' + ');
 
-    if (mathDisplay) mathDisplay.textContent = mathStr || `${total} Dados`;
-    if (totalBadge) totalBadge.textContent = total;
-    if (commandInput) commandInput.value = `!vr ${total}`;
+    let poolDisplayText = mathStr || `${total} Dados`;
+    if (guaranteed > 0) {
+      poolDisplayText += ` [-${guaranteed} ⭐]`;
+    }
+
+    if (mathDisplay) mathDisplay.textContent = poolDisplayText;
+    if (totalBadge) totalBadge.textContent = actualDice;
+    if (commandInput) commandInput.value = `!vr ${actualDice}`;
   },
 
   refreshNodeValues() {

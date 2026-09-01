@@ -686,6 +686,14 @@ body.drawer-open {
   color: #fca5a5;
   box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
 }
+.mini-die.die-guaranteed {
+  background: radial-gradient(circle at 40% 40%, #713f12 0%, #351a02 100%);
+  border-color: #facc15;
+  color: #fef08a;
+  text-shadow: 0 0 6px #eab308;
+  box-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+  font-size: 0.95rem;
+}
 .mini-die.die-rerolled {
   outline: 2px solid var(--gold-bright);
   outline-offset: 1px;

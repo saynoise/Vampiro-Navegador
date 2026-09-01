@@ -9,6 +9,8 @@
 const currentRollState = {
   char: null,
   totalPool: 0,
+  actualDiceCount: 0,
+  guaranteedSuccesses: 0,
   difficulty: 6,
   rolls: [],
   traitsSummary: '',
@@ -48,7 +50,8 @@ const DiscordIntegration = {
       critico: '<:critico:1540580738007695512>',
       sucesso: '<:sucesso:1540580820127842344>',
       falha: '<:falha:1540580800456691773>',
-      falhacritica: '<:falhacritica:1540580772652523600>'
+      falhacritica: '<:falhacritica:1540580772652523600>',
+      garantido: '<:garantido:1543457394791809154>'
     };
 
     if (AppState.activeCharacter && AppState.activeCharacter.settings && AppState.activeCharacter.settings.discordEmotes) {
@@ -66,7 +69,7 @@ const DiscordIntegration = {
     }
   },
 
-    async getValidAvatarUrl(header) {
+  async getValidAvatarUrl(header) {
     if (!header) return '';
     if (header.avatarUrl && header.avatarUrl.startsWith('http')) return header.avatarUrl;
     if (header.avatar && (header.avatar.startsWith('http://') || header.avatar.startsWith('https://'))) return header.avatar;
@@ -103,9 +106,7 @@ const DiscordIntegration = {
     else embedColor = 0x555566; // Cinza Falha
 
     // Formata todos os dados juntos dentro de um único bloco ``
-    const formattedDice = `\`${data.rolls.join(' ')}\``;
-
-    // Nomes limpos dos traços (sem exibir quantidade de pontos)
+    const formattedDice = data.rolls && data.rolls.length > 0 ? `\`${data.rolls.join(' ')}\`` : '`Sem dados rolados`';
     const cleanTraits = data.traitsSummary || 'Parada de Dados';
 
     // Texto do resultado final limpo sem emojis
@@ -115,7 +116,7 @@ const DiscordIntegration = {
     } else if (data.netSuccesses === 0) {
       outcomeClean = 'Falha Simples (0 Sucessos)';
     } else {
-      if (data.botchCount > 0 && data.successes === 0) {
+      if (data.botchCount > 0 && data.successes === 0 && (data.guaranteedSuccesses || 0) === 0) {
         outcomeClean = `Falha Crítica (${data.botchCount}x '1')`;
       } else {
         outcomeClean = 'Falha (Cancelado por 1s)';
@@ -124,16 +125,28 @@ const DiscordIntegration = {
 
     // Mapeia os emotes de cada dado para o texto que aparece antes do embed
     const customEmotes = this.getEmotes();
-    const diceEmotes = data.rolls.map(r => {
+    const guaranteedEmotes = Array(data.guaranteedSuccesses || 0).fill(customEmotes.garantido || '<:garantido:1543457394791809154>');
+    const diceEmotes = (data.rolls || []).map(r => {
       if (r === 10) return customEmotes.critico || ':critico:';
       if (r === 1) return customEmotes.falhacritica || ':falhacritica:';
       if (r >= data.difficulty) return customEmotes.sucesso || ':sucesso:';
       return customEmotes.falha || ':falha:';
-    }).join(' ');
+    });
+    const allEmotes = [...guaranteedEmotes, ...diceEmotes].join(' ') || '`Nenhum dado`';
+
+    let diceRolledDisplay = formattedDice;
+    if (data.guaranteedSuccesses > 0) {
+      diceRolledDisplay = `⭐ **${data.guaranteedSuccesses} Sucesso(s) Garantido(s)** + ${formattedDice}`;
+    }
+
+    let guaranteedLine = '';
+    if (data.guaranteedSuccesses > 0) {
+      guaranteedLine = `\n• Sucessos Garantidos: **${data.guaranteedSuccesses}**`;
+    }
 
     const payload = {
       username: `${charName} (${charClan})`.slice(0, 80),
-      content: diceEmotes,
+      content: allEmotes,
       embeds: [
         {
           title: `Rolagem: ${cleanTraits}`,
@@ -156,17 +169,17 @@ const DiscordIntegration = {
             },
             {
               name: 'Dificuldade',
-              value: `Dif ${data.difficulty} (${data.totalPool} dados)`,
+              value: `Dif ${data.difficulty} (${data.actualDiceCount !== undefined ? data.actualDiceCount : data.totalPool} dados rolados${data.guaranteedSuccesses > 0 ? ` + ${data.guaranteedSuccesses}⭐` : ''})`,
               inline: true
             },
             {
               name: 'Dados Rolados',
-              value: formattedDice || '`Nenhum dado`',
+              value: diceRolledDisplay,
               inline: false
             },
             {
               name: 'Resultado Final',
-              value: `**${outcomeClean}**\n• Críticos (10): **${data.tenCount}**\n• Fracassos (1): **${data.botchCount}**`,
+              value: `**${outcomeClean}**${guaranteedLine}\n• Críticos (10): **${data.tenCount}**\n• Fracassos (1): **${data.botchCount}**`,
               inline: false
             }
           ],
@@ -231,7 +244,7 @@ const DiscordIntegration = {
     else if (data.isBotch) embedColor = 0xff1111;
     else embedColor = 0x555566;
 
-    const formattedDice = `\`${data.rolls.join(' ')}\``;
+    const formattedDice = data.rolls && data.rolls.length > 0 ? `\`${data.rolls.join(' ')}\`` : '`Sem dados rolados`';
     const cleanTraits = data.traitsSummary || 'Parada de Dados';
 
     let outcomeClean = '';
@@ -240,7 +253,7 @@ const DiscordIntegration = {
     } else if (data.netSuccesses === 0) {
       outcomeClean = 'Falha Simples (0 Sucessos)';
     } else {
-      if (data.botchCount > 0 && data.successes === 0) {
+      if (data.botchCount > 0 && data.successes === 0 && (data.guaranteedSuccesses || 0) === 0) {
         outcomeClean = `Falha Crítica (${data.botchCount}x '1')`;
       } else {
         outcomeClean = 'Falha (Cancelado por 1s)';
@@ -248,16 +261,28 @@ const DiscordIntegration = {
     }
 
     const customEmotes = this.getEmotes();
-    const diceEmotes = data.rolls.map(r => {
+    const guaranteedEmotes = Array(data.guaranteedSuccesses || 0).fill(customEmotes.garantido || '<:garantido:1543457394791809154>');
+    const diceEmotes = (data.rolls || []).map(r => {
       if (r === 10) return customEmotes.critico || ':critico:';
       if (r === 1) return customEmotes.falhacritica || ':falhacritica:';
       if (r >= data.difficulty) return customEmotes.sucesso || ':sucesso:';
       return customEmotes.falha || ':falha:';
-    }).join(' ');
+    });
+    const allEmotes = [...guaranteedEmotes, ...diceEmotes].join(' ') || '`Nenhum dado`';
+
+    let diceRolledDisplay = formattedDice;
+    if (data.guaranteedSuccesses > 0) {
+      diceRolledDisplay = `⭐ **${data.guaranteedSuccesses} Sucesso(s) Garantido(s)** + ${formattedDice}`;
+    }
+
+    let guaranteedLine = '';
+    if (data.guaranteedSuccesses > 0) {
+      guaranteedLine = `\n• Sucessos Garantidos: **${data.guaranteedSuccesses}**`;
+    }
 
     const payload = {
       username: `${charName} (${charClan})`.slice(0, 80),
-      content: diceEmotes,
+      content: allEmotes,
       embeds: [
         {
           title: `Rolagem: ${cleanTraits} (Falhas Reroladas)`,
@@ -280,17 +305,17 @@ const DiscordIntegration = {
             },
             {
               name: 'Dificuldade',
-              value: `Dif ${data.difficulty} (${data.totalPool} dados)`,
+              value: `Dif ${data.difficulty} (${data.actualDiceCount !== undefined ? data.actualDiceCount : data.totalPool} dados rolados${data.guaranteedSuccesses > 0 ? ` + ${data.guaranteedSuccesses}⭐` : ''})`,
               inline: true
             },
             {
               name: 'Dados Rolados (Após Rerrolar)',
-              value: formattedDice || '`Nenhum dado`',
+              value: diceRolledDisplay,
               inline: false
             },
             {
               name: 'Resultado Final',
-              value: `**${outcomeClean}**\n• Críticos (10): **${data.tenCount}**\n• Fracassos (1): **${data.botchCount}**`,
+              value: `**${outcomeClean}**${guaranteedLine}\n• Críticos (10): **${data.tenCount}**\n• Fracassos (1): **${data.botchCount}**`,
               inline: false
             }
           ],
@@ -369,7 +394,7 @@ const DiscordIntegration = {
 };
 
 // =============================================================================
-// SISTEMA DE LINK CABLE SEQUENCIAL COM FÍSICA E CABO CURVADO
+// SISTEMA DE HISTÓRICO DE ROLAGENS
 
 const DiceHistoryManager = {
   getHistory() {
@@ -403,6 +428,8 @@ const DiceHistoryManager = {
       traitsSummary: rollState.traitsSummary || 'Parada de Dados',
       difficulty: rollState.difficulty,
       totalPool: rollState.totalPool,
+      actualDiceCount: rollState.actualDiceCount !== undefined ? rollState.actualDiceCount : rollState.totalPool,
+      guaranteedSuccesses: rollState.guaranteedSuccesses || 0,
       rolls: [...rollState.rolls],
       successes: rollState.successes,
       tenCount: rollState.tenCount,
@@ -500,6 +527,10 @@ const DiceHistoryManager = {
 
       const rerollBadge = item.hasRerolled ? '<span style="color: var(--gold-bright); font-size: 0.72rem; font-weight: bold; margin-left: 4px;">[Falhas Reroladas]</span>' : '';
 
+      const guaranteedHtml = Array(item.guaranteedSuccesses || 0).fill(
+        '<span class="mini-die die-guaranteed" title="Sucesso Garantido">⭐</span>'
+      ).join('');
+
       const diceHtml = item.rolls.map((r, idx) => {
         let cls = 'mini-die';
         if (r === 10) cls += ' die-ten';
@@ -511,6 +542,9 @@ const DiceHistoryManager = {
         return `<span class="${cls}" title="${r}${item.rerolledIndices && item.rerolledIndices.includes(idx) ? ' (Rerolado)' : ''}">${r}</span>`;
       }).join('');
 
+      const diceCountNote = item.actualDiceCount !== undefined ? item.actualDiceCount : item.totalPool;
+      const guaranteedMeta = item.guaranteedSuccesses > 0 ? ` + ${item.guaranteedSuccesses}⭐` : '';
+
       card.innerHTML = `
         <div class="history-card-header">
           <span class="history-traits-title">${escapeHtml(item.traitsSummary)} ${rerollBadge}</span>
@@ -519,11 +553,11 @@ const DiceHistoryManager = {
         <div class="history-card-meta">
           <span class="history-meta-item history-meta-char">${escapeHtml(item.charName)}</span>
           <span class="history-meta-dot">•</span>
-          <span class="history-meta-item">Dif ${item.difficulty} (${item.totalPool} dados)</span>
+          <span class="history-meta-item">Dif ${item.difficulty} (${diceCountNote} dados${guaranteedMeta})</span>
           <span class="history-meta-dot">•</span>
           <span class="history-meta-item history-meta-time">${escapeHtml(item.time)}</span>
         </div>
-        <div class="history-dice-row">${diceHtml}</div>
+        <div class="history-dice-row">${guaranteedHtml}${diceHtml}</div>
       `;
 
       listEl.appendChild(card);
@@ -546,21 +580,26 @@ function executeDiceRoll() {
   const diffSelect = document.getElementById('dock-difficulty');
   const difficulty = diffSelect ? parseInt(diffSelect.value, 10) || 6 : 6;
 
+  const guaranteedSelect = document.getElementById('dock-guaranteed');
+  const guaranteedSuccesses = guaranteedSelect ? parseInt(guaranteedSelect.value, 10) || 0 : 0;
+
+  const actualDiceCount = Math.max(0, totalPool - guaranteedSuccesses);
+
   const rolls = [];
-  let successes = 0;
+  let diceSuccesses = 0;
   let tenCount = 0;
   let botchCount = 0;
 
-  for (let i = 0; i < totalPool; i++) {
+  for (let i = 0; i < actualDiceCount; i++) {
     const d = Math.floor(Math.random() * 10) + 1;
     rolls.push(d);
     
     // REGRA DO 10: Vale 2 sucessos
     if (d === 10) {
-      successes += 2;
+      diceSuccesses += 2;
       tenCount++;
     } else if (d >= difficulty) {
-      successes += 1;
+      diceSuccesses += 1;
     }
 
     // REGRA DO 1: Cancela 1 sucesso
@@ -569,7 +608,10 @@ function executeDiceRoll() {
     }
   }
 
-  const netSuccesses = successes - botchCount;
+  const diceNet = diceSuccesses - botchCount;
+  // Sucessos garantidos são somados aos sucessos líquidos dos dados (sem que 1s os anulem)
+  const netSuccesses = Math.max(0, diceNet) + guaranteedSuccesses;
+
   const traitsSummary = LinkCableSystem.selectedNodes.map(n => n.label).join(' + ');
   const mathStr = LinkCableSystem.selectedNodes.map(n => `${n.label} (${n.value})`).join(' + ');
 
@@ -580,7 +622,7 @@ function executeDiceRoll() {
   } else if (netSuccesses === 0) {
     outcomeBadgeText = 'Falha Simples (0 Sucessos Líquidos)';
   } else {
-    if (botchCount > 0 && successes === 0) {
+    if (botchCount > 0 && diceSuccesses === 0 && guaranteedSuccesses === 0) {
       outcomeBadgeText = `💥 FALHA CRÍTICA! (${botchCount}x '1')`;
       isBotch = true;
     } else {
@@ -591,11 +633,13 @@ function executeDiceRoll() {
   // Atualiza estado global da rolagem atual
   currentRollState.char = AppState.activeCharacter;
   currentRollState.totalPool = totalPool;
+  currentRollState.actualDiceCount = actualDiceCount;
+  currentRollState.guaranteedSuccesses = guaranteedSuccesses;
   currentRollState.difficulty = difficulty;
   currentRollState.rolls = rolls;
   currentRollState.traitsSummary = traitsSummary;
   currentRollState.mathStr = mathStr;
-  currentRollState.successes = successes;
+  currentRollState.successes = diceSuccesses;
   currentRollState.tenCount = tenCount;
   currentRollState.botchCount = botchCount;
   currentRollState.netSuccesses = netSuccesses;
@@ -641,23 +685,24 @@ function rerollFailures() {
   });
 
   // Recalcula sucessos
-  let successes = 0;
+  let diceSuccesses = 0;
   let tenCount = 0;
   let botchCount = 0;
 
   currentRollState.rolls.forEach(d => {
     if (d === 10) {
-      successes += 2;
+      diceSuccesses += 2;
       tenCount++;
     } else if (d >= currentRollState.difficulty) {
-      successes += 1;
+      diceSuccesses += 1;
     }
     if (d === 1) {
       botchCount++;
     }
   });
 
-  const netSuccesses = successes - botchCount;
+  const diceNet = diceSuccesses - botchCount;
+  const netSuccesses = Math.max(0, diceNet) + (currentRollState.guaranteedSuccesses || 0);
   let outcomeBadgeText = '';
   let isBotch = false;
 
@@ -666,7 +711,7 @@ function rerollFailures() {
   } else if (netSuccesses === 0) {
     outcomeBadgeText = 'Falha Simples (0 Sucessos Líquidos)';
   } else {
-    if (botchCount > 0 && successes === 0) {
+    if (botchCount > 0 && diceSuccesses === 0 && (currentRollState.guaranteedSuccesses || 0) === 0) {
       outcomeBadgeText = `💥 FALHA CRÍTICA! (${botchCount}x '1')`;
       isBotch = true;
     } else {
@@ -674,7 +719,7 @@ function rerollFailures() {
     }
   }
 
-  currentRollState.successes = successes;
+  currentRollState.successes = diceSuccesses;
   currentRollState.tenCount = tenCount;
   currentRollState.botchCount = botchCount;
   currentRollState.netSuccesses = netSuccesses;
@@ -702,6 +747,16 @@ function renderDiceResultsUI() {
   resultsContainer.classList.remove('hidden');
   diceList.innerHTML = '';
 
+  // 1. Renderiza os bloquinhos em amarelo para os sucessos garantidos
+  for (let g = 0; g < (currentRollState.guaranteedSuccesses || 0); g++) {
+    const gEl = document.createElement('div');
+    gEl.className = 'die-box die-guaranteed';
+    gEl.innerHTML = '⭐';
+    gEl.title = `Sucesso Garantido #${g + 1} (Não rola dado)`;
+    diceList.appendChild(gEl);
+  }
+
+  // 2. Renderiza os dados rolados
   currentRollState.rolls.forEach((r, idx) => {
     const dieEl = document.createElement('div');
     dieEl.className = 'die-box';
@@ -737,9 +792,10 @@ function renderDiceResultsUI() {
   }
   outcomeBadge.textContent = currentRollState.outcomeBadgeText;
 
+  const guaranteedNote = currentRollState.guaranteedSuccesses > 0 ? ` + ${currentRollState.guaranteedSuccesses} ⭐ Garantido(s)` : '';
   const tenBonusStr = currentRollState.tenCount > 0 ? ` [${currentRollState.tenCount}x '10' = +${currentRollState.tenCount * 2} suc]` : '';
   const rerollTag = currentRollState.hasRerolled ? ' [Falhas Reroladas]' : '';
-  summaryText.textContent = `(${currentRollState.totalPool} d10s contra Dif ${currentRollState.difficulty}${rerollTag} | Brutos: ${currentRollState.successes} ✓${tenBonusStr}, 1s: -${currentRollState.botchCount} ✗)`;
+  summaryText.textContent = `(${currentRollState.actualDiceCount} d10s rolados contra Dif ${currentRollState.difficulty}${guaranteedNote}${rerollTag} | Brutos: ${currentRollState.successes} ✓${tenBonusStr}, 1s: -${currentRollState.botchCount} ✗)`;
 
   // Configura o botão de Rerrolar Falhas
   if (btnReroll) {
@@ -756,4 +812,4 @@ function renderDiceResultsUI() {
       btnReroll.classList.add('hidden');
     }
   }
-}
+}

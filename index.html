@@ -868,18 +868,36 @@
         </div>
 
         <div class="dock-control-item">
-          <label for="dock-difficulty">Dificuldade:</label>
-          <select id="dock-difficulty" class="dock-diff-select">
-            <option value="2">Dif 2 (Muito Fácil)</option>
-            <option value="3">Dif 3 (Fácil)</option>
-            <option value="4">Dif 4 (Rotineiro)</option>
-            <option value="5">Dif 5 (Simples)</option>
-            <option value="6" selected>Dif 6 (Padrão V20)</option>
-            <option value="7">Dif 7 (Desafiador)</option>
-            <option value="8">Dif 8 (Difícil)</option>
-            <option value="9">Dif 9 (Extremo)</option>
-            <option value="10">Dif 10 (Quase Impossível)</option>
-          </select>
+          <div class="dock-select-group">
+            <label for="dock-difficulty">Dificuldade:</label>
+            <select id="dock-difficulty" class="dock-diff-select">
+              <option value="2">Dif 2 (Muito Fácil)</option>
+              <option value="3">Dif 3 (Fácil)</option>
+              <option value="4">Dif 4 (Rotineiro)</option>
+              <option value="5">Dif 5 (Simples)</option>
+              <option value="6" selected>Dif 6 (Padrão V20)</option>
+              <option value="7">Dif 7 (Desafiador)</option>
+              <option value="8">Dif 8 (Difícil)</option>
+              <option value="9">Dif 9 (Extremo)</option>
+              <option value="10">Dif 10 (Quase Impossível)</option>
+            </select>
+          </div>
+          <div class="dock-select-group dock-guaranteed-group">
+            <label for="dock-guaranteed" title="Sucessos garantidos que reduzem a quantidade de dados a rolar">⭐ Garantidos:</label>
+            <select id="dock-guaranteed" class="dock-guaranteed-select" title="Sucessos garantidos">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
         </div>
 
         <div class="dock-command-box">
@@ -1102,13 +1120,13 @@
   </div>
 
   <!-- Módulos da Aplicação V20 (Método 1: Alta Compatibilidade e Portabilidade) -->
-  <script src="js/constants.js?v=20260827"></script>
-  <script src="js/storage.js?v=20260827"></script>
-  <script src="js/themes.js?v=20260827"></script>
-  <script src="js/cables.js?v=20260827"></script>
-  <script src="js/draggable.js?v=20260827"></script>
-  <script src="js/dice.js?v=20260827"></script>
-  <script src="js/renderer.js?v=20260827"></script>
-  <script src="js/main.js?v=20260827"></script>
+  <script src="js/constants.js?v=20260831"></script>
+  <script src="js/storage.js?v=20260831"></script>
+  <script src="js/themes.js?v=20260831"></script>
+  <script src="js/cables.js?v=20260831"></script>
+  <script src="js/draggable.js?v=20260831"></script>
+  <script src="js/dice.js?v=20260831"></script>
+  <script src="js/renderer.js?v=20260831"></script>
+  <script src="js/main.js?v=20260831"></script>
 </body>
 </html>

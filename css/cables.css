@@ -198,10 +198,37 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-.dock-control-item label { font-family: var(--font-header); font-size: 1rem; color: var(--text-secondary); font-weight: 700; white-space: nowrap; }
+.dock-select-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dock-control-item label { font-family: var(--font-header); font-size: 0.95rem; color: var(--text-secondary); font-weight: 700; white-space: nowrap; }
 .dock-diff-select { background: var(--bg-input); border: 1px solid var(--border-accent); border-radius: 3px; color: var(--gold-bright); font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; padding: 5px 10px; outline: none; cursor: pointer; }
+.dock-guaranteed-select {
+  background: var(--bg-input);
+  border: 1.5px solid #eab308;
+  border-radius: 3px;
+  color: #facc15;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(234, 179, 8, 0.25);
+  transition: all 0.2s ease;
+}
+.dock-guaranteed-select:focus {
+  border-color: #fde047;
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.5);
+}
+.dock-guaranteed-group label {
+  color: #facc15 !important;
+}
 .dock-command-box {
   grid-column: 1;
   grid-row: 2;
@@ -243,6 +270,16 @@
   box-shadow: 0 0 14px rgba(56, 189, 248, 0.85), 0 0 24px rgba(6, 182, 212, 0.5), inset 0 0 8px rgba(56, 189, 248, 0.45);
 }
 .die-box.die-botch { background: #450f0f; border-color: #ef4444; color: #fca5a5; }
+
+/* DADO DE SUCESSO GARANTIDO (AMARELO / OURO) */
+.die-box.die-guaranteed {
+  background: radial-gradient(circle at 40% 40%, #713f12 0%, #351a02 100%);
+  border: 1.5px solid #facc15;
+  color: #fef08a;
+  text-shadow: 0 0 8px #eab308, 0 0 14px #ca8a04;
+  box-shadow: 0 0 14px rgba(250, 204, 21, 0.75), inset 0 0 8px rgba(250, 204, 21, 0.4);
+  font-size: 1.05rem;
+}
 
 .die-box.die-rerolled {
   animation: dieRerollPulse 0.6s ease-out;

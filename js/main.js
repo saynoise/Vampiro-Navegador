@@ -661,6 +661,11 @@ function setupEventListeners() {
     });
   }
 
+  const selectGuaranteed = document.getElementById('dock-guaranteed');
+  if (selectGuaranteed) {
+    selectGuaranteed.addEventListener('change', () => LinkCableSystem.updateDock());
+  }
+
   const btnRollDice = document.getElementById('btn-roll-dice');
   if (btnRollDice) btnRollDice.addEventListener('click', executeDiceRoll);
 
